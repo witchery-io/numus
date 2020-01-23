@@ -19,11 +19,11 @@ class InitialScreen extends StatelessWidget {
                       if (state is MnemonicLoading) {
                         return LoadingIndicator();
                       }
-                      if (state is MnemonicLoaded) {
-                        return Existing();
-                      }
                       if (state is MnemonicNotLoaded) {
                         return General();
+                      }
+                      if (state is MnemonicLoaded) {
+                        return Existing();
                       }
                       if (state is MnemonicApproved) {
                         return Wallet();
