@@ -13,11 +13,10 @@ class InitialScreen extends StatelessWidget {
               return CircularProgressIndicator();
             }
             if (state is MnemonicLoaded) {
-              print(state.mnemonic);
-              return Text('Mnemonic Loaded');
+              return Existing();
             }
             if (state is MnemonicNotLoaded) {
-              return Text('Mnemonic Not Loaded');
+              return General();
             }
 
             return null; // unreachable
@@ -25,5 +24,19 @@ class InitialScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class Existing extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(child: Text('Mnemonic Loaded'));
+  }
+}
+
+class General extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(child: Text('Mnemonic Not Loaded'));
   }
 }
