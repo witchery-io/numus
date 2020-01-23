@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_fundamental/core/core.dart';
 import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
 import 'package:flutter_fundamental/src/blocs/tab/bloc.dart';
 import 'package:flutter_fundamental/src/models/models.dart';
@@ -62,8 +63,13 @@ class General extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          CustomButton(child: Text('Create New'), onPressed: () {}),
-          CustomButton(child: Text('Recover'), onPressed: () {}),
+          CustomButton(
+              child: Text('Create New'),
+              onPressed: () => Navigator.pushNamed(context, Routes.generation)),
+          CustomButton(
+              child: Text('Recover'),
+              onPressed: () =>
+                  Navigator.pushNamed(context, Routes.verification)),
         ],
       ),
     );

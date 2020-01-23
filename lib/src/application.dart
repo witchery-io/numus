@@ -32,7 +32,9 @@ class Application extends StatelessWidget {
             ],
             child: InitialScreen(),
           );
-        }
+        },
+        Routes.generation: (context) => GenerationScreen(),
+        Routes.verification: (context) => VerificationScreen(),
       },
     );
   }
