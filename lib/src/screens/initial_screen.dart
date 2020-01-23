@@ -25,6 +25,9 @@ class InitialScreen extends StatelessWidget {
                       if (state is MnemonicNotLoaded) {
                         return General();
                       }
+                      if (state is MnemonicApproved) {
+                        return Wallet();
+                      }
 
                       return null; // unreachable
                     },

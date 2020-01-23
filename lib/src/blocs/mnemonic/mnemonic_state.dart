@@ -22,3 +22,5 @@ class MnemonicLoaded extends MnemonicState {
 }
 
 class MnemonicNotLoaded extends MnemonicState {}
+
+class MnemonicApproved extends MnemonicState {}
