@@ -20,9 +20,9 @@ class TabSelector extends StatelessWidget {
       onTap: (index) => onTabSelected(AppTab.values[index]),
       items: AppTab.values.map((tab) {
         return BottomNavigationBarItem(
-          icon: Icon(
-            tab == AppTab.general ? Icons.account_balance_wallet : Icons.games,
-          ),
+          icon: Icon(tab == AppTab.general
+              ? Icons.account_balance_wallet
+              : Icons.games),
           title: Text(tab == AppTab.general ? 'General' : 'Games'),
         );
       }).toList(),
