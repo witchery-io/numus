@@ -41,14 +41,14 @@ class InitialScreen extends StatelessWidget {
 class Existing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Mnemonic Loaded'));
+    return Center(child: Text('Existing'));
   }
 }
 
 class General extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Games'));
+    return Center(child: Text('General'));
   }
 }
 
@@ -62,6 +62,6 @@ class Games extends StatelessWidget {
 class Wallet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Center(child: Text('Wallet'));
   }
 }

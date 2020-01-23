@@ -26,6 +26,9 @@ class MnemonicBloc extends Bloc<MnemonicEvent, MnemonicState> {
   Stream<MnemonicState> _loadMnemonicToState() async* {
     try {
       final mnemonic = await this.secureStorage.read(key: 'mnemonic');
+      if (mnemonic == null) {
+        throw Exception('Mnemonic is null');
+      }
 
       yield MnemonicLoaded(mnemonic);
     } catch (_) {
