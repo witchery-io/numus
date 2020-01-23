@@ -11,23 +11,25 @@ class InitialScreen extends StatelessWidget {
     return BlocBuilder<TabBloc, AppTab>(
       builder: (context, activeTab) {
         return Scaffold(
-          body: activeTab == AppTab.general
-              ? BlocBuilder<MnemonicBloc, MnemonicState>(
-                  builder: (context, state) {
-                    if (state is MnemonicLoading) {
-                      return CircularProgressIndicator();
-                    }
-                    if (state is MnemonicLoaded) {
-                      return Existing();
-                    }
-                    if (state is MnemonicNotLoaded) {
-                      return General();
-                    }
+          body: SafeArea(
+            child: activeTab == AppTab.general
+                ? BlocBuilder<MnemonicBloc, MnemonicState>(
+                    builder: (context, state) {
+                      if (state is MnemonicLoading) {
+                        return LoadingIndicator();
+                      }
+                      if (state is MnemonicLoaded) {
+                        return Existing();
+                      }
+                      if (state is MnemonicNotLoaded) {
+                        return General();
+                      }
 
-                    return null; // unreachable
-                  },
-                )
-              : Games(),
+                      return null; // unreachable
+                    },
+                  )
+                : Games(),
+          ),
           bottomNavigationBar: TabSelector(
               activeTab: activeTab,
               onTabSelected: (tab) =>
@@ -48,7 +50,15 @@ class Existing extends StatelessWidget {
 class General extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('General'));
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          CustomButton(child: Text('Create New'), onPressed: () {}),
+          CustomButton(child: Text('Recover'), onPressed: () {}),
+        ],
+      ),
+    );
   }
 }
 
