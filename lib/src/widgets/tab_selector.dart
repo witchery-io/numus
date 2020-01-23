@@ -23,7 +23,7 @@ class TabSelector extends StatelessWidget {
           icon: Icon(tab == AppTab.general
               ? Icons.account_balance_wallet
               : Icons.games),
-          title: Text(tab == AppTab.general ? 'General' : 'Games'),
+          title: Text(tab == AppTab.general ? 'Wallet' : 'Games'),
         );
       }).toList(),
     );
