@@ -43,7 +43,15 @@ class InitialScreen extends StatelessWidget {
 class Existing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Existing'));
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          CustomButton(child: Text('Unlock'), onPressed: () {}),
+          CustomButton(child: Text('Logout'), onPressed: () {}),
+        ],
+      ),
+    );
   }
 }
 
