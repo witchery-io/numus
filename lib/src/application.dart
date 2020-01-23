@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_fundamental/core/routes.dart';
 import 'package:flutter_fundamental/core/theme.dart';
+import 'package:flutter_fundamental/src/screens/initial_screen.dart';
 
 import 'localization.dart';
 
@@ -12,15 +14,11 @@ class Application extends StatelessWidget {
       localizationsDelegates: [
         FlutterBlocLocalizationsDelegate(),
       ],
-      home: Scaffold(
-        appBar: AppBar(title: Text('Wallet'),),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[Text('Application')],
-          ),
-        ),
-      ),
+      routes: {
+        Routes.home: (context) {
+          return InitialScreen();
+        },
+      },
     );
   }
 }
