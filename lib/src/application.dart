@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fundamental/core/core.dart';
+import 'package:flutter_fundamental/src/blocs/tab/bloc.dart';
 import 'package:flutter_fundamental/src/screens/initial_screen.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -17,12 +18,21 @@ class Application extends StatelessWidget {
         FlutterBlocLocalizationsDelegate(),
       ],
       routes: {
-        Routes.home: (context) => BlocProvider(
-          create: (context) =>
-          MnemonicBloc(secureStorage: const FlutterSecureStorage())
-            ..add(LoadMnemonic()),
-          child: InitialScreen(),
-        )
+        Routes.home: (context) {
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider<TabBloc>(
+                create: (context) => TabBloc(),
+              ),
+              BlocProvider<MnemonicBloc>(
+                create: (context) =>
+                MnemonicBloc(secureStorage: const FlutterSecureStorage())
+                  ..add(LoadMnemonic()),
+              )
+            ],
+            child: InitialScreen(),
+          );
+        }
       },
     );
   }
