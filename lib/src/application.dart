@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_fundamental/core/routes.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fundamental/core/theme.dart';
 import 'package:flutter_fundamental/src/screens/initial_screen.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+import 'blocs/mnemonic/bloc.dart';
 import 'localization.dart';
 
 class Application extends StatelessWidget {
@@ -14,11 +16,12 @@ class Application extends StatelessWidget {
       localizationsDelegates: [
         FlutterBlocLocalizationsDelegate(),
       ],
-      routes: {
-        Routes.home: (context) {
-          return InitialScreen();
-        },
-      },
+      home: BlocProvider(
+        create: (context) =>
+            MnemonicBloc(secureStorage: const FlutterSecureStorage())
+              ..add(LoadMnemonic()),
+        child: InitialScreen(),
+      ),
     );
   }
 }
