@@ -15,6 +15,7 @@ class CustomButton extends StatelessWidget {
     return RaisedButton(
       onPressed: onPressed,
       child: child,
+      color: Theme.of(context).buttonColor,
     );
   }
 }
