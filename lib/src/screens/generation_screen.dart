@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_fundamental/core/core.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 
 class GenerationScreen extends StatelessWidget {
@@ -15,11 +16,12 @@ class GenerationScreen extends StatelessWidget {
           padding: EdgeInsets.all(8.0),
           child: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text('Geneation Mnemonic', style: TextStyle(fontSize: 24.0)),
-                Text('* Pleas save in your not', style: TextStyle(color: Colors.red),),
+                Text(
+                  '* Pleas save in your not',
+                  style: TextStyle(color: Colors.red),
+                ),
                 Wrap(
                     spacing: 8.0,
                     children: keyWords.asMap().entries.map((entry) {
@@ -33,7 +35,13 @@ class GenerationScreen extends StatelessWidget {
                     }).toList()),
                 CustomButton(
                   child: Text('Confirm'),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      Routes.verification,
+                      arguments: keyWords,
+                    );
+                  },
                 ),
               ],
             ),
