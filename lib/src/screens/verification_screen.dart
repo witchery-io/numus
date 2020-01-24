@@ -7,7 +7,7 @@ class VerificationScreen extends StatefulWidget {
 }
 
 class _VerificationScreenState extends State<VerificationScreen> {
-  List<String> _keyWords = [];
+  List<String> _keyWords;
   List<int> _wordsKeys = [1, 5, 9];
 
   @override
@@ -31,19 +31,17 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   setState(() => _keyWords = worldsList);
                 }),
                 SizedBox(height: 10.0),
-                Wrap(
-                    spacing: 8.0,
-                    children: _keyWords.asMap().entries.map((entry) {
-                      return Chip(
-                          avatar: CircleAvatar(
-                              backgroundColor: Colors.grey.shade800,
-                              child: Text('${_wordsKeys[entry.key]}')),
-                          label: Text('${entry.value}'));
-                    }).toList()),
-                CustomButton(
-                  child: Text('Confimed'),
-                  onPressed: () {},
-                ),
+                _keyWords == null
+                    ? SizedBox.shrink()
+                    : Wrap(
+                        spacing: 8.0,
+                        children: _keyWords.asMap().entries.map((entry) {
+                          return Chip(
+                              avatar: CircleAvatar(
+                                  backgroundColor: Colors.grey.shade800,
+                                  child: Text('${_wordsKeys[entry.key]}')),
+                              label: Text('${entry.value}'));
+                        }).toList()),
               ],
             ),
           ),
