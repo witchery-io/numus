@@ -39,7 +39,7 @@ class SubVerification extends StatelessWidget {
             border: OutlineInputBorder(
               borderSide: const BorderSide(color: Colors.red, width: 0.0),
             ),
-            hintText: 'Type key words',
+            hintText: 'Type the words here',
             helperText:
             '* Please type 1, 5, 12 words in your note for verification.',
             helperStyle: TextStyle(color: Colors.red),
@@ -51,6 +51,7 @@ class SubVerification extends StatelessWidget {
           },
           controller: _words,
         ),
+        SizedBox(height: 10.0),
         CustomButton(
           child: Text('Confimed'),
           onPressed: () {},
