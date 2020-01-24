@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 class MnemonicVerificationTextField extends StatelessWidget {
   final Function onChanged;
 
-  final TextEditingController wordsController = TextEditingController();
-
   MnemonicVerificationTextField({@required this.onChanged});
 
   @override
@@ -22,12 +20,7 @@ class MnemonicVerificationTextField extends StatelessWidget {
         labelText: 'Mnemonic verification words',
         prefixIcon: Icon(Icons.vpn_key, color: Colors.red),
       ),
-      onChanged: _onChange,
-      controller: wordsController,
+      onChanged: (words) => onChanged(words.trim().split(' ')),
     );
-  }
-  
-  _onChange(String words) {
-    onChanged(wordsController.text.trim().split(' '));
   }
 }

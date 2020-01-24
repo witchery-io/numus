@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 
-class VerificationScreen extends StatelessWidget {
-  final _words = TextEditingController();
+class VerificationScreen extends StatefulWidget {
+  @override
+  _VerificationScreenState createState() => _VerificationScreenState();
+}
+
+class _VerificationScreenState extends State<VerificationScreen> {
+  List<String> _keyWords = [];
+  List<int> _wordsKeys = [1, 5, 9];
 
   @override
   Widget build(BuildContext context) {
@@ -19,23 +25,24 @@ class VerificationScreen extends StatelessWidget {
                 Text('Verification', style: TextStyle(fontSize: 24.0)),
                 SizedBox(height: 10.0),
                 MnemonicVerificationTextField(
-                    onChanged: (val) => _words.text = val),
+                    onChanged: (List<String> worldsList) {
+                  if (worldsList.length > _wordsKeys.length) return;
+
+                  setState(() => _keyWords = worldsList);
+                }),
                 SizedBox(height: 10.0),
+                Wrap(
+                    spacing: 8.0,
+                    children: _keyWords.asMap().entries.map((entry) {
+                      return Chip(
+                          avatar: CircleAvatar(
+                              backgroundColor: Colors.grey.shade800,
+                              child: Text('${_wordsKeys[entry.key]}')),
+                          label: Text('${entry.value}'));
+                    }).toList()),
                 CustomButton(
                   child: Text('Confimed'),
-                  onPressed: () {
-                    final words = _words.text.trim().split(' ');
-                    if (words.length == 0) {
-                      print('Empty Words');
-                    } else if (words.length != 3 ||
-                        words[0] != mnemonic[0] ||
-                        words[1] != mnemonic[4] ||
-                        words[2] != mnemonic[8]) {
-                      print('Sorry you have typed wrong words.');
-                    }
-
-                    // change state to accepted mnemonic
-                  },
+                  onPressed: () {},
                 ),
               ],
             ),
