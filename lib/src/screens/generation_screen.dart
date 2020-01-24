@@ -18,29 +18,23 @@ class GenerationScreen extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Text('Geneation Mnemonic', style: TextStyle(fontSize: 24.0)),
-                Text(
-                  '* Pleas save in your not',
-                  style: TextStyle(color: Colors.red),
-                ),
+                Text('* Please save in your not',
+                    style: TextStyle(color: Colors.red)),
                 Wrap(
                     spacing: 8.0,
                     children: keyWords.asMap().entries.map((entry) {
                       return Chip(
-                        avatar: CircleAvatar(
-                          backgroundColor: Colors.grey.shade800,
-                          child: Text('${entry.key + 1}'),
-                        ),
-                        label: Text('${entry.value}'),
-                      );
+                          avatar: CircleAvatar(
+                            backgroundColor: Colors.grey.shade800,
+                            child: Text('${entry.key + 1}'),
+                          ),
+                          label: Text('${entry.value}'));
                     }).toList()),
                 CustomButton(
                   child: Text('Confirm'),
                   onPressed: () {
-                    Navigator.pushNamed(
-                      context,
-                      Routes.verification,
-                      arguments: keyWords,
-                    );
+                    Navigator.pushNamed(context, Routes.verification,
+                        arguments: keyWords);
                   },
                 ),
               ],
