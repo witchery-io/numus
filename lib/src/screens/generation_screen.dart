@@ -13,13 +13,14 @@ class GenerationScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(24.0),
           child: Center(
             child: Column(
               children: <Widget>[
                 Text('Geneation Mnemonic', style: TextStyle(fontSize: 24.0)),
                 Text('* Please save in your not',
                     style: TextStyle(color: Colors.red)),
+                SizedBox(height: 50.0),
                 Wrap(
                     spacing: 8.0,
                     children: keyWords.asMap().entries.map((entry) {

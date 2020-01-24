@@ -10,11 +10,12 @@ class VerificationScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(24.0),
           child: Center(
             child: Column(
               children: <Widget>[
                 Text('Verification', style: TextStyle(fontSize: 24.0)),
+                SizedBox(height: 50.0),
                 SubVerification(),
               ],
             ),
