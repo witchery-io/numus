@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_fundamental/src/widgets/widgets.dart';
 
 class GenerationScreen extends StatelessWidget {
   final String generateMnemonic =
@@ -33,6 +34,10 @@ class GenerationScreen extends StatelessWidget {
                         label: Text('${entry.value}'),
                       );
                     }).toList()),
+                CustomButton(
+                  child: Text('Confirm'),
+                  onPressed: () {},
+                ),
               ],
             ),
           ),
