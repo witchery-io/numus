@@ -18,10 +18,7 @@ class GenerationScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text(
-                  'Geneation Mnemonic',
-                  style: TextStyle(fontSize: 24.0),
-                ),
+                Text('Geneation Mnemonic', style: TextStyle(fontSize: 24.0)),
                 Text('Pleas save in your not'),
                 Wrap(
                     spacing: 8.0,
