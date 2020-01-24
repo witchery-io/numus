@@ -6,8 +6,8 @@ class VerificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> args = ModalRoute.of(context).settings.arguments;
-    assert(args.length != null);
+    final List<String> mnemonic = ModalRoute.of(context).settings.arguments;
+    assert(mnemonic.length != null);
 
     return Scaffold(
       body: SafeArea(
@@ -28,9 +28,9 @@ class VerificationScreen extends StatelessWidget {
                     if (words.length == 0) {
                       print('Empty Words');
                     } else if (words.length != 3 ||
-                        words[0] != args[0] ||
-                        words[1] != args[4] ||
-                        words[2] != args[8]) {
+                        words[0] != mnemonic[0] ||
+                        words[1] != mnemonic[4] ||
+                        words[2] != mnemonic[8]) {
                       print('Sorry you have typed wrong.');
                     }
 
