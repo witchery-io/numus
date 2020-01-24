@@ -7,8 +7,8 @@ class VerificationScreen extends StatefulWidget {
 }
 
 class _VerificationScreenState extends State<VerificationScreen> {
-  List<String> _keyWords;
-  List<int> _wordsKeys = [1, 5, 9];
+  List<String> _keyWords = [];
+  List<int> _wordsKeys = [0, 4, 8];
 
   @override
   Widget build(BuildContext context) {
@@ -31,16 +31,24 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   setState(() => _keyWords = worldsList);
                 }),
                 SizedBox(height: 10.0),
-                _keyWords == null
+                _keyWords.length == 0
                     ? SizedBox.shrink()
                     : Wrap(
                         spacing: 8.0,
                         children: _keyWords.asMap().entries.map((entry) {
+                          final isEqual = mnemonic[_wordsKeys[entry.key]] ==
+                              entry.value;
                           return Chip(
-                              avatar: CircleAvatar(
-                                  backgroundColor: Colors.grey.shade800,
-                                  child: Text('${_wordsKeys[entry.key]}')),
-                              label: Text('${entry.value}'));
+                            avatar: CircleAvatar(
+                                backgroundColor: isEqual
+                                    ? Colors.green.shade800
+                                    : Colors.red.shade800,
+                                child: Text('${_wordsKeys[entry.key] + 1}')),
+                            label: Text('${entry.value}'),
+                            backgroundColor: isEqual
+                                ? Colors.green.shade300
+                                : Colors.red.shade300,
+                          );
                         }).toList()),
               ],
             ),
