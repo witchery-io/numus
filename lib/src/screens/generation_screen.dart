@@ -21,8 +21,9 @@ class GenerationScreen extends StatelessWidget {
                   'Geneation Mnemonic',
                   style: TextStyle(fontSize: 24.0),
                 ),
+                Text('Pleas save in your not'),
                 Wrap(
-                    spacing: 6.0,
+                    spacing: 8.0,
                     children: keyWords.asMap().entries.map((entry) {
                       return Chip(
                         avatar: CircleAvatar(
