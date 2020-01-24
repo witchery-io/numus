@@ -31,7 +31,7 @@ class GenerationScreen extends StatelessWidget {
                           label: Text('${entry.value}'));
                     }).toList()),
                 CustomButton(
-                  child: Text('Confirm'),
+                  child: Text('Verify'),
                   onPressed: () {
                     Navigator.pushNamed(context, Routes.verification,
                         arguments: keyWords);

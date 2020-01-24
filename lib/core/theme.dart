@@ -7,11 +7,11 @@ class WalletTheme {
 
     return ThemeData.dark().copyWith(
         primaryColor: Colors.grey[800],
-        accentColor: Colors.cyan[300],
+        accentColor: Colors.deepPurple[600],
         buttonColor: Colors.grey[800],
-        textSelectionColor: Colors.cyan[100],
+        textSelectionColor: Colors.deepPurple[100],
         backgroundColor: Colors.grey[800],
-        toggleableActiveColor: Colors.cyan[300],
+        toggleableActiveColor: Colors.deepPurple[300],
         textTheme: originalTextTheme.copyWith(
             body1:
                 originalBody1.copyWith(decorationColor: Colors.transparent)));
