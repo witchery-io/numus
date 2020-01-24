@@ -31,7 +31,7 @@ class VerificationScreen extends StatelessWidget {
                         words[0] != mnemonic[0] ||
                         words[1] != mnemonic[4] ||
                         words[2] != mnemonic[8]) {
-                      print('Sorry you have typed wrong.');
+                      print('Sorry you have typed wrong words.');
                     }
 
                     // change state to accepted mnemonic
