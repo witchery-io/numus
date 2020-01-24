@@ -18,9 +18,10 @@ class GenerationScreen extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Text('Geneation Mnemonic', style: TextStyle(fontSize: 24.0)),
+                SizedBox(height: 4.0),
                 Text('* Please save in your not',
                     style: TextStyle(color: Colors.red)),
-                SizedBox(height: 50.0),
+                SizedBox(height: 10.0),
                 Wrap(
                     spacing: 8.0,
                     children: keyWords.asMap().entries.map((entry) {
@@ -31,6 +32,7 @@ class GenerationScreen extends StatelessWidget {
                           ),
                           label: Text('${entry.value}'));
                     }).toList()),
+                SizedBox(height: 10.0),
                 CustomButton(
                   child: Text('Verify'),
                   onPressed: () {

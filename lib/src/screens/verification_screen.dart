@@ -15,7 +15,7 @@ class VerificationScreen extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Text('Verification', style: TextStyle(fontSize: 24.0)),
-                SizedBox(height: 50.0),
+                SizedBox(height: 20.0),
                 SubVerification(),
               ],
             ),
@@ -33,28 +33,23 @@ class SubVerification extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Wrap(
-          spacing: 8.0,
-          children: <Widget>[
-            TextField(
-              autofocus: true,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.red, width: 0.0),
-                ),
-                hintText: 'Type key words',
-                helperText:
-                    '* Please type 1, 5, 12 words in your note for verification.',
-                helperStyle: TextStyle(color: Colors.red),
-                labelText: 'Mnemonic verification words',
-                prefixIcon: Icon(Icons.vpn_key, color: Colors.red),
-              ),
-              onChanged: (text) {
-                print("First text field: $text");
-              },
-              controller: _words,
+        TextField(
+          autofocus: true,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderSide: const BorderSide(color: Colors.red, width: 0.0),
             ),
-          ],
+            hintText: 'Type key words',
+            helperText:
+            '* Please type 1, 5, 12 words in your note for verification.',
+            helperStyle: TextStyle(color: Colors.red),
+            labelText: 'Mnemonic verification words',
+            prefixIcon: Icon(Icons.vpn_key, color: Colors.red),
+          ),
+          onChanged: (text) {
+            print("First text field: $text");
+          },
+          controller: _words,
         ),
         CustomButton(
           child: Text('Confimed'),
