@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 
 class VerificationScreen extends StatelessWidget {
+  final _words = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final List<String> args = ModalRoute.of(context).settings.arguments;
@@ -15,48 +17,31 @@ class VerificationScreen extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Text('Verification', style: TextStyle(fontSize: 24.0)),
-                SizedBox(height: 20.0),
-                SubVerification(),
+                SizedBox(height: 10.0),
+                MnemonicVerificationTextField(
+                    onChanged: (val) => _words.text = val),
+                SizedBox(height: 10.0),
+                CustomButton(
+                  child: Text('Confimed'),
+                  onPressed: () {
+                    final words = _words.text.trim().split(' ');
+                    if (words.length == 0) {
+                      print('Empty Words');
+                    } else if (words.length != 3 ||
+                        words[0] != args[0] ||
+                        words[1] != args[4] ||
+                        words[2] != args[8]) {
+                      print('Sorry you have typed wrong.');
+                    }
+
+                    // change state to accepted mnemonic
+                  },
+                ),
               ],
             ),
           ),
         ),
       ),
-    );
-  }
-}
-
-class SubVerification extends StatelessWidget {
-  final _words = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        TextField(
-          autofocus: true,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.red, width: 0.0),
-            ),
-            hintText: 'Type the words here',
-            helperText:
-            '* Please type 1, 5, 12 words in your note for verification.',
-            helperStyle: TextStyle(color: Colors.red),
-            labelText: 'Mnemonic verification words',
-            prefixIcon: Icon(Icons.vpn_key, color: Colors.red),
-          ),
-          onChanged: (text) {
-            print("First text field: $text");
-          },
-          controller: _words,
-        ),
-        SizedBox(height: 10.0),
-        CustomButton(
-          child: Text('Confimed'),
-          onPressed: () {},
-        ),
-      ],
     );
   }
 }
