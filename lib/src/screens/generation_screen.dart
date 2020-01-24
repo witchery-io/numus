@@ -27,7 +27,7 @@ class GenerationScreen extends StatelessWidget {
                       return Chip(
                         avatar: CircleAvatar(
                           backgroundColor: Colors.grey.shade800,
-                          child: Text('${entry.key}'),
+                          child: Text('${entry.key + 1}'),
                         ),
                         label: Text('${entry.value}'),
                       );
