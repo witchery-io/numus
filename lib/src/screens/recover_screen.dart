@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Recover extends StatelessWidget {
+class RecoverScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container();
