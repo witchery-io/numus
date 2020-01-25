@@ -9,7 +9,8 @@ class VerificationOrRecoverScreen extends StatefulWidget {
 
 class _VerificationOrRecoverScreenState
     extends State<VerificationOrRecoverScreen> {
-  List<String> _words = [];
+  List<String> _listWords;
+  bool _wordsIsEmpty = true;
   List<int> _verificationKeys = const [0, 4, 8];
 
   @override
@@ -43,15 +44,22 @@ class _VerificationOrRecoverScreenState
                             _onTyped(mnemonic, typedWords),
                       ),
                 SizedBox(height: 12.0),
-                Wrap(
-                    spacing: 8.0,
-                    children: _words.asMap().entries.map((entry) {
-                      return mnemonic == null
-                          ? CustomChip(index: entry.key + 1, title: entry.value)
-                          : CustomChip(
-                              index: (_verificationKeys[entry.key] + 1),
-                              title: entry.value);
-                    }).toList()),
+                _wordsIsEmpty
+                    ? SizedBox.shrink()
+                    : Wrap(
+                        spacing: 8.0,
+                        children: _listWords.asMap().entries.map((entry) {
+                          return mnemonic == null
+                              ? CustomChip(
+                                  index: (entry.key + 1), title: entry.value)
+
+                              /// this case insurance verification key list
+                              : entry.key < _verificationKeys.length
+                                  ? CustomChip(
+                                      index: (_verificationKeys[entry.key] + 1),
+                                      title: entry.value)
+                                  : SizedBox.shrink();
+                        }).toList()),
               ],
             ),
           ),
@@ -61,20 +69,24 @@ class _VerificationOrRecoverScreenState
   }
 
   _onTyped(String mnemonic, String typedWords) {
-    print(mnemonic);
-    print(typedWords);
-
-//    _onVerified(mnemonic, typedWords);
-//    _onRecover(mnemonic, typedWords);
+    setState(() {
+      _wordsIsEmpty = typedWords.length == 0;
+      _listWords = typedWords.trim().split(' ');
+    });
+    mnemonic == null ? _onRecover(mnemonic) : _onVerified(mnemonic);
   }
 
-  _onVerified(String mnemonic, String typedWords) {
+  _onVerified(String mnemonic) {
+    print('Verified');
+
 //    print(mnemonic);
 //    print(typedWords);
 //    print(typedWords.length);
   }
 
-  _onRecover(String mnemonic, String typedWords) {
+  _onRecover(String mnemonic) {
+    print('Recover');
+
 //    print(mnemonic);
 //    print(typedWords);
 //    print(typedWords.length);
