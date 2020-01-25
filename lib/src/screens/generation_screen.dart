@@ -3,12 +3,12 @@ import 'package:flutter_fundamental/core/core.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 
 class GenerationScreen extends StatelessWidget {
-  final String generateMnemonic =
+  final String genMnemonic =
       'limit boost flip evil regret shy alert always shine cabin unique angry';
 
   @override
   Widget build(BuildContext context) {
-    final List<String> keyWords = generateMnemonic.split(' ');
+    final List<String> listMnemonic = genMnemonic.split(' ');
 
     return Scaffold(
       body: SafeArea(
@@ -24,7 +24,7 @@ class GenerationScreen extends StatelessWidget {
                 SizedBox(height: 12.0),
                 Wrap(
                     spacing: 6.0,
-                    children: keyWords.asMap().entries.map((entry) {
+                    children: listMnemonic.asMap().entries.map((entry) {
                       return Chip(
                           avatar: CircleAvatar(
                             backgroundColor: Colors.grey.shade800,
@@ -40,7 +40,7 @@ class GenerationScreen extends StatelessWidget {
                       child: Text('Verify'),
                       onPressed: () {
                         Navigator.pushNamed(context, Routes.verification,
-                            arguments: keyWords);
+                            arguments: genMnemonic);
                       },
                     )
                   ],
