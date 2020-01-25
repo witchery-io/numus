@@ -3,10 +3,12 @@ import 'package:flutter_fundamental/src/widgets/widgets.dart';
 
 class VerificationOrRecoverScreen extends StatefulWidget {
   @override
-  _VerificationOrRecoverScreenState createState() => _VerificationOrRecoverScreenState();
+  _VerificationOrRecoverScreenState createState() =>
+      _VerificationOrRecoverScreenState();
 }
 
-class _VerificationOrRecoverScreenState extends State<VerificationOrRecoverScreen> {
+class _VerificationOrRecoverScreenState
+    extends State<VerificationOrRecoverScreen> {
   List<String> _words = [];
   List<int> _keys = const [0, 4, 8];
 
@@ -21,26 +23,26 @@ class _VerificationOrRecoverScreenState extends State<VerificationOrRecoverScree
           child: Center(
             child: Column(
               children: <Widget>[
-                Text('Verification', style: TextStyle(fontSize: 24.0)),
-                SizedBox(height: 10.0),
+                Text(mnemonic == null ? 'Recover' : 'Verification',
+                    style: TextStyle(fontSize: 24.0)),
+                SizedBox(height: 12.0),
+                // General logic
                 MnemonicVerificationTextField(
-                    onChanged: (List<String> worldsList) {
-//                  if (worldsList.length > _keys.length) return;
+                    onChanged: (List<String> strKeyWords) {
+                  print(strKeyWords);
 
                   setState(() {
-                    _words = worldsList;
+                    _words = strKeyWords;
                   });
                 }),
-                SizedBox(height: 10.0),
+                SizedBox(height: 12.0),
                 Wrap(
                     spacing: 8.0,
                     children: _words.asMap().entries.map((entry) {
-                      return Chip(
-                        avatar: CircleAvatar(
-                            backgroundColor: Colors.grey.shade800,
-                            child: Text('${_keys[entry.key] + 1}')),
-                        label: Text('${entry.value}'),
-                      );
+                      return mnemonic == null
+                          ? CustomChip(index: entry.key + 1, title: entry.value)
+                          : CustomChip(
+                              index: (_keys[entry.key] + 1), title: entry.value);
                     }).toList())
               ],
             ),
