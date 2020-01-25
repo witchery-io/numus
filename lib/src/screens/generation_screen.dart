@@ -19,7 +19,7 @@ class GenerationScreen extends StatelessWidget {
               children: <Widget>[
                 Text('Geneation Mnemonic', style: TextStyle(fontSize: 24.0)),
                 SizedBox(height: 4.0),
-                Text('* Please save in your not',
+                Text('* Please save in your note',
                     style: TextStyle(color: Colors.deepOrange)),
                 SizedBox(height: 12.0),
                 Wrap(
