@@ -34,7 +34,7 @@ class Application extends StatelessWidget {
           );
         },
         Routes.generation: (context) => GenerationScreen(),
-        Routes.verification: (context) => VerificationScreen(),
+        Routes.verificationOrRecover: (context) => VerificationOrRecoverScreen(),
       },
     );
   }

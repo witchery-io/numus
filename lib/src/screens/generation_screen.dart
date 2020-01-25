@@ -39,7 +39,7 @@ class GenerationScreen extends StatelessWidget {
                     CustomButton(
                       child: Text('Verify'),
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.verification,
+                        Navigator.pushNamed(context, Routes.verificationOrRecover,
                             arguments: genMnemonic);
                       },
                     )

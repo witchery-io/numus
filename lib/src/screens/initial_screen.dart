@@ -72,7 +72,7 @@ class General extends StatelessWidget {
           CustomButton(
               child: Text('Recover'),
               onPressed: () =>
-                  Navigator.pushNamed(context, Routes.verification)),
+                  Navigator.pushNamed(context, Routes.verificationOrRecover)),
         ],
       ),
     );

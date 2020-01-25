@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 
-class VerificationScreen extends StatefulWidget {
+class VerificationOrRecoverScreen extends StatefulWidget {
   @override
-  _VerificationScreenState createState() => _VerificationScreenState();
+  _VerificationOrRecoverScreenState createState() => _VerificationOrRecoverScreenState();
 }
 
-class _VerificationScreenState extends State<VerificationScreen> {
+class _VerificationOrRecoverScreenState extends State<VerificationOrRecoverScreen> {
   List<String> _words = [];
   List<int> _keys = const [0, 4, 8];
 
   @override
   Widget build(BuildContext context) {
     final String mnemonic = ModalRoute.of(context).settings.arguments;
-
-    print(mnemonic);
-    
-    /// if null argument or list<String>
 
     return Scaffold(
       body: SafeArea(
