@@ -33,29 +33,32 @@ class _VerificationOrRecoverScreenState
                         helperText:
                             '* Please type mnemonic (12 words) in your note for recover.',
                         labelText: 'Recover words',
-                        onChanged: (String typedWords) =>
-                            _onTyped(typedWords, () {
+                        onChanged: (String typedWords) {
                           print('Recover');
-
-                          print(_listWords);
-
-                          // mnemonic is null
-                          // should be 12 words
-                        }),
+                          print(typedWords); // String
+                          print(mnemonic); // null
+                        },
                       )
                     : MnemonicVerificationTextField(
                         helperText:
                             '* Please type 1, 5, 9 words in your note for verification.',
                         labelText: 'Verification words',
-                        onChanged: (String typedWords) =>
-                            _onTyped(typedWords, () {
-                          print('Verification');
+                        onChanged: (String typedWords) {
+                          /// Verification Logic
+                          final listMnemonicWords = mnemonic.split(' ');
+                          final listTypeWords = typedWords.split(' ');
 
-                          // has mnemonic
-                          // should be 3 words
-                          print(mnemonic);
-                          print(_listWords);
-                        }),
+                          setState(() {
+                            _wordsIsEmpty = typedWords.length == 0;
+                            /// check available and update in list
+                            _listWords =
+                                listTypeWords.length > _verificationKeys.length
+                                    ? _listWords
+                                    : listTypeWords;
+
+                            // _listWords[0] == listMnemonicWords[0] && _listWords[1] == listMnemonicWords[4] && _listWords[2] == listMnemonicWords[8]
+                          });
+                        },
                       ),
                 SizedBox(height: 12.0),
                 _wordsIsEmpty
@@ -80,14 +83,5 @@ class _VerificationOrRecoverScreenState
         ),
       ),
     );
-  }
-
-  _onTyped(String typedWords, Function callback) {
-    setState(() {
-      /// case help check is null input field
-      _wordsIsEmpty = typedWords.length == 0;
-      _listWords = typedWords.trim().split(' ');
-    });
-    callback();
   }
 }
