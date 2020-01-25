@@ -21,9 +21,9 @@ class GenerationScreen extends StatelessWidget {
                 SizedBox(height: 4.0),
                 Text('* Please save in your not',
                     style: TextStyle(color: Colors.red)),
-                SizedBox(height: 10.0),
+                SizedBox(height: 12.0),
                 Wrap(
-                    spacing: 8.0,
+                    spacing: 6.0,
                     children: keyWords.asMap().entries.map((entry) {
                       return Chip(
                           avatar: CircleAvatar(
@@ -32,13 +32,18 @@ class GenerationScreen extends StatelessWidget {
                           ),
                           label: Text('${entry.value}'));
                     }).toList()),
-                SizedBox(height: 10.0),
-                CustomButton(
-                  child: Text('Verify'),
-                  onPressed: () {
-                    Navigator.pushNamed(context, Routes.verification,
-                        arguments: keyWords);
-                  },
+                SizedBox(height: 12.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    CustomButton(
+                      child: Text('Verify'),
+                      onPressed: () {
+                        Navigator.pushNamed(context, Routes.verification,
+                            arguments: keyWords);
+                      },
+                    )
+                  ],
                 ),
               ],
             ),
