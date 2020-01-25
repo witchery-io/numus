@@ -53,7 +53,7 @@ class _VerificationOrRecoverScreenState
                               ? CustomChip(
                                   index: (entry.key + 1), title: entry.value)
 
-                              /// this case insurance verification key list
+                              /// case insurance verification key list undefined error
                               : entry.key < _verificationKeys.length
                                   ? CustomChip(
                                       index: (_verificationKeys[entry.key] + 1),
