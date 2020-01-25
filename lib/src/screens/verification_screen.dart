@@ -7,13 +7,16 @@ class VerificationScreen extends StatefulWidget {
 }
 
 class _VerificationScreenState extends State<VerificationScreen> {
-  List<String> _keyWords = [];
-  List<int> _wordsKeys = [0, 4, 8];
+  List<String> _words = [];
+  List<int> _keys = const [0, 4, 8];
 
   @override
   Widget build(BuildContext context) {
-    final List<String> mnemonic = ModalRoute.of(context).settings.arguments;
-    assert(mnemonic.length != null);
+    final String mnemonic = ModalRoute.of(context).settings.arguments;
+
+    print(mnemonic);
+    
+    /// if null argument or list<String>
 
     return Scaffold(
       body: SafeArea(
@@ -26,30 +29,23 @@ class _VerificationScreenState extends State<VerificationScreen> {
                 SizedBox(height: 10.0),
                 MnemonicVerificationTextField(
                     onChanged: (List<String> worldsList) {
-                  if (worldsList.length > _wordsKeys.length) return;
+//                  if (worldsList.length > _keys.length) return;
 
-                  setState(() => _keyWords = worldsList);
+                  setState(() {
+                    _words = worldsList;
+                  });
                 }),
                 SizedBox(height: 10.0),
-                _keyWords.length == 0
-                    ? SizedBox.shrink()
-                    : Wrap(
-                        spacing: 8.0,
-                        children: _keyWords.asMap().entries.map((entry) {
-                          final isEqual = mnemonic[_wordsKeys[entry.key]] ==
-                              entry.value;
-                          return Chip(
-                            avatar: CircleAvatar(
-                                backgroundColor: isEqual
-                                    ? Colors.green.shade800
-                                    : Colors.red.shade800,
-                                child: Text('${_wordsKeys[entry.key] + 1}')),
-                            label: Text('${entry.value}'),
-                            backgroundColor: isEqual
-                                ? Colors.green.shade300
-                                : Colors.red.shade300,
-                          );
-                        }).toList()),
+                Wrap(
+                    spacing: 8.0,
+                    children: _words.asMap().entries.map((entry) {
+                      return Chip(
+                        avatar: CircleAvatar(
+                            backgroundColor: Colors.grey.shade800,
+                            child: Text('${_keys[entry.key] + 1}')),
+                        label: Text('${entry.value}'),
+                      );
+                    }).toList())
               ],
             ),
           ),

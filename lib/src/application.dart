@@ -26,8 +26,8 @@ class Application extends StatelessWidget {
               ),
               BlocProvider<MnemonicBloc>(
                 create: (context) =>
-                MnemonicBloc(secureStorage: const FlutterSecureStorage())
-                  ..add(LoadMnemonic()),
+                    MnemonicBloc(secureStorage: const FlutterSecureStorage())
+                      ..add(LoadMnemonic()),
               )
             ],
             child: InitialScreen(),
@@ -35,7 +35,6 @@ class Application extends StatelessWidget {
         },
         Routes.generation: (context) => GenerationScreen(),
         Routes.verification: (context) => VerificationScreen(),
-        Routes.recover: (context) => RecoverScreen(),
       },
     );
   }
