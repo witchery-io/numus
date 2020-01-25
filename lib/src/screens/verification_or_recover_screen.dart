@@ -34,14 +34,28 @@ class _VerificationOrRecoverScreenState
                             '* Please type mnemonic (12 words) in your note for verification.',
                         labelText: 'Recover words',
                         onChanged: (String typedWords) =>
-                            _onTyped(mnemonic, typedWords, _onRecover),
+                            _onTyped(typedWords, () {
+                          print('Recover');
+
+                          print(_listWords);
+
+                          // mnemonic is null
+                          // should be 12 words
+                        }),
                       )
                     : MnemonicVerificationTextField(
                         helperText:
                             '* Please type 1, 5, 9 words in your note for verification.',
                         labelText: 'Verification words',
                         onChanged: (String typedWords) =>
-                            _onTyped(mnemonic, typedWords, _onVerified),
+                            _onTyped(typedWords, () {
+                          print('Verification');
+
+                          // has mnemonic
+                          // should be 3 words
+                          print(mnemonic);
+                          print(_listWords);
+                        }),
                       ),
                 SizedBox(height: 12.0),
                 _wordsIsEmpty
@@ -68,29 +82,11 @@ class _VerificationOrRecoverScreenState
     );
   }
 
-  _onTyped(String mnemonic, String typedWords, Function callback) {
+  _onTyped(String typedWords, Function callback) {
     setState(() {
       _wordsIsEmpty = typedWords.length == 0;
       _listWords = typedWords.trim().split(' ');
     });
-
-    final listWords = mnemonic.split(' ');
-    callback(listWords, typedWords);
-  }
-
-  _onVerified(List<String> listWords, List<String> typedWords) {
-    print('Verified');
-
-//    print(mnemonic);
-//    print(typedWords);
-//    print(typedWords.length);
-  }
-
-  _onRecover(List<String> listWords, List<String> typedWords) {
-    print('Recover');
-
-//    print(mnemonic);
-//    print(typedWords);
-//    print(typedWords.length);
+    callback();
   }
 }
