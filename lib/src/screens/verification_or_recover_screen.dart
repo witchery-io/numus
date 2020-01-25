@@ -31,7 +31,7 @@ class _VerificationOrRecoverScreenState
                 isRecover
                     ? MnemonicVerificationTextField(
                         helperText:
-                            '* Please type mnemonic (12 words) in your note for verification.',
+                            '* Please type mnemonic (12 words) in your note for recover.',
                         labelText: 'Recover words',
                         onChanged: (String typedWords) =>
                             _onTyped(typedWords, () {
@@ -84,6 +84,7 @@ class _VerificationOrRecoverScreenState
 
   _onTyped(String typedWords, Function callback) {
     setState(() {
+      /// case help check is null input field
       _wordsIsEmpty = typedWords.length == 0;
       _listWords = typedWords.trim().split(' ');
     });
