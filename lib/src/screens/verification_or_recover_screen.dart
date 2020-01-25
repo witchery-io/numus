@@ -10,7 +10,7 @@ class VerificationOrRecoverScreen extends StatefulWidget {
 class _VerificationOrRecoverScreenState
     extends State<VerificationOrRecoverScreen> {
   List<String> _words = [];
-  List<int> _keys = const [0, 4, 8];
+  List<int> _verificationKeys = const [0, 4, 8];
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +27,17 @@ class _VerificationOrRecoverScreenState
                     style: TextStyle(fontSize: 24.0)),
                 SizedBox(height: 12.0),
                 // General logic
-                MnemonicVerificationTextField(
-                    onChanged: (List<String> strKeyWords) {
-                  print(strKeyWords);
-
-                  setState(() {
-                    _words = strKeyWords;
-                  });
-                }),
+                mnemonic == null ? MnemonicVerificationTextField(
+                  helperText:
+                  '* Please type mnemonic (12 words) in your note for verification.',
+                  labelText: 'Recover words',
+                  onChanged: (String typedWords) => _onRecover(mnemonic, typedWords),
+                ) : MnemonicVerificationTextField(
+                  helperText:
+                  '* Please type 1, 5, 9 words in your note for verification.',
+                  labelText: 'Verification words',
+                  onChanged: (String typedWords) => _onVerified(mnemonic, typedWords),
+                ),
                 SizedBox(height: 12.0),
                 Wrap(
                     spacing: 8.0,
@@ -42,7 +45,8 @@ class _VerificationOrRecoverScreenState
                       return mnemonic == null
                           ? CustomChip(index: entry.key + 1, title: entry.value)
                           : CustomChip(
-                              index: (_keys[entry.key] + 1), title: entry.value);
+                              index: (_verificationKeys[entry.key] + 1),
+                              title: entry.value);
                     }).toList())
               ],
             ),
@@ -50,5 +54,15 @@ class _VerificationOrRecoverScreenState
         ),
       ),
     );
+  }
+
+  _onVerified(String mnemonic, String typedWords) {
+    print(mnemonic);
+    print(typedWords);
+  }
+
+  _onRecover(String mnemonic, String typedWords) {
+    print(mnemonic);
+    print(typedWords);
   }
 }

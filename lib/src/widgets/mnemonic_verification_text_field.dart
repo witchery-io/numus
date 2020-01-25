@@ -2,9 +2,16 @@ import 'package:flutter/material.dart';
 
 class MnemonicVerificationTextField extends StatelessWidget {
   final Function onChanged;
+  final String hintText;
+  final String helperText;
+  final String labelText;
   final wordsController = TextEditingController();
 
-  MnemonicVerificationTextField({@required this.onChanged});
+  MnemonicVerificationTextField(
+      {@required this.onChanged,
+      this.hintText,
+      this.helperText,
+      this.labelText});
 
   @override
   Widget build(BuildContext context) {
@@ -12,14 +19,13 @@ class MnemonicVerificationTextField extends StatelessWidget {
       autofocus: true,
       decoration: InputDecoration(
         border: OutlineInputBorder(borderSide: BorderSide()),
-        hintText: 'Type the words here',
-        helperText:
-            '* Please type 1, 5, 9 words in your note for verification.',
+        hintText: hintText,
+        helperText: helperText,
         helperStyle: TextStyle(color: Colors.deepOrange),
-        labelText: 'Mnemonic verification words',
+        labelText: labelText,
         prefixIcon: Icon(Icons.vpn_key, color: Colors.deepOrange),
       ),
-      onChanged: (words) => onChanged(words.trim().split(' ')),
+      onChanged: (words) => onChanged(words),
     );
   }
 }
