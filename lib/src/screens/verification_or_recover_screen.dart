@@ -33,7 +33,7 @@ class _VerificationOrRecoverScreenState
                     Text(isRecover ? 'Recover' : 'Verification',
                         style: TextStyle(fontSize: 24.0)),
                     Text('* For split up words use space',
-                        style: TextStyle(color: Colors.red))
+                        style: TextStyle(color: Colors.deepOrange))
                   ],
                 ),
                 SizedBox(height: 12.0),
@@ -70,6 +70,8 @@ class _VerificationOrRecoverScreenState
                           });
                         }),
                 SizedBox(height: 12.0),
+
+                /// Tags logic
                 Wrap(
                     spacing: 8.0,
                     children: _isShowTags
@@ -88,13 +90,16 @@ class _VerificationOrRecoverScreenState
                                     : SizedBox.shrink();
                           }).toList()
                         : []),
+
+                /// Apply btn
                 Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       CustomButton(
+                        // todo ::
                         child: Text('Apply'),
                         onPressed: _isEnableVerifiedBtn
-                            ? isRecover ? _onRecover : _onVerified
+                            ? isRecover ? _onRecovered : _onVerified
                             : null,
                       ),
                     ])
@@ -106,7 +111,11 @@ class _VerificationOrRecoverScreenState
     );
   }
 
-  _onVerified() {}
+  _onRecovered() {
+    print('Recover');
+  }
 
-  _onRecover() {}
+  _onVerified() {
+    print('Verified');
+  }
 }
