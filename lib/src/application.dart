@@ -21,8 +21,8 @@ class Application extends StatelessWidget {
         final String type = settings.name;
 
         switch (type) {
-          case Routes.verificationOrRecover:
-            final args = settings.arguments;
+          case "/verificationOrRecover":
+            final String args = settings.arguments;
             return MaterialPageRoute(
               builder: (context) => VerificationOrRecoverScreen(args),
             );
