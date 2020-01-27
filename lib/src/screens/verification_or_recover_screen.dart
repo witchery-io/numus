@@ -19,6 +19,8 @@ class _VerificationOrRecoverScreenState
     final String mnemonic = ModalRoute.of(context).settings.arguments;
     final bool isRecover = mnemonic == null;
 
+    // todo :: assets
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -26,28 +28,30 @@ class _VerificationOrRecoverScreenState
           child: Center(
             child: Column(
               children: <Widget>[
-                isRecover ? _recoverHeader : _verificationHeader,
+                Column(
+                  children: <Widget>[
+                    Text(isRecover ? 'Recover' : 'Verification',
+                        style: TextStyle(fontSize: 24.0)),
+                    Text('* For split up words use space',
+                        style: TextStyle(color: Colors.red))
+                  ],
+                ),
                 SizedBox(height: 12.0),
                 isRecover
                     ? MnemonicVerificationTextField(
                         helperText:
                             '* Please type mnemonic (12 words) in your note for recover.',
                         labelText: 'Recover words',
-                        onChanged: (String typedWords) {
-//                          print('Recover');
-//                          print(typedWords); // String
-//                          print(mnemonic); // null
-                        })
+                        onChanged: (String typedWords) {})
                     : MnemonicVerificationTextField(
                         helperText:
                             '* Please type 1, 5, 9 words in your note for verification.',
-                        labelText: 'Verification words',
+                        labelText: 'Words verification',
                         onChanged: (String typedWords) {
                           /// Verification Logic
                           final listTrimTypeWords =
                               typedWords.trim().split(' ');
                           final listTypeWords = typedWords.split(' ');
-                          final listMnemonicWords = mnemonic.split(' ');
 
                           setState(() {
                             _isShowTags = typedWords.length != 0;
@@ -70,6 +74,7 @@ class _VerificationOrRecoverScreenState
                     spacing: 8.0,
                     children: _isShowTags
                         ? _listWords.asMap().entries.map((entry) {
+                            /// todo ::
                             return mnemonic == null
                                 ? CustomChip(
                                     index: (entry.key + 1), title: entry.value)
@@ -86,12 +91,11 @@ class _VerificationOrRecoverScreenState
                 Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-                      isRecover ? CustomButton(
-                        child: Text('Recover'),
-                        onPressed: _isEnableVerifiedBtn ? _onRecover : null,
-                      ) : CustomButton(
-                        child: Text('Verified'),
-                        onPressed: _isEnableVerifiedBtn ? _onVerified : null,
+                      CustomButton(
+                        child: Text('Apply'),
+                        onPressed: _isEnableVerifiedBtn
+                            ? isRecover ? _onRecover : _onVerified
+                            : null,
                       ),
                     ])
               ],
@@ -103,30 +107,6 @@ class _VerificationOrRecoverScreenState
   }
 
   _onVerified() {}
-
-  Widget get _recoverHeader {
-    return Column(
-      children: <Widget>[
-        Text('Recover', style: TextStyle(fontSize: 24.0)),
-        Text(
-          '* For split up words use space',
-          style: TextStyle(color: Colors.red),
-        )
-      ],
-    );
-  }
-
-  Widget get _verificationHeader {
-    return Column(
-      children: <Widget>[
-        Text('Verification', style: TextStyle(fontSize: 24.0)),
-        Text(
-          '* For split up words use space',
-          style: TextStyle(color: Colors.red),
-        )
-      ],
-    );
-  }
 
   _onRecover() {}
 }
