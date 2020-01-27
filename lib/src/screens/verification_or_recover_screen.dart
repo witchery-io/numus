@@ -18,7 +18,6 @@ class _VerificationOrRecoverScreenState
   Widget build(BuildContext context) {
     final String mnemonic = ModalRoute.of(context).settings.arguments;
     final bool isRecover = mnemonic == null;
-    final listMnemonicWords = mnemonic.split(' ');
 
     return Scaffold(
       body: SafeArea(
@@ -27,8 +26,7 @@ class _VerificationOrRecoverScreenState
           child: Center(
             child: Column(
               children: <Widget>[
-                Text(isRecover ? 'Recover' : 'Verification',
-                    style: TextStyle(fontSize: 24.0)),
+                isRecover ? _recoverHeader : _verificationHeader,
                 SizedBox(height: 12.0),
                 isRecover
                     ? MnemonicVerificationTextField(
@@ -49,6 +47,7 @@ class _VerificationOrRecoverScreenState
                           final listTrimTypeWords =
                               typedWords.trim().split(' ');
                           final listTypeWords = typedWords.split(' ');
+                          final listMnemonicWords = mnemonic.split(' ');
 
                           setState(() {
                             _isShowTags = typedWords.length != 0;
@@ -87,8 +86,11 @@ class _VerificationOrRecoverScreenState
                 Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-                      CustomButton(
-                        child: Text('Confirmed'),
+                      isRecover ? CustomButton(
+                        child: Text('Recover'),
+                        onPressed: _isEnableVerifiedBtn ? _onRecover : null,
+                      ) : CustomButton(
+                        child: Text('Verified'),
                         onPressed: _isEnableVerifiedBtn ? _onVerified : null,
                       ),
                     ])
@@ -101,4 +103,30 @@ class _VerificationOrRecoverScreenState
   }
 
   _onVerified() {}
+
+  Widget get _recoverHeader {
+    return Column(
+      children: <Widget>[
+        Text('Recover', style: TextStyle(fontSize: 24.0)),
+        Text(
+          '* For split up words use space',
+          style: TextStyle(color: Colors.red),
+        )
+      ],
+    );
+  }
+
+  Widget get _verificationHeader {
+    return Column(
+      children: <Widget>[
+        Text('Verification', style: TextStyle(fontSize: 24.0)),
+        Text(
+          '* For split up words use space',
+          style: TextStyle(color: Colors.red),
+        )
+      ],
+    );
+  }
+
+  _onRecover() {}
 }
