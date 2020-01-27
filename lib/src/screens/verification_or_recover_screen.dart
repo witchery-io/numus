@@ -53,6 +53,7 @@ class _VerificationOrRecoverScreenState
                         /// Verification Logic
                         final listTrimTypeWords = typedWords.trim().split(' ');
                         final listTypeWords = typedWords.split(' ');
+                        final listMnemonic = mnemonic.split(' ');
 
                         setState(() {
                           _isShowTags = typedWords.length != 0;
@@ -70,11 +71,14 @@ class _VerificationOrRecoverScreenState
                         });
 
                         _onApply = () {
-                          print('Apply an Verified');
+                          if (_listWords[0] != listMnemonic[0] ||
+                              _listWords[1] != listMnemonic[4] ||
+                              _listWords[2] != listMnemonic[8]) {
+                            print('Words are wrong!');
+                            return;
+                          }
 
-                          /// show Error
-                          /// OR
-                          /// Navigate to Wallet page
+                          print('Navigate to Wallet');
                         };
                       }),
               SizedBox(height: 12.0),
