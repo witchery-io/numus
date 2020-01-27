@@ -17,6 +17,19 @@ class Application extends StatelessWidget {
       localizationsDelegates: [
         FlutterBlocLocalizationsDelegate(),
       ],
+      onGenerateRoute: (settings) {
+        final String type = settings.name;
+
+        switch (type) {
+          case Routes.verificationOrRecover:
+            final args = settings.arguments;
+            return MaterialPageRoute(
+              builder: (context) => VerificationOrRecoverScreen(args),
+            );
+        }
+
+        return null;
+      },
       routes: {
         Routes.home: (context) {
           return MultiBlocProvider(
@@ -34,7 +47,6 @@ class Application extends StatelessWidget {
           );
         },
         Routes.generation: (context) => GenerationScreen(),
-        Routes.verificationOrRecover: (context) => VerificationOrRecoverScreen(),
       },
     );
   }

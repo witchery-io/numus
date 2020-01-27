@@ -2,13 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 
 class VerificationOrRecoverScreen extends StatefulWidget {
+  final String mnemonic;
+
+  VerificationOrRecoverScreen(this.mnemonic);
+
   @override
   _VerificationOrRecoverScreenState createState() =>
-      _VerificationOrRecoverScreenState();
+      _VerificationOrRecoverScreenState(mnemonic, mnemonic == null);
 }
 
 class _VerificationOrRecoverScreenState
     extends State<VerificationOrRecoverScreen> {
+  String mnemonic;
+  bool isRecover;
   List<String> _listWords;
   bool _isShowTags = false;
   List<int> _verificationKeys = const [0, 4, 8];
@@ -16,13 +22,12 @@ class _VerificationOrRecoverScreenState
   bool _isEnableApplyBtn = false;
   final int _recoverWordsCount = 12;
 
+  _VerificationOrRecoverScreenState(this.mnemonic, this.isRecover)
+      : assert((isRecover && mnemonic == null) ||
+            (!isRecover && mnemonic != null));
+
   @override
   Widget build(BuildContext context) {
-    final String mnemonic = ModalRoute.of(context).settings.arguments;
-    final bool isRecover = mnemonic == null;
-
-    assert((isRecover && mnemonic == null) || (!isRecover && mnemonic != null));
-
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -71,7 +76,7 @@ class _VerificationOrRecoverScreenState
                             return;
                           }
 
-                          print('Recover applay');
+//                          print('Recover apply');
                         };
                       })
                   : MnemonicVerificationTextField(
@@ -82,7 +87,7 @@ class _VerificationOrRecoverScreenState
                         /// Verification Logic
                         final listTrimTypeWords = typedWords.trim().split(' ');
                         final listTypeWords = typedWords.split(' ');
-                        final listMnemonic = mnemonic.split(' ');
+                        final listMnemonic = widget.mnemonic.split(' ');
 
                         setState(() {
                           _isShowTags = typedWords.length != 0;
