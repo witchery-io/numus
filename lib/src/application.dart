@@ -23,8 +23,7 @@ class Application extends StatelessWidget {
           case "/verificationOrRecover":
             final VerificationOrRecoverArg args = settings.arguments;
             return MaterialPageRoute(
-              builder: (_) => VerificationOrRecoverScreen(args.mnemonic),
-            );
+                builder: (_) => VerificationOrRecoverScreen(args.mnemonic));
         }
 
         return null;
@@ -37,10 +36,9 @@ class Application extends StatelessWidget {
                 create: (context) => TabBloc(),
               ),
               BlocProvider<MnemonicBloc>(
-                create: (context) =>
-                    MnemonicBloc(secureStorage: const FlutterSecureStorage())
-                      ..add(LoadMnemonic()),
-              )
+                  create: (context) =>
+                      MnemonicBloc(secureStorage: const FlutterSecureStorage())
+                        ..add(LoadMnemonic()))
             ],
             child: InitialScreen(),
           );

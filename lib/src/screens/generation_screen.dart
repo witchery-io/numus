@@ -28,9 +28,8 @@ class GenerationScreen extends StatelessWidget {
                     children: listMnemonic.asMap().entries.map((entry) {
                       return Chip(
                           avatar: CircleAvatar(
-                            backgroundColor: Colors.grey.shade800,
-                            child: Text('${entry.key + 1}'),
-                          ),
+                              backgroundColor: Colors.grey.shade800,
+                              child: Text('${entry.key + 1}')),
                           label: Text('${entry.value}'));
                     }).toList()),
                 SizedBox(height: 12.0),
