@@ -14,6 +14,7 @@ class _VerificationOrRecoverScreenState
   List<int> _verificationKeys = const [0, 4, 8];
   Function _onApply;
   bool _isEnableApplyBtn = false;
+  final int _recoverWordsCount = 12;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,35 @@ class _VerificationOrRecoverScreenState
                       helperText:
                           '* Please type mnemonic (12 words) in your note for recover.',
                       labelText: 'Recover words',
-                      onChanged: (String typedWords) {})
+                      onChanged: (String typedWords) {
+                        /// Recover Logic
+                        final listTrimTypeWords = typedWords.trim().split(' ');
+                        final listTypeWords = typedWords.split(' ');
+
+                        setState(() {
+                          _isShowTags = typedWords.length != 0;
+
+                          /// check available and update in list
+                          _listWords = listTypeWords.length > _recoverWordsCount
+                              ? _listWords
+                              : listTypeWords;
+
+                          /// enable confirmed btn when words count will be 3
+                          _isEnableApplyBtn =
+                              listTrimTypeWords.length == _recoverWordsCount &&
+                                  listTypeWords.length == _recoverWordsCount;
+                        });
+
+                        _onApply = () {
+                          if (true) {
+                            // todo :: isn't valid mnemonic
+                            print('Wrong Mnemonic');
+                            return;
+                          }
+
+                          print('Recover applay');
+                        };
+                      })
                   : MnemonicVerificationTextField(
                       helperText:
                           '* Please type 1, 5, 9 words in your note for verification.',
