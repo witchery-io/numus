@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_fundamental/core/core.dart';
+import 'package:flutter_fundamental/src/screens/screens.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 
 class GenerationScreen extends StatelessWidget {
@@ -41,7 +42,7 @@ class GenerationScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.pushNamed(
                             context, Routes.verificationOrRecover,
-                            arguments: genMnemonic);
+                            arguments: VerificationOrRecoverArg(genMnemonic));
                       },
                     )
                   ],

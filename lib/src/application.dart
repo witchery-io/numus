@@ -19,12 +19,11 @@ class Application extends StatelessWidget {
       ],
       onGenerateRoute: (settings) {
         final String type = settings.name;
-
         switch (type) {
           case "/verificationOrRecover":
-            final String args = settings.arguments;
+            final VerificationOrRecoverArg args = settings.arguments;
             return MaterialPageRoute(
-              builder: (context) => VerificationOrRecoverScreen(args),
+              builder: (_) => VerificationOrRecoverScreen(args.mnemonic),
             );
         }
 

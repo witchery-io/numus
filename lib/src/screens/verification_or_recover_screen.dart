@@ -148,3 +148,9 @@ class _VerificationOrRecoverScreenState
     );
   }
 }
+
+class VerificationOrRecoverArg {
+  final String mnemonic;
+
+  VerificationOrRecoverArg(this.mnemonic);
+}

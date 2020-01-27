@@ -4,6 +4,7 @@ import 'package:flutter_fundamental/core/core.dart';
 import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
 import 'package:flutter_fundamental/src/blocs/tab/bloc.dart';
 import 'package:flutter_fundamental/src/models/models.dart';
+import 'package:flutter_fundamental/src/screens/screens.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 
 class InitialScreen extends StatelessWidget {
@@ -68,8 +69,9 @@ class General extends StatelessWidget {
               onPressed: () => Navigator.pushNamed(context, Routes.generation)),
           CustomButton(
               child: Text('Recover'),
-              onPressed: () =>
-                  Navigator.pushNamed(context, Routes.verificationOrRecover)),
+              onPressed: () => Navigator.pushNamed(
+                  context, Routes.verificationOrRecover,
+                  arguments: VerificationOrRecoverArg(null))),
         ],
       ),
     );
