@@ -10,7 +10,7 @@ class VerificationOrRecoverScreen extends StatefulWidget {
 class _VerificationOrRecoverScreenState
     extends State<VerificationOrRecoverScreen> {
   List<String> _listWords;
-  bool _isShowWords = false;
+  bool _isShowTags = false;
   bool _isEnableVerifiedBtn = false;
   List<int> _verificationKeys = const [0, 4, 8];
 
@@ -51,7 +51,7 @@ class _VerificationOrRecoverScreenState
                           final listTypeWords = typedWords.split(' ');
 
                           setState(() {
-                            _isShowWords = typedWords.length != 0;
+                            _isShowTags = typedWords.length != 0;
 
                             /// check available and update in list
                             _listWords =
@@ -69,7 +69,7 @@ class _VerificationOrRecoverScreenState
                 SizedBox(height: 12.0),
                 Wrap(
                     spacing: 8.0,
-                    children: _isShowWords
+                    children: _isShowTags
                         ? _listWords.asMap().entries.map((entry) {
                             return mnemonic == null
                                 ? CustomChip(
@@ -90,7 +90,7 @@ class _VerificationOrRecoverScreenState
                       CustomButton(
                         child: Text('Confirmed'),
                         onPressed: _isEnableVerifiedBtn ? _onVerified : null,
-                      )
+                      ),
                     ])
               ],
             ),
