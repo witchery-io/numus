@@ -41,7 +41,7 @@ class GenerationScreen extends StatelessWidget {
                       child: Text('Verify'),
                       onPressed: () {
                         Navigator.pushNamed(
-                            context, Routes.verificationOrRecover,
+                            context, Router.verificationOrRecover,
                             arguments: VerificationOrRecoverArg(genMnemonic));
                       },
                     )

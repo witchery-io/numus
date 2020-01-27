@@ -30,7 +30,7 @@ class Application extends StatelessWidget {
         return null;
       },
       routes: {
-        Routes.home: (context) {
+        Router.home: (context) {
           return MultiBlocProvider(
             providers: [
               BlocProvider<TabBloc>(
@@ -45,7 +45,7 @@ class Application extends StatelessWidget {
             child: InitialScreen(),
           );
         },
-        Routes.generation: (context) => GenerationScreen(),
+        Router.generation: (context) => GenerationScreen(),
       },
     );
   }

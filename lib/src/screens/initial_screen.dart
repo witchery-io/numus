@@ -66,11 +66,11 @@ class General extends StatelessWidget {
         children: <Widget>[
           CustomButton(
               child: Text('Create New'),
-              onPressed: () => Navigator.pushNamed(context, Routes.generation)),
+              onPressed: () => Navigator.pushNamed(context, Router.generation)),
           CustomButton(
               child: Text('Recover'),
               onPressed: () => Navigator.pushNamed(
-                  context, Routes.verificationOrRecover,
+                  context, Router.verificationOrRecover,
                   arguments: VerificationOrRecoverArg(null))),
         ],
       ),
