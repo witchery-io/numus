@@ -11,12 +11,14 @@ class _VerificationOrRecoverScreenState
     extends State<VerificationOrRecoverScreen> {
   List<String> _listWords;
   bool _isShowWords = false;
+  bool _isEnableVerifiedBtn = false;
   List<int> _verificationKeys = const [0, 4, 8];
 
   @override
   Widget build(BuildContext context) {
     final String mnemonic = ModalRoute.of(context).settings.arguments;
     final bool isRecover = mnemonic == null;
+    final listMnemonicWords = mnemonic.split(' ');
 
     return Scaffold(
       body: SafeArea(
@@ -44,7 +46,8 @@ class _VerificationOrRecoverScreenState
                         labelText: 'Verification words',
                         onChanged: (String typedWords) {
                           /// Verification Logic
-                          final listMnemonicWords = mnemonic.split(' ');
+                          final listTrimTypeWords =
+                              typedWords.trim().split(' ');
                           final listTypeWords = typedWords.split(' ');
 
                           setState(() {
@@ -55,6 +58,12 @@ class _VerificationOrRecoverScreenState
                                 listTypeWords.length > _verificationKeys.length
                                     ? _listWords
                                     : listTypeWords;
+
+                            /// enable confirmed btn when words count will be 3
+                            _isEnableVerifiedBtn = listTrimTypeWords.length ==
+                                    _verificationKeys.length &&
+                                listTypeWords.length ==
+                                    _verificationKeys.length;
                           });
                         }),
                 SizedBox(height: 12.0),
@@ -75,6 +84,14 @@ class _VerificationOrRecoverScreenState
                                     : SizedBox.shrink();
                           }).toList()
                         : []),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      CustomButton(
+                        child: Text('Confirmed'),
+                        onPressed: _isEnableVerifiedBtn ? _onVerified : null,
+                      )
+                    ])
               ],
             ),
           ),
@@ -82,4 +99,6 @@ class _VerificationOrRecoverScreenState
       ),
     );
   }
+
+  _onVerified() {}
 }
