@@ -8,7 +8,8 @@ class VerificationOrRecoverScreen extends StatefulWidget {
 
   @override
   _VerificationOrRecoverScreenState createState() =>
-      _VerificationOrRecoverScreenState(mnemonic, mnemonic == null);
+      _VerificationOrRecoverScreenState(
+          mnemonic: mnemonic, isRecover: mnemonic == null);
 }
 
 class _VerificationOrRecoverScreenState
@@ -22,9 +23,8 @@ class _VerificationOrRecoverScreenState
   bool _isEnableApplyBtn = false;
   final int _recoverWordsCount = 12;
 
-  _VerificationOrRecoverScreenState(this.mnemonic, this.isRecover)
-      : assert((isRecover && mnemonic == null) ||
-            (!isRecover && mnemonic != null));
+  _VerificationOrRecoverScreenState(
+      {@required this.mnemonic, @required this.isRecover});
 
   @override
   Widget build(BuildContext context) {
