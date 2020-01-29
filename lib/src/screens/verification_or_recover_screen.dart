@@ -51,17 +51,16 @@ class _VerificationOrRecoverScreenState
                       labelText: 'Recover words',
                       onChanged: (String typedWords) {
                         _changeTextField(typedWords, 12, () {
-                          final isValidMnemonic = bip39.validateMnemonic(typedWords);
+                          final isValidMnemonic =
+                              bip39.validateMnemonic(typedWords);
                           bool isValid = true;
                           if (!isValidMnemonic) {
                             isValid = false;
-                            Toast.show('Mnemonic is not correct.', context, duration: 2, gravity: Toast.TOP);
+                            Toast.show('Mnemonic is not correct.', context,
+                                duration: 2, gravity: Toast.TOP);
                           }
 
-                          if (!isValid) {
-                            print('12 words is not correct.');
-                            return;
-                          }
+                          if (!isValid) return;
 
                           print('12 words is correct open modal.');
                         });
@@ -78,16 +77,15 @@ class _VerificationOrRecoverScreenState
                           bool isValid = true;
 
                           for (int i = 0; i < 3; i++)
-                            if (mnemonicWordsList[_verificationKeys[i]] != _listWords[i]) {
-                              Toast.show('Key words is not correct.', context, duration: 2, gravity: Toast.TOP);
+                            if (mnemonicWordsList[_verificationKeys[i]] !=
+                                _listWords[i]) {
+                              Toast.show('Key words is not correct.', context,
+                                  duration: 2, gravity: Toast.TOP);
                               isValid = false;
                               break;
                             }
 
-                          if (!isValid) {
-                            print('3 key words is not correct.');
-                            return;
-                          }
+                          if (!isValid) return;
 
                           print('3 key words is correct open modal.');
                         });
