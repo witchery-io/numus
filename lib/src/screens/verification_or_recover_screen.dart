@@ -71,13 +71,13 @@ class _VerificationOrRecoverScreenState
                         });
 
                         _onApply = () {
-//                          if (true) {
-//                            // todo :: isn't valid mnemonic
-//                            print('Wrong Mnemonic');
-//                            return;
-//                          }
-//
-////                          print('Recover apply');
+                          if (true) {
+                            // todo :: isn't valid mnemonic
+                            print('Wrong Mnemonic');
+                            return;
+                          }
+
+//                          print('Recover apply');
                         };
                       })
                   : MnemonicVerificationTextField(
