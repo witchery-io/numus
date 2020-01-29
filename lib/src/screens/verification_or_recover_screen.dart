@@ -70,13 +70,13 @@ class _VerificationOrRecoverScreenState
                           final mWs = mnemonic.split(' ');
                           assert(mWs.length == 12);
 
-                          _verificationKeys.forEach((val) {
-                            final index = _verificationKeys.indexOf(val);
-                            if (mWs[val] != _listWords[index])
+                          for (int i = 0; i < 3; i++) {
+                            if (mWs[_verificationKeys[i]] != _listWords[i]) {
                               Toast.show('Key words incorrect', context,
                                   duration: 2, gravity: Toast.TOP);
-                          });
-
+                              break;
+                            }
+                          }
 
                           print('Is Valid 1, 5, 9');
                         });
