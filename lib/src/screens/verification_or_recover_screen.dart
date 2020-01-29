@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:bip39/bip39.dart' as bip39;
+import 'package:crypto/crypto.dart';
+import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
@@ -63,7 +67,7 @@ class _VerificationOrRecoverScreenState
 
                           if (!isValid) return;
 
-                          _pinAlert();
+                          _pinAlert(typedWords);
                         });
                       })
                   : MnemonicVerificationTextField(
@@ -88,7 +92,7 @@ class _VerificationOrRecoverScreenState
 
                           if (!isValid) return;
 
-                          _pinAlert();
+                          _pinAlert(mnemonic);
                         });
                       }),
               SizedBox(height: 12.0),
@@ -132,14 +136,14 @@ class _VerificationOrRecoverScreenState
     });
   }
 
-  Future<void> _pinAlert() async {
+  Future<void> _pinAlert(String mnemonic) async {
     FocusScope.of(context).requestFocus(FocusNode());
 
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return PinAlertDialog(mnemonic: mnemonic);
+        return PinAlertDialog(mnemonic);
       },
     );
   }
@@ -155,7 +159,7 @@ class PinAlertDialog extends StatelessWidget {
   final pinController = TextEditingController();
   final String mnemonic;
 
-  PinAlertDialog({@required this.mnemonic});
+  PinAlertDialog(this.mnemonic);
 
   @override
   Widget build(BuildContext context) {
@@ -192,11 +196,42 @@ class PinAlertDialog extends StatelessWidget {
                   return;
                 }
 
-                /// encode mnemonic and pin
-                /// save mnemonic in storage
-                ///
+                final md5Pin = convertToMd5(pin);
+
+                /// todo :: (!=)
+                if (mnemonic == null) {
+                  final key = encrypt.Key.fromUtf8(md5Pin);
+                  final iv = encrypt.IV.fromLength(16);
+                  final enc = encrypt.Encrypter(encrypt.AES(key));
+                  final encrypted = enc.encrypt(mnemonic, iv: iv);
+
+                  print(encrypted);
+                  print(encrypted.base64);
+
+                  // pin 111111
+                  // 640H2A71ONIo5crRrTYG7u4eTEr/Rdp6R44fdSFklNKReGA1RIbm53JVJ6bFlSp8Bgd7nKbpbKUrR69Hk+wM9h2RxpXJUffqWt0lDMr2oFM=
+                  // save in local secure storage
+
+                } else {
+                  final key = encrypt.Key.fromUtf8(md5Pin);
+                  final iv = encrypt.IV.fromLength(16);
+                  final enc = encrypt.Encrypter(encrypt.AES(key));
+
+                  /// get in local storage
+
+                  try {
+                    final decrypted = enc.decrypt64('640H2A71ONIo5crRrTYG7u4eTEr/Rdp6R44fdSFklNKReGA1RIbm53JVJ6bFlSp8Bgd7nKbpbKUrR69Hk+wM9h2RxpXJUffqWt0lDMr2oFM=', iv: iv);
+                    print(decrypted);
+                  } catch (e) {
+                    Toast.show(e.message, context, duration: 2, gravity: Toast.TOP);
+                  }
+                }
               }),
         ]);
+  }
+
+  static convertToMd5(val) {
+    return md5.convert(utf8.encode(val)).toString();
   }
 }
 
