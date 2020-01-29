@@ -52,21 +52,22 @@ class _VerificationOrRecoverScreenState
                       labelText: 'Recover words',
                       onChanged: (String typedWords) {
                         /// Recover Logic
-                        final listTrimTypeWords = typedWords.trim().split(' ');
-                        final listTypeWords = typedWords.split(' ');
+                        final listTypeWordsClean = typedWords.trim().split(' ');
+                        final listTypeWordsLength =
+                            typedWords.split(' ').length;
 
                         setState(() {
                           _isShowTags = typedWords.length != 0;
 
                           /// check available and update in list
-                          _listWords = listTypeWords.length > _recoverWordsCount
+                          _listWords = listTypeWordsLength > _recoverWordsCount
                               ? _listWords
-                              : listTypeWords;
+                              : listTypeWordsClean;
 
-                          /// enable confirmed btn when words count will be 3
+                          /// enable confirmed btn when words count will be 12
                           _isEnableApplyBtn =
-                              listTrimTypeWords.length == _recoverWordsCount &&
-                                  listTypeWords.length == _recoverWordsCount;
+                              listTypeWordsClean.length == _recoverWordsCount &&
+                                  listTypeWordsLength == _recoverWordsCount;
                         });
 
                         _onApply = () {
@@ -82,26 +83,26 @@ class _VerificationOrRecoverScreenState
                   : MnemonicVerificationTextField(
                       helperText:
                           '* Please type 1, 5, 9 words in your note for verification.',
-                      labelText: 'Words verification',
+                      labelText: 'Mnemonic verification',
                       onChanged: (String typedWords) {
                         /// Verification Logic
-                        final listTrimTypeWords = typedWords.trim().split(' ');
-                        final listTypeWords = typedWords.split(' ');
+                        final listTypeWordsClean = typedWords.trim().split(' ');
+                        final listTypeWordsLength =
+                            typedWords.split(' ').length;
                         final listMnemonic = widget.mnemonic.split(' ');
 
                         setState(() {
                           _isShowTags = typedWords.length != 0;
 
                           /// check available and update in list
-                          _listWords =
-                              listTypeWords.length > _verificationKeys.length
-                                  ? _listWords
-                                  : listTypeWords;
+                          _listWords = listTypeWordsLength > _recoverWordsCount
+                              ? _listWords
+                              : listTypeWordsClean;
 
                           /// enable confirmed btn when words count will be 3
-                          _isEnableApplyBtn = listTrimTypeWords.length ==
+                          _isEnableApplyBtn = listTypeWordsClean.length ==
                                   _verificationKeys.length &&
-                              listTypeWords.length == _verificationKeys.length;
+                              listTypeWordsLength == _verificationKeys.length;
                         });
 
                         _onApply = () {
