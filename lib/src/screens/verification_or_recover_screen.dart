@@ -1,6 +1,6 @@
+import 'package:bip39/bip39.dart' as bip39;
 import 'package:flutter/material.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
-import 'package:bip39/bip39.dart' as bip39;
 
 class VerificationOrRecoverScreen extends StatefulWidget {
   final String mnemonic;
@@ -43,44 +43,25 @@ class _VerificationOrRecoverScreenState
                 ],
               ),
               SizedBox(height: 12.0),
-
-              /// Input
               isRecover
                   ? MnemonicVerificationTextField(
                       helperText:
                           '* Please type mnemonic (12 words) in your note for recover.',
                       labelText: 'Recover words',
-                      onChanged: (String typedWords) =>
-                          _changeInput(typedWords, 12, () {
-                            final isValidMnemonic = bip39.validateMnemonic(typedWords);
-
-                            if (!isValidMnemonic) {
-                              /// show error message when this is invalid
-                              /// return
-                            }
-
-                            /// is valid Mnemonic
-                            /// build modal and set pin
-                            /// encode (mnemonic + pin) and save in local storage
-                            ///
-                          }))
+                      onChanged: (String typedWords) {
+                        _changeInput(typedWords, 12, () {
+                          final isValidMnemonic = bip39.validateMnemonic(typedWords);
+                          print(isValidMnemonic);
+                        });
+                      })
                   : MnemonicVerificationTextField(
                       helperText:
                           '* Please type 1, 5, 9 words in your note for verification.',
                       labelText: 'Mnemonic verification',
-                      onChanged: (String typedWords) =>
-                          _changeInput(typedWords, 3, () {
-
-
-                            /// mnemonic 0, 4, 8
-                            /// type words, list words global -> 0, 1, 2
-                            /// build modal and set pin
-                            /// encode (mnemonic + pin) and save in local storage
-                            ///
-                          })),
+                      onChanged: (String typedWords) {
+                        _changeInput(typedWords, 3, () {});
+                      }),
               SizedBox(height: 12.0),
-
-              /// Tags logic
               Wrap(
                   spacing: 8.0,
                   children: _isShowTags
@@ -92,8 +73,6 @@ class _VerificationOrRecoverScreenState
                               title: entry.value);
                         }).toList()
                       : []),
-
-              /// Apply btn
               Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
                 CustomButton(
                     child: Text('Apply'),
