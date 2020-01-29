@@ -134,51 +134,12 @@ class _VerificationOrRecoverScreenState
 
   Future<void> _pinAlert() async {
     FocusScope.of(context).requestFocus(FocusNode());
-    final pin = TextEditingController();
 
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return AlertDialog(
-            title: Text('Set pin for your wallets security.'),
-            content: SingleChildScrollView(
-              child: ListBody(children: <Widget>[
-                Container(
-                    padding: const EdgeInsets.all(4.0),
-                    child: TextField(
-                        controller: pin,
-                        autofocus: true,
-                        maxLength: 6,
-                        decoration: InputDecoration(
-                          labelText: "Enter your PIN",
-                          helperStyle: TextStyle(color: Colors.deepOrange),
-                          helperText: "* Please set 6 symbole.",
-                          border: OutlineInputBorder(borderSide: BorderSide()),
-                        ),
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          WhitelistingTextInputFormatter.digitsOnly
-                        ])),
-              ]),
-            ),
-            actions: <Widget>[
-              FlatButton(
-                  child: Text('Confirmed'),
-                  onPressed: () {
-                    if (pin.text.trim().length != 6) {
-                      Toast.show('Please set 6 symbol.', context,
-                          duration: 2, gravity: Toast.TOP);
-                      return;
-                    }
-
-
-
-                    /// encode mnemonic and pin
-                    /// save mnemonic in storage
-                    ///
-                  }),
-            ]);
+        return PinAlertDialog(mnemonic: mnemonic);
       },
     );
   }
@@ -187,6 +148,55 @@ class _VerificationOrRecoverScreenState
   void dispose() {
     mnemonic = null;
     super.dispose();
+  }
+}
+
+class PinAlertDialog extends StatelessWidget {
+  final pinController = TextEditingController();
+  final String mnemonic;
+
+  PinAlertDialog({@required this.mnemonic});
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+        title: Text('Set pin for your wallets security.'),
+        content: SingleChildScrollView(
+          child: ListBody(children: <Widget>[
+            Container(
+                padding: const EdgeInsets.all(4.0),
+                child: TextField(
+                    controller: pinController,
+                    autofocus: true,
+                    maxLength: 6,
+                    decoration: InputDecoration(
+                      labelText: "Enter your PIN",
+                      helperStyle: TextStyle(color: Colors.deepOrange),
+                      helperText: "* Please set 6 symbole.",
+                      border: OutlineInputBorder(borderSide: BorderSide()),
+                    ),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      WhitelistingTextInputFormatter.digitsOnly
+                    ])),
+          ]),
+        ),
+        actions: <Widget>[
+          FlatButton(
+              child: Text('Confirmed'),
+              onPressed: () {
+                final pin = pinController.text;
+                if (pin.length != 6) {
+                  Toast.show('Please set 6 symbol.', context,
+                      duration: 2, gravity: Toast.TOP);
+                  return;
+                }
+
+                /// encode mnemonic and pin
+                /// save mnemonic in storage
+                ///
+              }),
+        ]);
   }
 }
 
