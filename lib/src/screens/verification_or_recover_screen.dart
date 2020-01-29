@@ -1,6 +1,7 @@
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:flutter/material.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
+import 'package:toast/toast.dart';
 
 class VerificationOrRecoverScreen extends StatefulWidget {
   final String mnemonic;
@@ -50,8 +51,13 @@ class _VerificationOrRecoverScreenState
                       labelText: 'Recover words',
                       onChanged: (String typedWords) {
                         _changeInput(typedWords, 12, () {
-                          final isValidMnemonic = bip39.validateMnemonic(typedWords);
-                          print(isValidMnemonic);
+                          final isValidMnemonic =
+                              bip39.validateMnemonic(typedWords);
+                          if (!isValidMnemonic)
+                            Toast.show('Invalid Mnemonic', context,
+                                duration: 2, gravity: Toast.TOP);
+
+                          print('Is Valid');
                         });
                       })
                   : MnemonicVerificationTextField(
@@ -59,7 +65,21 @@ class _VerificationOrRecoverScreenState
                           '* Please type 1, 5, 9 words in your note for verification.',
                       labelText: 'Mnemonic verification',
                       onChanged: (String typedWords) {
-                        _changeInput(typedWords, 3, () {});
+                        _changeInput(typedWords, 3, () {
+                          assert(mnemonic.length != 0);
+                          final mWs = mnemonic.split(' ');
+                          assert(mWs.length == 12);
+
+                          _verificationKeys.forEach((val) {
+                            final index = _verificationKeys.indexOf(val);
+                            if (mWs[val] != _listWords[index])
+                              Toast.show('Key words incorrect', context,
+                                  duration: 2, gravity: Toast.TOP);
+                          });
+
+
+                          print('Is Valid 1, 5, 9');
+                        });
                       }),
               SizedBox(height: 12.0),
               Wrap(
@@ -100,6 +120,12 @@ class _VerificationOrRecoverScreenState
 
       _onApply = apply;
     });
+  }
+
+  @override
+  void dispose() {
+    mnemonic = null;
+    super.dispose();
   }
 }
 
