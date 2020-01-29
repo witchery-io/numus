@@ -71,13 +71,13 @@ class _VerificationOrRecoverScreenState
                         });
 
                         _onApply = () {
-                          if (true) {
-                            // todo :: isn't valid mnemonic
-                            print('Wrong Mnemonic');
-                            return;
-                          }
-
-//                          print('Recover apply');
+//                          if (true) {
+//                            // todo :: isn't valid mnemonic
+//                            print('Wrong Mnemonic');
+//                            return;
+//                          }
+//
+////                          print('Recover apply');
                         };
                       })
                   : MnemonicVerificationTextField(
@@ -95,9 +95,10 @@ class _VerificationOrRecoverScreenState
                           _isShowTags = typedWords.length != 0;
 
                           /// check available and update in list
-                          _listWords = listTypeWordsLength > _recoverWordsCount
-                              ? _listWords
-                              : listTypeWordsClean;
+                          _listWords =
+                              listTypeWordsLength > _verificationKeys.length
+                                  ? _listWords
+                                  : listTypeWordsClean;
 
                           /// enable confirmed btn when words count will be 3
                           _isEnableApplyBtn = listTypeWordsClean.length ==
@@ -123,16 +124,11 @@ class _VerificationOrRecoverScreenState
                   spacing: 8.0,
                   children: _isShowTags
                       ? _listWords.asMap().entries.map((entry) {
-                          return isRecover
-                              ? CustomChip(
-                                  index: (entry.key + 1), title: entry.value)
-
-                              /// case insurance verification key list undefined error
-                              : entry.key < _verificationKeys.length
-                                  ? CustomChip(
-                                      index: (_verificationKeys[entry.key] + 1),
-                                      title: entry.value)
-                                  : SizedBox.shrink();
+                          return CustomChip(
+                              index: isRecover
+                                  ? (entry.key + 1)
+                                  : (_verificationKeys[entry.key] + 1),
+                              title: entry.value);
                         }).toList()
                       : []),
 
