@@ -16,9 +16,10 @@ class GenerationScreen extends StatelessWidget {
         child: SingleChildScrollView(
           padding: EdgeInsets.all(24.0),
           child: Center(
-            child: Column(
+            child: ListBody(
               children: <Widget>[
-                Text('Geneation Mnemonic', style: TextStyle(fontSize: 24.0)),
+                Text('Mnemonic was geneationed.',
+                    style: TextStyle(fontSize: 24.0)),
                 SizedBox(height: 4.0),
                 Text('* Please save in your note',
                     style: TextStyle(color: Colors.deepOrange)),

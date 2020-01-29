@@ -1,5 +1,6 @@
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 import 'package:toast/toast.dart';
 
@@ -33,7 +34,7 @@ class _VerificationOrRecoverScreenState
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(24.0),
-          child: Column(
+          child: ListBody(
             children: <Widget>[
               Column(
                 children: <Widget>[
@@ -62,7 +63,7 @@ class _VerificationOrRecoverScreenState
 
                           if (!isValid) return;
 
-                          print('12 words is correct open modal.');
+                          _pinAlert();
                         });
                       })
                   : MnemonicVerificationTextField(
@@ -87,7 +88,7 @@ class _VerificationOrRecoverScreenState
 
                           if (!isValid) return;
 
-                          print('3 key words is correct open modal.');
+                          _pinAlert();
                         });
                       }),
               SizedBox(height: 12.0),
@@ -129,6 +130,57 @@ class _VerificationOrRecoverScreenState
 
       _onApply = apply;
     });
+  }
+
+  Future<void> _pinAlert() async {
+    FocusScope.of(context).requestFocus(FocusNode());
+    final pin = TextEditingController();
+
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            title: Text('Set pin for your wallets security.'),
+            content: SingleChildScrollView(
+              child: ListBody(children: <Widget>[
+                Container(
+                    padding: const EdgeInsets.all(4.0),
+                    child: TextField(
+                        controller: pin,
+                        autofocus: true,
+                        maxLength: 6,
+                        decoration: InputDecoration(
+                          labelText: "Enter your PIN",
+                          helperStyle: TextStyle(color: Colors.deepOrange),
+                          helperText: "* Please set 6 symbole.",
+                          border: OutlineInputBorder(borderSide: BorderSide()),
+                        ),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          WhitelistingTextInputFormatter.digitsOnly
+                        ])),
+              ]),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                  child: Text('Confirmed'),
+                  onPressed: () {
+                    if (pin.text.trim().length != 6) {
+                      Toast.show('Please set 6 symbol.', context,
+                          duration: 2, gravity: Toast.TOP);
+                      return;
+                    }
+
+
+
+                    /// encode mnemonic and pin
+                    /// save mnemonic in storage
+                    ///
+                  }),
+            ]);
+      },
+    );
   }
 
   @override

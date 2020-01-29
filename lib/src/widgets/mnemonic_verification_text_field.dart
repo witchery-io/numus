@@ -23,7 +23,7 @@ class MnemonicVerificationTextField extends StatelessWidget {
         helperText: helperText,
         helperStyle: TextStyle(color: Colors.deepOrange),
         labelText: labelText,
-        prefixIcon: Icon(Icons.vpn_key, color: Colors.deepOrange),
+        prefixIcon: Icon(Icons.lock_outline, color: Colors.deepOrange),
       ),
       onChanged: (words) => onChanged(words),
     );
