@@ -50,14 +50,20 @@ class _VerificationOrRecoverScreenState
                           '* Please type mnemonic (12 words) in your note for recover.',
                       labelText: 'Recover words',
                       onChanged: (String typedWords) {
-                        _changeInput(typedWords, 12, () {
-                          final isValidMnemonic =
-                              bip39.validateMnemonic(typedWords);
-                          if (!isValidMnemonic)
-                            Toast.show('Invalid Mnemonic', context,
-                                duration: 2, gravity: Toast.TOP);
+                        _changeTextField(typedWords, 12, () {
+                          final isValidMnemonic = bip39.validateMnemonic(typedWords);
+                          bool isValid = true;
+                          if (!isValidMnemonic) {
+                            isValid = false;
+                            Toast.show('Mnemonic is not correct.', context, duration: 2, gravity: Toast.TOP);
+                          }
 
-                          print('Is Valid');
+                          if (!isValid) {
+                            print('12 words is not correct.');
+                            return;
+                          }
+
+                          print('12 words is correct open modal.');
                         });
                       })
                   : MnemonicVerificationTextField(
@@ -65,20 +71,25 @@ class _VerificationOrRecoverScreenState
                           '* Please type 1, 5, 9 words in your note for verification.',
                       labelText: 'Mnemonic verification',
                       onChanged: (String typedWords) {
-                        _changeInput(typedWords, 3, () {
+                        _changeTextField(typedWords, 3, () {
                           assert(mnemonic.length != 0);
-                          final mWs = mnemonic.split(' ');
-                          assert(mWs.length == 12);
+                          final mnemonicWordsList = mnemonic.split(' ');
+                          assert(mnemonicWordsList.length == 12);
+                          bool isValid = true;
 
-                          for (int i = 0; i < 3; i++) {
-                            if (mWs[_verificationKeys[i]] != _listWords[i]) {
-                              Toast.show('Key words incorrect', context,
-                                  duration: 2, gravity: Toast.TOP);
+                          for (int i = 0; i < 3; i++)
+                            if (mnemonicWordsList[_verificationKeys[i]] != _listWords[i]) {
+                              Toast.show('Key words is not correct.', context, duration: 2, gravity: Toast.TOP);
+                              isValid = false;
                               break;
                             }
+
+                          if (!isValid) {
+                            print('3 key words is not correct.');
+                            return;
                           }
 
-                          print('Is Valid 1, 5, 9');
+                          print('3 key words is correct open modal.');
                         });
                       }),
               SizedBox(height: 12.0),
@@ -105,7 +116,7 @@ class _VerificationOrRecoverScreenState
     );
   }
 
-  _changeInput(String words, int availableWordsCount, Function apply) {
+  _changeTextField(String words, int availableWordsCount, Function apply) {
     final listWordsClean = words.trim().split(' ');
     final listWordsLength = words.split(' ').length;
 
