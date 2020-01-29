@@ -50,7 +50,7 @@ class _VerificationOrRecoverScreenState
                           '* Please type mnemonic (12 words) in your note for recover.',
                       labelText: 'Recover words',
                       onChanged: (String typedWords) =>
-                          _onChangeInput(typedWords, 12, () {
+                          _changeInput(typedWords, 12, () {
                             /// is valid Mnemonic
                             /// build modal and set pin
                             /// encode (mnemonic + pin) and save in local storage
@@ -61,7 +61,7 @@ class _VerificationOrRecoverScreenState
                           '* Please type 1, 5, 9 words in your note for verification.',
                       labelText: 'Mnemonic verification',
                       onChanged: (String typedWords) =>
-                          _onChangeInput(typedWords, 3, () {
+                          _changeInput(typedWords, 3, () {
                             /// mnemonic 0, 4, 8
                             /// type words, list words global -> 0, 1, 2
                             /// build modal and set pin
@@ -96,7 +96,7 @@ class _VerificationOrRecoverScreenState
     );
   }
 
-  _onChangeInput(String words, int availableWordsCount, Function apply) {
+  _changeInput(String words, int availableWordsCount, Function apply) {
     final listWordsClean = words.trim().split(' ');
     final listWordsLength = words.split(' ').length;
 
