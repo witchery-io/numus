@@ -21,7 +21,6 @@ class _VerificationOrRecoverScreenState
   List<int> _verificationKeys = const [0, 4, 8];
   Function _onApply;
   bool _isEnableApplyBtn = false;
-  final int _recoverWordsCount = 12;
 
   _VerificationOrRecoverScreenState(
       {@required this.mnemonic, @required this.isRecover});
@@ -50,73 +49,25 @@ class _VerificationOrRecoverScreenState
                       helperText:
                           '* Please type mnemonic (12 words) in your note for recover.',
                       labelText: 'Recover words',
-                      onChanged: (String typedWords) {
-                        /// Recover Logic
-                        final listTypeWordsClean = typedWords.trim().split(' ');
-                        final listTypeWordsLength =
-                            typedWords.split(' ').length;
-
-                        setState(() {
-                          _isShowTags = typedWords.length != 0;
-
-                          /// check available and update in list
-                          _listWords = listTypeWordsLength > _recoverWordsCount
-                              ? _listWords
-                              : listTypeWordsClean;
-
-                          /// enable confirmed btn when words count will be 12
-                          _isEnableApplyBtn =
-                              listTypeWordsClean.length == _recoverWordsCount &&
-                                  listTypeWordsLength == _recoverWordsCount;
-                        });
-
-                        _onApply = () {
-                          if (true) {
-                            // todo :: isn't valid mnemonic
-                            print('Wrong Mnemonic');
-                            return;
-                          }
-
-//                          print('Recover apply');
-                        };
-                      })
+                      onChanged: (String typedWords) =>
+                          onChangeInput(typedWords, 12, () {
+                            /// is valid Mnemonic
+                            /// build modal and set pin
+                            /// encode (mnemonic + pin) and save in local storage
+                            ///
+                          }))
                   : MnemonicVerificationTextField(
                       helperText:
                           '* Please type 1, 5, 9 words in your note for verification.',
                       labelText: 'Mnemonic verification',
-                      onChanged: (String typedWords) {
-                        /// Verification Logic
-                        final listTypeWordsClean = typedWords.trim().split(' ');
-                        final listTypeWordsLength =
-                            typedWords.split(' ').length;
-                        final listMnemonic = widget.mnemonic.split(' ');
-
-                        setState(() {
-                          _isShowTags = typedWords.length != 0;
-
-                          /// check available and update in list
-                          _listWords =
-                              listTypeWordsLength > _verificationKeys.length
-                                  ? _listWords
-                                  : listTypeWordsClean;
-
-                          /// enable confirmed btn when words count will be 3
-                          _isEnableApplyBtn = listTypeWordsClean.length ==
-                                  _verificationKeys.length &&
-                              listTypeWordsLength == _verificationKeys.length;
-                        });
-
-                        _onApply = () {
-                          if (_listWords[0] != listMnemonic[0] ||
-                              _listWords[1] != listMnemonic[4] ||
-                              _listWords[2] != listMnemonic[8]) {
-                            print('Words are wrong!');
-                            return;
-                          }
-
-                          print('Navigate to Wallet');
-                        };
-                      }),
+                      onChanged: (String typedWords) =>
+                          onChangeInput(typedWords, 3, () {
+                            /// mnemonic 0, 4, 8
+                            /// type words, list words global -> 0, 1, 2
+                            /// build modal and set pin
+                            /// encode (mnemonic + pin) and save in local storage
+                            ///
+                          })),
               SizedBox(height: 12.0),
 
               /// Tags logic
@@ -143,6 +94,24 @@ class _VerificationOrRecoverScreenState
         ),
       ),
     );
+  }
+
+  //
+  onChangeInput(String words, int availableWordsCount, Function apply) {
+    final listWordsClean = words.trim().split(' ');
+    final listWordsLength = words.split(' ').length;
+
+    setState(() {
+      _isShowTags = words.length != 0;
+
+      _listWords =
+          listWordsLength > availableWordsCount ? _listWords : listWordsClean;
+
+      _isEnableApplyBtn = listWordsClean.length == availableWordsCount &&
+          listWordsLength == availableWordsCount;
+
+      _onApply = apply;
+    });
   }
 }
 
