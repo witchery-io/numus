@@ -11,9 +11,9 @@ import 'package:toast/toast.dart';
 
 class PinAlertDialog extends StatelessWidget {
   final pinController = TextEditingController();
-  final String mnemonic;
+  final PinAlertDialogArgs args;
 
-  PinAlertDialog(this.mnemonic);
+  PinAlertDialog(this.args);
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class PinAlertDialog extends StatelessWidget {
                   return;
                 }
 
-                String _m = mnemonic;
+                String _m = args.mnemonic;
                 final encrypt = EncryptHelper(pin: pin);
                 final secureStorage = FlutterSecureStorage();
 
@@ -60,13 +60,12 @@ class PinAlertDialog extends StatelessWidget {
                       key: 'mnemonic', value: encrypted.base64);
                 } else {
                   try {
-                    assert(mnemonic == null);
-                    final mnemonicBase64 = secureStorage.read(key: 'mnemonic');
-                    assert(mnemonicBase64 != null);
-                    _m = encrypt.decryptByPinByBase64(mnemonicBase64);
+                    assert(args.base64Mnemonic != null);
+                    _m = encrypt.decryptByPinByBase64(args.base64Mnemonic);
                   } catch (e) {
                     Toast.show(e.message, context,
                         duration: 2, gravity: Toast.TOP);
+                    return;
                   }
                 }
 
@@ -80,4 +79,11 @@ class PinAlertDialog extends StatelessWidget {
   static convertToMd5(val) {
     return md5.convert(utf8.encode(val)).toString();
   }
+}
+
+class PinAlertDialogArgs {
+  final mnemonic;
+  final base64Mnemonic;
+
+  PinAlertDialogArgs(this.mnemonic, this.base64Mnemonic);
 }

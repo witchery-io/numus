@@ -139,7 +139,7 @@ class _VerificationOrRecoverScreenState
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return PinAlertDialog(mnemonic);
+        return PinAlertDialog(PinAlertDialogArgs(mnemonic, null));
       },
     );
   }
