@@ -3,8 +3,6 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
 import 'package:flutter_fundamental/src/utils/encrypt_helper.dart';
 import 'package:toast/toast.dart';
 
@@ -53,8 +51,6 @@ class PinAlertDialog extends StatelessWidget {
                 if (mnemonic != null) {
                   final encrypted = encrypt.encryptByPin(mnemonic);
                   print(encrypted.base64);
-                  BlocProvider.of<MnemonicBloc>(context)
-                      .add(InsertMnemonic(encrypted.base64));
 
                   /// save in local secure storage
                 } else {

@@ -26,10 +26,6 @@ class InitialScreen extends StatelessWidget {
                       if (state is MnemonicLoaded) {
                         return Existing();
                       }
-                      if (state is InsertMnemonic) {
-                        return Wallet();
-                      }
-
                       return null; // unreachable
                     },
                   )
