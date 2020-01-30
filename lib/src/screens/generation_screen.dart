@@ -12,46 +12,41 @@ class GenerationScreen extends StatelessWidget {
     final List<String> listMnemonic = genMnemonic.split(' ');
 
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(24.0),
-          child: Center(
-            child: ListBody(
-              children: <Widget>[
-                Text('Mnemonic was geneationed.',
-                    style: TextStyle(fontSize: 24.0)),
-                SizedBox(height: 4.0),
-                Text('* Please save in your note',
-                    style: TextStyle(color: Colors.deepOrange)),
-                SizedBox(height: 12.0),
-                Wrap(
-                    spacing: 6.0,
-                    children: listMnemonic.asMap().entries.map((entry) {
-                      return Chip(
-                          avatar: CircleAvatar(
-                              backgroundColor: Colors.grey.shade800,
-                              child: Text('${entry.key + 1}')),
-                          label: Text('${entry.value}'));
-                    }).toList()),
-                SizedBox(height: 12.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    CustomButton(
-                      child: Text('Verify'),
-                      onPressed: () {
-                        Navigator.pushNamed(
-                            context, Router.verificationOrRecover,
-                            arguments: VerificationOrRecoverArg(genMnemonic));
-                      },
-                    )
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+        body: SafeArea(
+            child: SingleChildScrollView(
+                padding: EdgeInsets.all(24.0),
+                child: Center(
+                  child: ListBody(children: <Widget>[
+                    Text('Mnemonic was geneationed.',
+                        style: TextStyle(fontSize: 24.0)),
+                    SizedBox(height: 4.0),
+                    Text('* Please save in your note',
+                        style: TextStyle(color: Colors.deepOrange)),
+                    SizedBox(height: 12.0),
+                    Wrap(
+                        spacing: 6.0,
+                        children: listMnemonic.asMap().entries.map((entry) {
+                          return Chip(
+                              avatar: CircleAvatar(
+                                  backgroundColor: Colors.grey.shade800,
+                                  child: Text('${entry.key + 1}')),
+                              label: Text('${entry.value}'));
+                        }).toList()),
+                    SizedBox(height: 12.0),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          CustomButton(
+                            child: Text('Verify'),
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, Router.verificationOrRecover,
+                                  arguments:
+                                      VerificationOrRecoverArg(genMnemonic));
+                            },
+                          )
+                        ]),
+                  ]),
+                ))));
   }
 }
