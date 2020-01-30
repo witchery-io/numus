@@ -15,9 +15,7 @@ class MnemonicBloc extends Bloc<MnemonicEvent, MnemonicState> {
   MnemonicState get initialState => MnemonicLoading();
 
   @override
-  Stream<MnemonicState> mapEventToState(
-    MnemonicEvent event,
-  ) async* {
+  Stream<MnemonicState> mapEventToState(MnemonicEvent event) async* {
     if (event is LoadMnemonic) {
       yield* _loadMnemonicToState();
     } else if (event is RemoveMnemonic) {
