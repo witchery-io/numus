@@ -150,8 +150,8 @@ class _VerificationOrRecoverScreenState
   }
 }
 
-class VerificationOrRecoverArg {
+class VerificationOrRecoverArgs {
   final String mnemonic;
 
-  VerificationOrRecoverArg(this.mnemonic);
+  VerificationOrRecoverArgs(this.mnemonic);
 }

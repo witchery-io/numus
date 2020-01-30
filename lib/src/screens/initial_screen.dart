@@ -14,7 +14,7 @@ class InitialScreen extends StatelessWidget {
     return BlocBuilder<TabBloc, AppTab>(
       builder: (context, activeTab) {
         return Scaffold(
-          appBar: args is InitialArg && activeTab == AppTab.general
+          appBar: args is InitialArgs && activeTab == AppTab.general
               ? AppBar(title: Text('Wallet'))
               : null,
 
@@ -29,7 +29,7 @@ class InitialScreen extends StatelessWidget {
                           state is MnemonicNotRemoved) {
                         return GeneralScreen();
                       } else if (state is MnemonicLoaded) {
-                        if (args is InitialArg) {
+                        if (args is InitialArgs) {
                           return WalletScreen(mnemonic: args.mnemonic);
                         }
 
@@ -51,8 +51,8 @@ class InitialScreen extends StatelessWidget {
   }
 }
 
-class InitialArg {
+class InitialArgs {
   final String mnemonic;
 
-  InitialArg(this.mnemonic);
+  InitialArgs(this.mnemonic);
 }

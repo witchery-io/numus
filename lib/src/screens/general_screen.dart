@@ -17,7 +17,7 @@ class GeneralScreen extends StatelessWidget {
               child: Text('Recover'),
               onPressed: () => Navigator.pushNamed(
                   context, Router.verificationOrRecover,
-                  arguments: VerificationOrRecoverArg(null))),
+                  arguments: VerificationOrRecoverArgs(null))),
         ]));
   }
 }

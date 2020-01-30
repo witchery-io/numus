@@ -22,7 +22,7 @@ class Application extends StatelessWidget {
         final String type = settings.name;
         switch (type) {
           case "/verificationOrRecover":
-            final VerificationOrRecoverArg args = settings.arguments;
+            final VerificationOrRecoverArgs args = settings.arguments;
             return MaterialPageRoute(
                 builder: (_) => VerificationOrRecoverScreen(args.mnemonic));
         }

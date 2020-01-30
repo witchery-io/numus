@@ -42,7 +42,7 @@ class GenerationScreen extends StatelessWidget {
                               Navigator.pushNamed(
                                   context, Router.verificationOrRecover,
                                   arguments:
-                                      VerificationOrRecoverArg(genMnemonic));
+                                      VerificationOrRecoverArgs(genMnemonic));
                             },
                           )
                         ]),
