@@ -20,6 +20,8 @@ class MnemonicBloc extends Bloc<MnemonicEvent, MnemonicState> {
   ) async* {
     if (event is LoadMnemonic) {
       yield* _loadMnemonicToState();
+    } else if (event is InsertMnemonic) {
+      yield* _insertMnemonicToState(event);
     }
   }
 
@@ -31,6 +33,14 @@ class MnemonicBloc extends Bloc<MnemonicEvent, MnemonicState> {
       }
 
       yield MnemonicLoaded(mnemonic);
+    } catch (_) {
+      yield MnemonicNotLoaded();
+    }
+  }
+
+  Stream<MnemonicState> _insertMnemonicToState(InsertMnemonic event) async* {
+    try {
+      print(event);
     } catch (_) {
       yield MnemonicNotLoaded();
     }

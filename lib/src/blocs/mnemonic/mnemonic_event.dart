@@ -9,7 +9,14 @@ abstract class MnemonicEvent extends Equatable {
 
 class LoadMnemonic extends MnemonicEvent {}
 
-class AddMnemonic extends MnemonicEvent {}
+class InsertMnemonic extends MnemonicEvent {
+  final mnemonic;
+
+  const InsertMnemonic(this.mnemonic);
+
+  @override
+  List<Object> get props => [mnemonic];
+}
 
 class UpdateMnemonic extends MnemonicEvent {}
 
