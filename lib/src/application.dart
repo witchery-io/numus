@@ -29,7 +29,7 @@ class Application extends StatelessWidget {
         return null;
       },
       routes: {
-        Router.home: (context) {
+        Router.initial: (context) {
           return MultiBlocProvider(
             providers: [
               BlocProvider<TabBloc>(create: (context) => TabBloc()),

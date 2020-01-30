@@ -1,5 +1,5 @@
 class Router {
-  static final home = "/";
+  static final initial = "/initial";
   static final generation = "/generation";
   static final verificationOrRecover = "/verificationOrRecover";
 }

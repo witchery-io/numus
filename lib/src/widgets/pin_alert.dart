@@ -70,7 +70,7 @@ class PinAlertDialog extends StatelessWidget {
                 }
 
                 Navigator.pushNamedAndRemoveUntil(
-                    context, Router.home, (_) => false,
+                    context, Router.initial, (_) => false,
                     arguments: _m);
               }),
         ]);
