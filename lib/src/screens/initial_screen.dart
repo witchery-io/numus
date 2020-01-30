@@ -14,6 +14,7 @@ class InitialScreen extends StatelessWidget {
     return BlocBuilder<TabBloc, AppTab>(
       builder: (context, activeTab) {
         return Scaffold(
+          appBar: args is InitialArg ? AppBar(title: Text('Wallet')) : null,
           body: SafeArea(
             child: activeTab == AppTab.general
                 ? BlocBuilder<MnemonicBloc, MnemonicState>(
