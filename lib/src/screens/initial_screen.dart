@@ -13,7 +13,7 @@ class InitialScreen extends StatelessWidget {
 
     return BlocBuilder<TabBloc, AppTab>(
       builder: (context, activeTab) {
-        /// will be changed
+
         /// should be changed
         final isWallet = args is InitialArgs && activeTab == AppTab.general;
 
