@@ -16,7 +16,16 @@ class ExistingScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           CustomButton(
-              child: Text('Unlock'), onPressed: () => _pinAlert(context)),
+              child: Text('Unlock'),
+              onPressed: () async {
+                showDialog<void>(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      return PinAlertDialog(
+                          PinAlertDialogArgs(null, base64Mnemonic));
+                    });
+              }),
           CustomButton(
               child: Text('Logout'),
               onPressed: () {
@@ -24,16 +33,6 @@ class ExistingScreen extends StatelessWidget {
               }),
         ],
       ),
-    );
-  }
-
-  Future<void> _pinAlert(BuildContext context) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return PinAlertDialog(PinAlertDialogArgs(null, base64Mnemonic));
-      },
     );
   }
 }
