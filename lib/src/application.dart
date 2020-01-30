@@ -34,7 +34,7 @@ class Application extends StatelessWidget {
             providers: [
               BlocProvider<TabBloc>(create: (context) => TabBloc()),
               BlocProvider<MnemonicBloc>(
-                  create: (context) =>
+                  create: (_) =>
                       MnemonicBloc(secureStorage: const FlutterSecureStorage())
                         ..add(LoadMnemonic()))
             ],
