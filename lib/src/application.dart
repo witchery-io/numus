@@ -17,6 +17,7 @@ class Application extends StatelessWidget {
       localizationsDelegates: [
         FlutterBlocLocalizationsDelegate(),
       ],
+      initialRoute: Router.initial,
       onGenerateRoute: (settings) {
         final String type = settings.name;
         switch (type) {
