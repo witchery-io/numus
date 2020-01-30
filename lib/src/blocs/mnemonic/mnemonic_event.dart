@@ -11,4 +11,4 @@ class LoadMnemonic extends MnemonicEvent {}
 
 class UpdateMnemonic extends MnemonicEvent {}
 
-class DeleteMnemonic extends MnemonicEvent {}
+class RemoveMnemonic extends MnemonicEvent {}

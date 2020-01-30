@@ -18,13 +18,15 @@ class InitialScreen extends StatelessWidget {
                     builder: (context, state) {
                       if (state is MnemonicLoading) {
                         return LoadingIndicator();
-                      }
-                      if (state is MnemonicNotLoaded) {
+                      } else if (state is MnemonicNotLoaded ||
+                          state is MnemonicRemoved) {
                         return GeneralScreen();
-                      }
-                      if (state is MnemonicLoaded) {
+                      } else if (state is MnemonicLoaded ||
+                          state is MnemonicNotRemoved) {
+                        /// cant logout or loaded in local secure storage
                         return ExistingScreen();
                       }
+
                       return null; // unreachable
                     },
                   )

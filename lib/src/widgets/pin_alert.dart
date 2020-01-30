@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_fundamental/core/core.dart';
 import 'package:flutter_fundamental/src/utils/encrypt_helper.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:toast/toast.dart';
@@ -47,30 +48,30 @@ class PinAlertDialog extends StatelessWidget {
                       duration: 2, gravity: Toast.TOP);
                   return;
                 }
+                String _m = mnemonic;
 
                 final encrypt = EncryptHelper(pin: pin);
                 final secureStorage = FlutterSecureStorage();
 
-                if (mnemonic != null) {
-                  final encrypted = encrypt.encryptByPin(mnemonic);
+                if (_m != null) {
+                  final encrypted = encrypt.encryptByPin(_m);
                   await secureStorage.write(
                       key: 'mnemonic', value: encrypted.base64);
                   Navigator.pushNamedAndRemoveUntil(
-                      context, 'verification', (_) => false,
-                      arguments: mnemonic);
+                      context, Router.home, (_) => false,
+                      arguments: _m);
                 } else {
                   try {
                     final mnemonicBase64 = secureStorage.read(key: 'mnemonic');
                     assert(mnemonicBase64 != null);
-                    final mnemonic =
-                        encrypt.decryptByPinByBase64(mnemonicBase64);
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, 'verification', (_) => false,
-                        arguments: mnemonic);
+                    _m = encrypt.decryptByPinByBase64(mnemonicBase64);
                   } catch (e) {
                     Toast.show(e.message, context,
                         duration: 2, gravity: Toast.TOP);
                   }
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, Router.home, (_) => false,
+                      arguments: mnemonic);
                 }
               }),
         ]);

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 
 class ExistingScreen extends StatelessWidget {
@@ -14,7 +16,7 @@ class ExistingScreen extends StatelessWidget {
             /// get pin screen
           }),
           CustomButton(child: Text('Logout'), onPressed: () {
-            /// remove mnemonic
+            BlocProvider.of<MnemonicBloc>(context).add(RemoveMnemonic());
           }),
         ],
       ),

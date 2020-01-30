@@ -23,3 +23,6 @@ class MnemonicLoaded extends MnemonicState {
 
 class MnemonicNotLoaded extends MnemonicState {}
 
+class MnemonicRemoved extends MnemonicState {}
+
+class MnemonicNotRemoved extends MnemonicState {}

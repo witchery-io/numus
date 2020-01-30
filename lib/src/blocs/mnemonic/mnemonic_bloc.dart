@@ -20,6 +20,8 @@ class MnemonicBloc extends Bloc<MnemonicEvent, MnemonicState> {
   ) async* {
     if (event is LoadMnemonic) {
       yield* _loadMnemonicToState();
+    } else if (event is RemoveMnemonic) {
+      yield* _removeMnemonicToState();
     }
   }
 
@@ -33,6 +35,15 @@ class MnemonicBloc extends Bloc<MnemonicEvent, MnemonicState> {
       yield MnemonicLoaded(mnemonic);
     } catch (_) {
       yield MnemonicNotLoaded();
+    }
+  }
+
+  Stream<MnemonicState> _removeMnemonicToState() async* {
+    try {
+      await this.secureStorage.delete(key: 'mnemonic');
+      yield MnemonicRemoved();
+    } catch (_) {
+      yield MnemonicNotRemoved();
     }
   }
 }

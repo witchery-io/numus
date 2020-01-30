@@ -7,9 +7,9 @@ class GeneralScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
           CustomButton(
               child: Text('Create New'),
               onPressed: () => Navigator.pushNamed(context, Router.generation)),
@@ -18,8 +18,6 @@ class GeneralScreen extends StatelessWidget {
               onPressed: () => Navigator.pushNamed(
                   context, Router.verificationOrRecover,
                   arguments: VerificationOrRecoverArg(null))),
-        ],
-      ),
-    );
+        ]));
   }
 }
