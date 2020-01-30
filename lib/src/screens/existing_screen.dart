@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
-import 'package:flutter_fundamental/src/widgets/pin_alert.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 
 class ExistingScreen extends StatelessWidget {

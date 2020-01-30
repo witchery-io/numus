@@ -1,6 +1,5 @@
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:flutter/material.dart';
-import 'package:flutter_fundamental/src/widgets/pin_alert.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 import 'package:toast/toast.dart';
 
