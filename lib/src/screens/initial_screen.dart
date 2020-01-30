@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_fundamental/core/core.dart';
 import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
 import 'package:flutter_fundamental/src/blocs/tab/bloc.dart';
 import 'package:flutter_fundamental/src/models/models.dart';
@@ -21,10 +20,10 @@ class InitialScreen extends StatelessWidget {
                         return LoadingIndicator();
                       }
                       if (state is MnemonicNotLoaded) {
-                        return General();
+                        return GeneralScreen();
                       }
                       if (state is MnemonicLoaded) {
-                        return Existing();
+                        return ExistingScreen();
                       }
                       return null; // unreachable
                     },
@@ -37,42 +36,6 @@ class InitialScreen extends StatelessWidget {
                   BlocProvider.of<TabBloc>(context).add(UpdateTab(tab))),
         );
       },
-    );
-  }
-}
-
-class Existing extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          CustomButton(child: Text('Unlock'), onPressed: () {}),
-          CustomButton(child: Text('Logout'), onPressed: () {}),
-        ],
-      ),
-    );
-  }
-}
-
-class General extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          CustomButton(
-              child: Text('Create New'),
-              onPressed: () => Navigator.pushNamed(context, Router.generation)),
-          CustomButton(
-              child: Text('Recover'),
-              onPressed: () => Navigator.pushNamed(
-                  context, Router.verificationOrRecover,
-                  arguments: VerificationOrRecoverArg(null))),
-        ],
-      ),
     );
   }
 }

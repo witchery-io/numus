@@ -32,9 +32,7 @@ class Application extends StatelessWidget {
         Router.home: (context) {
           return MultiBlocProvider(
             providers: [
-              BlocProvider<TabBloc>(
-                create: (context) => TabBloc(),
-              ),
+              BlocProvider<TabBloc>(create: (context) => TabBloc()),
               BlocProvider<MnemonicBloc>(
                   create: (context) =>
                       MnemonicBloc(secureStorage: const FlutterSecureStorage())

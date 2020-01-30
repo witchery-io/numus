@@ -4,6 +4,7 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_fundamental/src/utils/encrypt_helper.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:toast/toast.dart';
 
 class PinAlertDialog extends StatelessWidget {
@@ -39,7 +40,7 @@ class PinAlertDialog extends StatelessWidget {
         actions: <Widget>[
           FlatButton(
               child: Text('Confirmed'),
-              onPressed: () {
+              onPressed: () async {
                 final pin = pinController.text;
                 if (pin.length != 6) {
                   Toast.show('Please set 6 symbol.', context,
@@ -48,19 +49,24 @@ class PinAlertDialog extends StatelessWidget {
                 }
 
                 final encrypt = EncryptHelper(pin: pin);
+                final secureStorage = FlutterSecureStorage();
+
                 if (mnemonic != null) {
                   final encrypted = encrypt.encryptByPin(mnemonic);
-                  print(encrypted.base64);
-
-                  /// save in local secure storage
+                  await secureStorage.write(
+                      key: 'mnemonic', value: encrypted.base64);
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, 'verification', (_) => false,
+                      arguments: mnemonic);
                 } else {
                   try {
-                    /// if has mnemonic in secure storage
-                    /// async get is secure storage
-                    ///
-                    final decrypted = encrypt.decryptByPinByBase64(
-                        '640H2A71ONIo5crRrTYG7u4eTEr/Rdp6R44fdSFklNKReGA1RIbm53JVJ6bFlSp8Bgd7nKbpbKUrR69Hk+wM9h2RxpXJUffqWt0lDMr2oFM=');
-                    print(decrypted);
+                    final mnemonicBase64 = secureStorage.read(key: 'mnemonic');
+                    assert(mnemonicBase64 != null);
+                    final mnemonic =
+                        encrypt.decryptByPinByBase64(mnemonicBase64);
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, 'verification', (_) => false,
+                        arguments: mnemonic);
                   } catch (e) {
                     Toast.show(e.message, context,
                         duration: 2, gravity: Toast.TOP);
