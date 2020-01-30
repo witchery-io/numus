@@ -30,7 +30,7 @@ class InitialScreen extends StatelessWidget {
                       return null; // unreachable
                     },
                   )
-                : Games(),
+                : GamesScreen(),
           ),
           bottomNavigationBar: TabSelector(
               activeTab: activeTab,
@@ -42,16 +42,3 @@ class InitialScreen extends StatelessWidget {
   }
 }
 
-class Games extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text('Games'));
-  }
-}
-
-class Wallet extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text('Wallet'));
-  }
-}
