@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:crypto/crypto.dart';
-import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_fundamental/src/utils/encrypt_helper.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 import 'package:toast/toast.dart';
 
@@ -196,34 +196,23 @@ class PinAlertDialog extends StatelessWidget {
                   return;
                 }
 
-                final md5Pin = convertToMd5(pin);
-
-                /// todo :: (!=)
-                if (mnemonic == null) {
-                  final key = encrypt.Key.fromUtf8(md5Pin);
-                  final iv = encrypt.IV.fromLength(16);
-                  final enc = encrypt.Encrypter(encrypt.AES(key));
-                  final encrypted = enc.encrypt(mnemonic, iv: iv);
-
-                  print(encrypted);
+                final encrypt = EncryptHelper(pin: pin);
+                if (mnemonic != null) {
+                  final encrypted = encrypt.encryptByPin(mnemonic);
                   print(encrypted.base64);
 
-                  // pin 111111
-                  // 640H2A71ONIo5crRrTYG7u4eTEr/Rdp6R44fdSFklNKReGA1RIbm53JVJ6bFlSp8Bgd7nKbpbKUrR69Hk+wM9h2RxpXJUffqWt0lDMr2oFM=
-                  // save in local secure storage
-
+                  /// save in local secure storage
                 } else {
-                  final key = encrypt.Key.fromUtf8(md5Pin);
-                  final iv = encrypt.IV.fromLength(16);
-                  final enc = encrypt.Encrypter(encrypt.AES(key));
-
-                  /// get in local storage
-
                   try {
-                    final decrypted = enc.decrypt64('640H2A71ONIo5crRrTYG7u4eTEr/Rdp6R44fdSFklNKReGA1RIbm53JVJ6bFlSp8Bgd7nKbpbKUrR69Hk+wM9h2RxpXJUffqWt0lDMr2oFM=', iv: iv);
+                    /// if has mnemonic in secure storage
+                    /// async get is secure storage
+                    ///
+                    final decrypted = encrypt.decryptByPinByBase64(
+                        '640H2A71ONIo5crRrTYG7u4eTEr/Rdp6R44fdSFklNKReGA1RIbm53JVJ6bFlSp8Bgd7nKbpbKUrR69Hk+wM9h2RxpXJUffqWt0lDMr2oFM=');
                     print(decrypted);
                   } catch (e) {
-                    Toast.show(e.message, context, duration: 2, gravity: Toast.TOP);
+                    Toast.show(e.message, context,
+                        duration: 2, gravity: Toast.TOP);
                   }
                 }
               }),
