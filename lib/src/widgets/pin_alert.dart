@@ -4,6 +4,7 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_fundamental/core/core.dart';
+import 'package:flutter_fundamental/src/screens/initial_screen.dart';
 import 'package:flutter_fundamental/src/utils/encrypt_helper.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:toast/toast.dart';
@@ -71,7 +72,7 @@ class PinAlertDialog extends StatelessWidget {
 
                 Navigator.pushNamedAndRemoveUntil(
                     context, Router.initial, (_) => false,
-                    arguments: _m);
+                    arguments: InitialArg(_m));
               }),
         ]);
   }

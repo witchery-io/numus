@@ -9,6 +9,8 @@ import 'package:flutter_fundamental/src/widgets/widgets.dart';
 class InitialScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context).settings.arguments;
+
     return BlocBuilder<TabBloc, AppTab>(
       builder: (context, activeTab) {
         return Scaffold(
@@ -23,7 +25,10 @@ class InitialScreen extends StatelessWidget {
                         return GeneralScreen();
                       } else if (state is MnemonicLoaded ||
                           state is MnemonicNotRemoved) {
-                        /// cant logout or loaded in local secure storage
+                        if (args is InitialArg) {
+                          return WalletScreen(mnemonic: args.mnemonic);
+                        }
+
                         return ExistingScreen();
                       }
 
@@ -42,3 +47,8 @@ class InitialScreen extends StatelessWidget {
   }
 }
 
+class InitialArg {
+  final String mnemonic;
+
+  InitialArg(this.mnemonic);
+}
