@@ -52,10 +52,9 @@ class PinAlertDialog extends StatelessWidget {
 
                 String _m = args.mnemonic;
                 final encrypt = EncryptHelper(pin: pin);
-                final secureStorage = FlutterSecureStorage();
-
                 if (_m != null) {
                   final encrypted = encrypt.encryptByPin(_m);
+                  final secureStorage = FlutterSecureStorage();
                   await secureStorage.write(
                       key: 'mnemonic', value: encrypted.base64);
                 } else {
