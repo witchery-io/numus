@@ -13,11 +13,34 @@ class InitialScreen extends StatelessWidget {
 
     return BlocBuilder<TabBloc, AppTab>(
       builder: (context, activeTab) {
-        return Scaffold(
-          appBar: args is InitialArgs && activeTab == AppTab.general
-              ? AppBar(title: Text('Wallet'))
-              : null,
+        /// will be changed
+        /// should be changed
+        final isWallet = args is InitialArgs && activeTab == AppTab.general;
 
+        return Scaffold(
+          appBar: isWallet ? AppBar(title: Text('Wallet')) : null,
+          drawer: isWallet
+              ? Drawer(
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    children: <Widget>[
+                      DrawerHeader(
+                        child: Text('Account#',
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 24)),
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.delete_outline),
+                        title: Text('Log out'),
+                        onTap: () {
+                          BlocProvider.of<MnemonicBloc>(context)
+                              .add(RemoveMnemonic());
+                        },
+                      ),
+                    ],
+                  ),
+                )
+              : null,
           body: SafeArea(
             child: activeTab == AppTab.general
                 ? BlocBuilder<MnemonicBloc, MnemonicState>(
