@@ -18,7 +18,7 @@ class PinAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-        title: Text('Set pin for your wallets security.'),
+        title: Text('${args.title}'),
         content: SingleChildScrollView(
           child: ListBody(children: <Widget>[
             Container(
@@ -81,8 +81,12 @@ class PinAlertDialog extends StatelessWidget {
 }
 
 class PinAlertDialogArgs {
+  final title;
   final mnemonic;
   final base64Mnemonic;
 
-  PinAlertDialogArgs(this.mnemonic, this.base64Mnemonic);
+  PinAlertDialogArgs(
+      {@required this.title,
+      @required this.mnemonic,
+      @required this.base64Mnemonic});
 }

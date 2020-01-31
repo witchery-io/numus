@@ -21,8 +21,10 @@ class ExistingScreen extends StatelessWidget {
                     context: context,
                     barrierDismissible: false,
                     builder: (BuildContext context) {
-                      return PinAlertDialog(
-                          PinAlertDialogArgs(null, base64Mnemonic));
+                      return PinAlertDialog(PinAlertDialogArgs(
+                          title: 'Please set your pin.',
+                          mnemonic: null,
+                          base64Mnemonic: base64Mnemonic));
                     });
               }),
           CustomButton(
