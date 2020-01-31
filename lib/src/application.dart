@@ -26,7 +26,8 @@ class Application extends StatelessWidget {
               final VerificationOrRecoverArgs arguments = args;
               return MaterialPageRoute(
                   builder: (_) =>
-                      VerificationOrRecoverScreen(arguments.mnemonic));
+                      VerificationOrRecoverScreen(arguments.mnemonic),
+                  settings: settings);
             }
         }
 
