@@ -24,3 +24,5 @@ class VerifyOrRecoverMnemonic extends MnemonicEvent {
   @override
   String toString() => 'Recover Or Verify { mnemonic: $mnemonic }';
 }
+
+class AcceptMnemonic extends MnemonicEvent {}

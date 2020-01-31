@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
 import 'package:flutter_fundamental/src/utils/encrypt_helper.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:toast/toast.dart';
@@ -64,16 +66,14 @@ class PinAlertDialog extends StatelessWidget {
                   }
                 } else {
                   /* VERIFICATION OR RECOVER */
-                  final encrypted = encrypt.encryptByPin(mnemonic);
+              /*    final encrypted = encrypt.encryptByPin(mnemonic);
 
                   final secureStorage = FlutterSecureStorage();
                   await secureStorage.write(
-                      key: 'mnemonic', value: encrypted.base64);
-                }
+                      key: 'mnemonic', value: encrypted.base64);*/
 
-//                Navigator.pushNamedAndRemoveUntil(
-//                    context, Router.initial, (_) => false,
-//                    arguments: InitialArgs(mnemonic));
+                  BlocProvider.of<MnemonicBloc>(context).add(AcceptMnemonic());
+                }
               }),
         ]);
   }

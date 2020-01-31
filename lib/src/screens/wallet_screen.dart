@@ -7,11 +7,13 @@ class WalletScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        padding: EdgeInsets.all(12.0),
-        child: ListBody(children: <Widget>[
-          Text('Mnemonic', style: TextStyle(fontSize: 24.0)),
-          Text('$mnemonic'),
-        ]));
+    return Scaffold(
+      body: SingleChildScrollView(
+          padding: EdgeInsets.all(12.0),
+          child: ListBody(children: <Widget>[
+            Text('Mnemonic', style: TextStyle(fontSize: 24.0)),
+            Text('$mnemonic'),
+          ])),
+    );
   }
 }

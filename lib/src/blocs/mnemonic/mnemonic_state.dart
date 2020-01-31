@@ -27,4 +27,16 @@ class MnemonicRemoved extends MnemonicState {}
 
 class MnemonicGeneration extends MnemonicState {}
 
-class MnemonicVerifyOrRecover extends MnemonicState {}
+class MnemonicVerifyOrRecover extends MnemonicState {
+  final mnemonic;
+
+  const MnemonicVerifyOrRecover(this.mnemonic);
+
+  @override
+  List<Object> get props => [mnemonic];
+
+  @override
+  String toString() => 'Mnemonic Verify Or Recover { mnemonic: $mnemonic }';
+}
+
+class MnemonicAccepted extends MnemonicState {}

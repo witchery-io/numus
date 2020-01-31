@@ -19,7 +19,9 @@ class InitialScreen extends StatelessWidget {
       } else if (state is MnemonicGeneration) {
         return GenerationScreen();
       } else if (state is MnemonicVerifyOrRecover) {
-        return VerificationOrRecoverScreen(null);
+        return VerificationOrRecoverScreen(state.mnemonic);
+      } else if (state is MnemonicAccepted) {
+        return WalletScreen(mnemonic: null);
       } else {
         return null; // unknown screen
       }

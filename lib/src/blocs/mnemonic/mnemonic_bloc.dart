@@ -24,15 +24,15 @@ class MnemonicBloc extends Bloc<MnemonicEvent, MnemonicState> {
       yield* _newMnemonicToState();
     } else if (event is VerifyOrRecoverMnemonic) {
       yield* _verifyOrRecoverMnemonicToState(event);
+    } else if (event is AcceptMnemonic) {
+      yield* _acceptOrRecoverMnemonicToState();
     }
   }
 
   Stream<MnemonicState> _loadMnemonicToState() async* {
     try {
       final mnemonic = await this.secureStorage.read(key: 'mnemonic');
-      if (mnemonic == null) {
-        throw Exception('Mnemonic is null');
-      }
+      if (mnemonic == null) throw Exception('Mnemonic is null');
 
       yield MnemonicLoaded(mnemonic);
     } catch (_) {
@@ -51,6 +51,10 @@ class MnemonicBloc extends Bloc<MnemonicEvent, MnemonicState> {
 
   Stream<MnemonicState> _verifyOrRecoverMnemonicToState(
       VerifyOrRecoverMnemonic event) async* {
-    yield MnemonicVerifyOrRecover();
+    yield MnemonicVerifyOrRecover(event.mnemonic);
+  }
+
+  Stream<MnemonicState> _acceptOrRecoverMnemonicToState() async* {
+    yield MnemonicAccepted();
   }
 }
