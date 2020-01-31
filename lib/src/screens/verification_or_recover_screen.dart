@@ -135,15 +135,14 @@ class _VerificationOrRecoverScreenState
     FocusScope.of(context).requestFocus(FocusNode());
 
     return showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return PinAlertDialog(PinAlertDialogArgs(
-            title: 'Set pin for your wallets security',
-            mnemonic: mnemonic,
-            base64Mnemonic: null));
-      },
-    );
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return PinAlertDialog(PinAlertDialogArgs(
+              title: 'Set pin for your wallets security',
+              mnemonic: mnemonic,
+              base64Mnemonic: null));
+        });
   }
 
   @override
