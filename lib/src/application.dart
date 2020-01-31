@@ -18,13 +18,16 @@ class Application extends StatelessWidget {
         FlutterBlocLocalizationsDelegate(),
       ],
       initialRoute: Router.initial,
-      onGenerateRoute: (settings) {
-        final String type = settings.name;
-        switch (type) {
-          case "/verificationOrRecover":
-            final VerificationOrRecoverArgs args = settings.arguments;
-            return MaterialPageRoute(
-                builder: (_) => VerificationOrRecoverScreen(args.mnemonic));
+      onGenerateRoute: (RouteSettings settings) {
+        final args = settings.arguments;
+        switch (settings.name) {
+          case '/verificationOrRecover':
+            {
+              final VerificationOrRecoverArgs arguments = args;
+              return MaterialPageRoute(
+                  builder: (_) =>
+                      VerificationOrRecoverScreen(arguments.mnemonic));
+            }
         }
 
         return null;
