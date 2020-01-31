@@ -14,17 +14,13 @@ class InitialScreen extends StatelessWidget {
 
     return BlocBuilder<TabBloc, AppTab>(
       builder: (context, activeTab) {
-        print(activeTab);
-        print(args);
-
-        /// should be changed
-        final isWallet = args is InitialArgs && activeTab == AppTab.general;
+        final isShowTopBar = args is InitialArgs && activeTab == AppTab.general;
 
         return Scaffold(
-          appBar: isWallet
+          appBar: isShowTopBar
               ? AppBar(title: Text('Wallet'), centerTitle: true)
               : null,
-          drawer: isWallet
+          drawer: isShowTopBar
               ? Drawer(
                   child: ListView(
                     padding: EdgeInsets.zero,
