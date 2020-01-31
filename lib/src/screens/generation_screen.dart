@@ -1,7 +1,7 @@
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:flutter/material.dart';
-import 'package:flutter_fundamental/core/core.dart';
-import 'package:flutter_fundamental/src/screens/screens.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 
 class GenerationScreen extends StatelessWidget {
@@ -38,10 +38,8 @@ class GenerationScreen extends StatelessWidget {
                           CustomButton(
                             child: Text('Verify'),
                             onPressed: () {
-                              Navigator.pushNamed(
-                                  context, Router.verificationOrRecover,
-                                  arguments:
-                                      VerificationOrRecoverArgs(mnemonic));
+                              BlocProvider.of<MnemonicBloc>(context)
+                                  .add(VerifyOrRecoverMnemonic(mnemonic));
                             },
                           )
                         ]),

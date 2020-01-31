@@ -10,3 +10,17 @@ abstract class MnemonicEvent extends Equatable {
 class LoadMnemonic extends MnemonicEvent {}
 
 class RemoveMnemonic extends MnemonicEvent {}
+
+class NewMnemonic extends MnemonicEvent {}
+
+class VerifyOrRecoverMnemonic extends MnemonicEvent {
+  final String mnemonic;
+
+  const VerifyOrRecoverMnemonic(this.mnemonic);
+
+  @override
+  List<Object> get props => [mnemonic];
+
+  @override
+  String toString() => 'Recover Or Verify { mnemonic: $mnemonic }';
+}

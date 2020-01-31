@@ -6,7 +6,7 @@ import 'package:toast/toast.dart';
 class VerificationOrRecoverScreen extends StatefulWidget {
   final String mnemonic;
 
-  VerificationOrRecoverScreen(this.mnemonic);
+  const VerificationOrRecoverScreen(this.mnemonic);
 
   @override
   _VerificationOrRecoverScreenState createState() =>

@@ -16,6 +16,10 @@ class InitialScreen extends StatelessWidget {
             create: (context) => TabBloc(), child: GeneralScreen());
       } else if (state is MnemonicLoaded) {
         return ExistingScreen(base64Mnemonic: state.mnemonic);
+      } else if (state is MnemonicGeneration) {
+        return GenerationScreen();
+      } else if (state is MnemonicVerifyOrRecover) {
+        return VerificationOrRecoverScreen(null);
       } else {
         return null; // unknown screen
       }

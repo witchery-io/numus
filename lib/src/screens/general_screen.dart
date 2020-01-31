@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
 import 'package:flutter_fundamental/src/blocs/tab/bloc.dart';
 import 'package:flutter_fundamental/src/models/app_tab.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
@@ -25,8 +26,12 @@ class _GeneralTab extends StatelessWidget {
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-          CustomButton(child: Text('Create New'), onPressed: () {}),
-          CustomButton(child: Text('Recover'), onPressed: () {}),
+          CustomButton(child: Text('Create New'), onPressed: () {
+            BlocProvider.of<MnemonicBloc>(context).add(NewMnemonic());
+          }),
+          CustomButton(child: Text('Recover'), onPressed: () {
+            BlocProvider.of<MnemonicBloc>(context).add(VerifyOrRecoverMnemonic(null));
+          }),
         ]));
   }
 }
