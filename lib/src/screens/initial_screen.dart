@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_fundamental/core/core.dart';
 import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
 import 'package:flutter_fundamental/src/blocs/tab/bloc.dart';
 import 'package:flutter_fundamental/src/models/models.dart';
@@ -13,12 +14,16 @@ class InitialScreen extends StatelessWidget {
 
     return BlocBuilder<TabBloc, AppTab>(
       builder: (context, activeTab) {
-
         /// should be changed
         final isWallet = args is InitialArgs && activeTab == AppTab.general;
 
         return Scaffold(
-          appBar: isWallet ? AppBar(title: Text('Wallet')) : null,
+          appBar: isWallet
+              ? AppBar(
+                  title: Text('Wallet'),
+                  centerTitle: true,
+                )
+              : null,
           drawer: isWallet
               ? Drawer(
                   child: ListView(
@@ -33,8 +38,8 @@ class InitialScreen extends StatelessWidget {
                         leading: Icon(Icons.delete_outline),
                         title: Text('Log out'),
                         onTap: () {
-                          BlocProvider.of<MnemonicBloc>(context)
-                              .add(RemoveMnemonic());
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, Router.initial, (_) => false);
                         },
                       ),
                     ],
