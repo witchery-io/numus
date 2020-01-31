@@ -43,15 +43,19 @@ class PinAlertDialog extends StatelessWidget {
           FlatButton(
               child: Text('Confirmed'),
               onPressed: () async {
-                final pin = pinController.text;
-                if (pin.length != 6) {
+                final strPin = pinController.text;
+                if (strPin.length != 6) {
                   Toast.show('Please set 6 symbol.', context,
                       duration: 2, gravity: Toast.TOP);
                   return;
                 }
 
                 String mnemonic = args.mnemonic;
-                final encrypt = EncryptHelper(pin: pin);
+                final encrypt = EncryptHelper(pin: strPin);
+
+                /*
+                * VERIFICATION OR RECOVER
+                * */
                 if (mnemonic != null) {
                   final encrypted = encrypt.encryptByPin(mnemonic);
 
@@ -59,8 +63,11 @@ class PinAlertDialog extends StatelessWidget {
                   await secureStorage.write(
                       key: 'mnemonic', value: encrypted.base64);
                 } else {
+                  /*
+                  * EXISTING SCREEN
+                  * */
+                  assert(args.base64Mnemonic != null);
                   try {
-                    assert(args.base64Mnemonic != null);
                     mnemonic =
                         encrypt.decryptByPinByBase64(args.base64Mnemonic);
                   } catch (e) {

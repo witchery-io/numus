@@ -20,7 +20,7 @@ class InitialScreen extends StatelessWidget {
           appBar: isShowTopBar
               ? AppBar(title: Text('Wallet'), centerTitle: true)
               : null,
-          drawer: isShowTopBar ? _LeftMenu() : null,
+          drawer: _LeftMenu(),
           body: SafeArea(
             child: activeTab == AppTab.general
                 ? args is InitialArgs
