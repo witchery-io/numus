@@ -19,7 +19,7 @@ class Application extends StatelessWidget {
       initialRoute: Router.initial,
       routes: {
         Router.initial: (context) {
-          return BlocProvider(
+          return BlocProvider<MnemonicBloc>(
             create: (context) =>
                 MnemonicBloc(secureStorage: const FlutterSecureStorage())
                   ..add(LoadMnemonic()),

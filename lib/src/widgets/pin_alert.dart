@@ -73,9 +73,9 @@ class PinAlertDialog extends StatelessWidget {
                       key: 'mnemonic', value: encrypted.base64);
                 }
 
-                Navigator.pushNamedAndRemoveUntil(
-                    context, Router.initial, (_) => false,
-                    arguments: InitialArgs(mnemonic));
+//                Navigator.pushNamedAndRemoveUntil(
+//                    context, Router.initial, (_) => false,
+//                    arguments: InitialArgs(mnemonic));
               }),
         ]);
   }
