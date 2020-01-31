@@ -14,6 +14,9 @@ class InitialScreen extends StatelessWidget {
 
     return BlocBuilder<TabBloc, AppTab>(
       builder: (context, activeTab) {
+        print(activeTab);
+        print(args);
+
         /// should be changed
         final isWallet = args is InitialArgs && activeTab == AppTab.general;
 
@@ -35,8 +38,8 @@ class InitialScreen extends StatelessWidget {
                         leading: Icon(Icons.delete_outline),
                         title: Text('Log out'),
                         onTap: () {
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, Router.initial, (_) => false);
+                          BlocProvider.of<MnemonicBloc>(context).add(RemoveMnemonic());
+                          Navigator.pushNamedAndRemoveUntil(context, Router.initial, (_) => false);
                         },
                       ),
                     ],
