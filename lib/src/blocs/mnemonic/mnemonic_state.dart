@@ -39,4 +39,14 @@ class MnemonicVerifyOrRecover extends MnemonicState {
   String toString() => 'Mnemonic Verify Or Recover { mnemonic: $mnemonic }';
 }
 
-class MnemonicAccepted extends MnemonicState {}
+class MnemonicAccepted extends MnemonicState {
+  final mnemonic;
+
+  const MnemonicAccepted(this.mnemonic);
+
+  @override
+  List<Object> get props => [mnemonic];
+
+  @override
+  String toString() => 'Access accepted { mnemonic: $mnemonic }';
+}

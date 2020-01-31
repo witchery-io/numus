@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
 import 'package:flutter_fundamental/src/utils/encrypt_helper.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:toast/toast.dart';
 
 class PinAlertDialog extends StatelessWidget {
@@ -57,22 +56,16 @@ class PinAlertDialog extends StatelessWidget {
                   /* EXISTING SCREEN */
                   assert(args.base64Mnemonic != null);
                   try {
-                    mnemonic =
-                        encrypt.decryptByPinByBase64(args.base64Mnemonic);
+                    mnemonic = encrypt.decryptByPinByBase64(args.base64Mnemonic);
+                    BlocProvider.of<MnemonicBloc>(context).add(AcceptMnemonic(mnemonic, null));
                   } catch (e) {
-                    Toast.show(e.message, context,
-                        duration: 2, gravity: Toast.TOP);
-                    return;
+                    Toast.show(e.message, context, duration: 2, gravity: Toast.TOP);
                   }
                 } else {
                   /* VERIFICATION OR RECOVER */
-              /*    final encrypted = encrypt.encryptByPin(mnemonic);
-
-                  final secureStorage = FlutterSecureStorage();
-                  await secureStorage.write(
-                      key: 'mnemonic', value: encrypted.base64);*/
-
-                  BlocProvider.of<MnemonicBloc>(context).add(AcceptMnemonic());
+                  final encrypted = encrypt.encryptByPin(mnemonic);
+                  BlocProvider.of<MnemonicBloc>(context)
+                      .add(AcceptMnemonic(mnemonic, encrypted.base64));
                 }
               }),
         ]);

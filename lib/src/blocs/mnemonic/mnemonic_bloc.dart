@@ -25,7 +25,7 @@ class MnemonicBloc extends Bloc<MnemonicEvent, MnemonicState> {
     } else if (event is VerifyOrRecoverMnemonic) {
       yield* _verifyOrRecoverMnemonicToState(event);
     } else if (event is AcceptMnemonic) {
-      yield* _acceptOrRecoverMnemonicToState();
+      yield* _acceptOrRecoverMnemonicToState(event);
     }
   }
 
@@ -54,7 +54,15 @@ class MnemonicBloc extends Bloc<MnemonicEvent, MnemonicState> {
     yield MnemonicVerifyOrRecover(event.mnemonic);
   }
 
-  Stream<MnemonicState> _acceptOrRecoverMnemonicToState() async* {
-    yield MnemonicAccepted();
+  Stream<MnemonicState> _acceptOrRecoverMnemonicToState(
+      AcceptMnemonic event) async* {
+    try {
+      if (event.mnemonicBase64 != null)
+        await this
+            .secureStorage
+            .write(key: 'mnemonic', value: event.mnemonicBase64);
+
+      yield MnemonicAccepted(event.mnemonic);
+    } catch (_) {}
   }
 }

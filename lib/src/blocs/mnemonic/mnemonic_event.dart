@@ -25,4 +25,9 @@ class VerifyOrRecoverMnemonic extends MnemonicEvent {
   String toString() => 'Recover Or Verify { mnemonic: $mnemonic }';
 }
 
-class AcceptMnemonic extends MnemonicEvent {}
+class AcceptMnemonic extends MnemonicEvent {
+  final mnemonic;
+  final mnemonicBase64;
+
+  AcceptMnemonic(this.mnemonic, this.mnemonicBase64);
+}
