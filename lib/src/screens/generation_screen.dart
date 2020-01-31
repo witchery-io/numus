@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_fundamental/core/core.dart';
 import 'package:flutter_fundamental/src/screens/screens.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
+import 'package:bip39/bip39.dart' as bip39;
 
 class GenerationScreen extends StatelessWidget {
-  final String genMnemonic =
-      'limit boost flip evil regret shy alert always shine cabin unique angry';
+  String get genMnemonic => bip39.generateMnemonic();
 
   @override
   Widget build(BuildContext context) {

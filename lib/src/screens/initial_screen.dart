@@ -19,10 +19,7 @@ class InitialScreen extends StatelessWidget {
 
         return Scaffold(
           appBar: isWallet
-              ? AppBar(
-                  title: Text('Wallet'),
-                  centerTitle: true,
-                )
+              ? AppBar(title: Text('Wallet'), centerTitle: true)
               : null,
           drawer: isWallet
               ? Drawer(
