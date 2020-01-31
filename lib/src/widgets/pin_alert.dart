@@ -53,19 +53,8 @@ class PinAlertDialog extends StatelessWidget {
                 String mnemonic = args.mnemonic;
                 final encrypt = EncryptHelper(pin: strPin);
 
-                /*
-                * VERIFICATION OR RECOVER
-                * */
-                if (mnemonic != null) {
-                  final encrypted = encrypt.encryptByPin(mnemonic);
-
-                  final secureStorage = FlutterSecureStorage();
-                  await secureStorage.write(
-                      key: 'mnemonic', value: encrypted.base64);
-                } else {
-                  /*
-                  * EXISTING SCREEN
-                  * */
+                if (mnemonic == null) {
+                  /* EXISTING SCREEN */
                   assert(args.base64Mnemonic != null);
                   try {
                     mnemonic =
@@ -75,6 +64,13 @@ class PinAlertDialog extends StatelessWidget {
                         duration: 2, gravity: Toast.TOP);
                     return;
                   }
+                } else {
+                  /* VERIFICATION OR RECOVER */
+                  final encrypted = encrypt.encryptByPin(mnemonic);
+
+                  final secureStorage = FlutterSecureStorage();
+                  await secureStorage.write(
+                      key: 'mnemonic', value: encrypted.base64);
                 }
 
                 Navigator.pushNamedAndRemoveUntil(
