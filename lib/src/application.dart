@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fundamental/core/core.dart';
-import 'package:flutter_fundamental/src/blocs/tab/bloc.dart';
 import 'package:flutter_fundamental/src/screens/screens.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -18,31 +17,12 @@ class Application extends StatelessWidget {
         FlutterBlocLocalizationsDelegate(),
       ],
       initialRoute: Router.initial,
-      onGenerateRoute: (RouteSettings settings) {
-        final args = settings.arguments;
-        switch (settings.name) {
-          case '/verificationOrRecover':
-            {
-              final VerificationOrRecoverArgs arguments = args;
-              return MaterialPageRoute(
-                  builder: (_) =>
-                      VerificationOrRecoverScreen(arguments.mnemonic),
-                  settings: settings);
-            }
-        }
-
-        return null;
-      },
       routes: {
         Router.initial: (context) {
-          return MultiBlocProvider(
-            providers: [
-              BlocProvider<TabBloc>(create: (context) => TabBloc()),
-              BlocProvider<MnemonicBloc>(
-                  create: (_) =>
-                      MnemonicBloc(secureStorage: const FlutterSecureStorage())
-                        ..add(LoadMnemonic()))
-            ],
+          return BlocProvider(
+            create: (context) =>
+                MnemonicBloc(secureStorage: const FlutterSecureStorage())
+                  ..add(LoadMnemonic()),
             child: InitialScreen(),
           );
         },
