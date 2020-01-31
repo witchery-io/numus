@@ -37,11 +37,7 @@ class MnemonicBloc extends Bloc<MnemonicEvent, MnemonicState> {
   }
 
   Stream<MnemonicState> _removeMnemonicToState() async* {
-    try {
-      await this.secureStorage.delete(key: 'mnemonic');
-      yield MnemonicRemoved();
-    } catch (_) {
-      yield MnemonicNotRemoved();
-    }
+    await this.secureStorage.delete(key: 'mnemonic');
+    yield MnemonicRemoved();
   }
 }

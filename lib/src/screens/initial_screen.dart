@@ -42,9 +42,7 @@ class InitialScreen extends StatelessWidget {
       builder: (context, state) {
         if (state is MnemonicLoading) {
           return LoadingIndicator();
-        } else if (state is MnemonicNotLoaded ||
-            state is MnemonicRemoved ||
-            state is MnemonicNotRemoved) {
+        } else if (state is MnemonicNotLoaded) {
           return GeneralScreen();
         } else if (state is MnemonicLoaded) {
           return ExistingScreen(base64Mnemonic: state.mnemonic);

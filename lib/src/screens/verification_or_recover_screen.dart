@@ -45,6 +45,7 @@ class _VerificationOrRecoverScreenState
               ),
               SizedBox(height: 12.0),
               isRecover
+                  /* RECOVER */
                   ? MnemonicVerificationTextField(
                       helperText:
                           '* Please type mnemonic (12 words) in your note for recover.',
@@ -65,6 +66,7 @@ class _VerificationOrRecoverScreenState
                           _pinAlert(typedWords);
                         });
                       })
+                  /* VERIFICATION */
                   : MnemonicVerificationTextField(
                       helperText:
                           '* Please type 1, 5, 9 words in your note for verification.',

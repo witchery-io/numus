@@ -6,7 +6,7 @@ import 'package:flutter_fundamental/src/widgets/widgets.dart';
 class ExistingScreen extends StatelessWidget {
   final base64Mnemonic;
 
-  ExistingScreen({@required this.base64Mnemonic});
+  const ExistingScreen({@required this.base64Mnemonic});
 
   @override
   Widget build(BuildContext context) {
