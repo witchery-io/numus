@@ -10,29 +10,31 @@ class ExistingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          CustomButton(
-              child: Text('Unlock'),
-              onPressed: () async {
-                showDialog<void>(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (BuildContext context) {
-                      return PinAlertDialog(PinAlertDialogArgs(
-                          title: 'Please set your pin.',
-                          mnemonic: null,
-                          base64Mnemonic: base64Mnemonic));
-                    });
-              }),
-          CustomButton(
-              child: Text('Logout'),
-              onPressed: () {
-                BlocProvider.of<MnemonicBloc>(context).add(RemoveMnemonic());
-              }),
-        ],
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            CustomButton(
+                child: Text('Unlock'),
+                onPressed: () async {
+                  showDialog<void>(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return PinAlertDialog(PinAlertDialogArgs(
+                            title: 'Please set your pin.',
+                            mnemonic: null,
+                            base64Mnemonic: base64Mnemonic));
+                      });
+                }),
+            CustomButton(
+                child: Text('Log out'),
+                onPressed: () {
+                  BlocProvider.of<MnemonicBloc>(context).add(RemoveMnemonic());
+                }),
+          ],
+        ),
       ),
     );
   }
