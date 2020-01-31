@@ -1,15 +1,14 @@
+import 'package:bip39/bip39.dart' as bip39;
 import 'package:flutter/material.dart';
 import 'package:flutter_fundamental/core/core.dart';
 import 'package:flutter_fundamental/src/screens/screens.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
-import 'package:bip39/bip39.dart' as bip39;
 
 class GenerationScreen extends StatelessWidget {
-  String get genMnemonic => bip39.generateMnemonic();
-
   @override
   Widget build(BuildContext context) {
-    final List<String> listMnemonic = genMnemonic.split(' ');
+    final String mnemonic = genMnemonic();
+    final List<String> listMnemonic = mnemonic.split(' ');
 
     return Scaffold(
         body: SafeArea(
@@ -42,11 +41,15 @@ class GenerationScreen extends StatelessWidget {
                               Navigator.pushNamed(
                                   context, Router.verificationOrRecover,
                                   arguments:
-                                      VerificationOrRecoverArgs(genMnemonic));
+                                      VerificationOrRecoverArgs(mnemonic));
                             },
                           )
                         ]),
                   ]),
                 ))));
+  }
+
+  static String genMnemonic() {
+    return bip39.generateMnemonic();
   }
 }
