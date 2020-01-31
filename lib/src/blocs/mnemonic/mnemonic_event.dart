@@ -9,6 +9,4 @@ abstract class MnemonicEvent extends Equatable {
 
 class LoadMnemonic extends MnemonicEvent {}
 
-class UpdateMnemonic extends MnemonicEvent {}
-
 class RemoveMnemonic extends MnemonicEvent {}
