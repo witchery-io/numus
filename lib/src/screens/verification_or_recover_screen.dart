@@ -141,7 +141,7 @@ class _VerificationOrRecoverScreenState
         barrierDismissible: false,
         builder: (BuildContext context) {
           return PinAlertDialog(PinAlertDialogArgs(
-              title: 'Set pin for your wallets security',
+              title: 'Set pin for your wallets security.',
               mnemonic: mnemonic,
               base64Mnemonic: null));
         });
