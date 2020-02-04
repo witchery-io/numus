@@ -21,7 +21,9 @@ class InitialScreen extends StatelessWidget {
       } else if (state is MnemonicVerifyOrRecover) {
         return VerificationOrRecoverScreen(state.mnemonic);
       } else if (state is MnemonicAccepted) {
-        return WalletScreen(mnemonic: state.mnemonic);
+        return BlocProvider<TabBloc>(
+            create: (context) => TabBloc(),
+            child: WalletScreen(mnemonic: state.mnemonic));
       } else {
         return null; // unknown screen
       }
