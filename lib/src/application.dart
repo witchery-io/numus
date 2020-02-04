@@ -11,22 +11,21 @@ class Application extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: FlutterBlocLocalizations().appTitle,
-      theme: WalletTheme.theme,
-      localizationsDelegates: [
-        FlutterBlocLocalizationsDelegate(),
-      ],
-      initialRoute: Router.initial,
-      routes: {
-        Router.initial: (context) {
-          return BlocProvider<MnemonicBloc>(
-            create: (context) =>
-                MnemonicBloc(secureStorage: const FlutterSecureStorage())
-                  ..add(LoadMnemonic()),
-            child: InitialScreen(),
-          );
-        },
-      },
-    );
+        title: FlutterBlocLocalizations().appTitle,
+        theme: WalletTheme.theme,
+        localizationsDelegates: [
+          FlutterBlocLocalizationsDelegate(),
+        ],
+        initialRoute: Router.initial,
+        routes: {
+          Router.initial: (context) {
+            return BlocProvider<MnemonicBloc>(
+              create: (context) =>
+                  MnemonicBloc(secureStorage: const FlutterSecureStorage())
+                    ..add(LoadMnemonic()),
+              child: InitialScreen(),
+            );
+          }
+        });
   }
 }
