@@ -23,19 +23,19 @@ class ExistingScreen extends StatelessWidget {
                   showDialog<void>(
                       context: context,
                       barrierDismissible: false,
-                      builder: (BuildContext context) {
-                        return PinAlertDialog('Please type your pin.',
-                            (String strPin) {
-                          try {
-                            final encrypt = EncryptHelper(pin: strPin);
-                            final mnemonic =
-                                encrypt.decryptByPinByBase64(base64Mnemonic);
-                            _approved(context, mnemonic);
-                          } catch (e) {
-                            Toast.show(e.message, context,
-                                duration: 2, gravity: Toast.TOP);
-                          }
-                        });
+                      builder: (BuildContext cx) {
+                        return PinAlertDialog(
+                          'Please type your pin.',
+                          (String strPin) {
+                            try {
+                              final encrypt = EncryptHelper(pin: strPin);
+                              final mnemonic = encrypt.decryptByPinByBase64(base64Mnemonic);
+                              _approved(context, mnemonic);
+                            } catch (e) {
+                              Toast.show(e.message, cx, duration: 2, gravity: Toast.TOP);
+                            }
+                          },
+                        );
                       });
                 }),
             CustomButton(
@@ -49,8 +49,8 @@ class ExistingScreen extends StatelessWidget {
     );
   }
 
-  _approved(BuildContext context, String mnemonic) {
-    BlocProvider.of<MnemonicBloc>(context)
-        .add(AcceptMnemonic(mnemonic: mnemonic, mnemonicBase64: null));
+  _approved(BuildContext cx, String mn) {
+    BlocProvider.of<MnemonicBloc>(cx)
+        .add(AcceptMnemonic(mnemonic: mn, mnemonicBase64: null));
   }
 }

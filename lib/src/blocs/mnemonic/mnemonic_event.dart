@@ -27,8 +27,8 @@ class VerifyOrRecoverMnemonic extends MnemonicEvent {
 }
 
 class AcceptMnemonic extends MnemonicEvent {
-  final mnemonic;
-  final mnemonicBase64;
+  final String mnemonic;
+  final String mnemonicBase64;
 
   AcceptMnemonic({@required this.mnemonic, @required this.mnemonicBase64});
 
