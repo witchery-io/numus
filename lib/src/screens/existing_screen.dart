@@ -31,7 +31,8 @@ class ExistingScreen extends StatelessWidget {
                               final encrypt = EncryptHelper(pin: strPin);
                               final mnemonic =
                                   encrypt.decryptByPinByBase64(base64Mnemonic);
-                              _approved(context, mnemonic);
+                              BlocProvider.of<MnemonicBloc>(context)
+                                  .add(AcceptMnemonic(mnemonic: mnemonic, mnemonicBase64: null));
                             } catch (e) {
                               Toast.show(e.message, cx,
                                   duration: 2, gravity: Toast.TOP);
@@ -49,10 +50,5 @@ class ExistingScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  _approved(BuildContext cx, String mn) {
-    BlocProvider.of<MnemonicBloc>(cx)
-        .add(AcceptMnemonic(mnemonic: mn, mnemonicBase64: null));
   }
 }
