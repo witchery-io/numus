@@ -58,6 +58,7 @@ class _WalletTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      padding: EdgeInsets.all(12.0),
       child: ListBody(
         children: <Widget>[
           Text('Wallet'),
