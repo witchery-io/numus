@@ -8,7 +8,7 @@ import 'package:flutter_fundamental/src/widgets/widgets.dart';
 class WalletScreen extends StatelessWidget {
   final mnemonic;
 
-  WalletScreen({@required this.mnemonic});
+  WalletScreen({@required this.mnemonic}) : assert(mnemonic != null);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class WalletScreen extends StatelessWidget {
               ],
             ),
           ),
-          body: activeTab == AppTab.general ? _WalletTab() : Games(),
+          body: activeTab == AppTab.general ? _WalletTab(mnemonic) : Games(),
           bottomNavigationBar: TabSelector(
               activeTab: activeTab,
               onTabSelected: (tab) =>
@@ -51,8 +51,24 @@ class WalletScreen extends StatelessWidget {
 }
 
 class _WalletTab extends StatelessWidget {
+  final String mn;
+
+  _WalletTab(this.mn);
+
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Wallet'));
+    return SingleChildScrollView(
+      child: ListBody(
+        children: <Widget>[
+          Text('Wallet'),
+          Text('$mn'),
+          RaisedButton(
+            onPressed: () {
+            },
+            child: Text('Example'),
+          )
+        ],
+      ),
+    );
   }
 }
