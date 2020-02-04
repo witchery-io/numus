@@ -16,7 +16,7 @@ class GenerationScreen extends StatelessWidget {
                 padding: EdgeInsets.all(24.0),
                 child: Center(
                   child: ListBody(children: <Widget>[
-                    Text('Mnemonic was geneationed.',
+                    Text('Mnemonic has generated.',
                         style: TextStyle(fontSize: 24.0)),
                     SizedBox(height: 4.0),
                     Text('* Please save in your note',
