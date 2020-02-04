@@ -29,6 +29,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.4.0"
+  auth_header:
+    dependency: transitive
+    description:
+      name: auth_header
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.4"
   bip39:
     dependency: "direct main"
     description:
@@ -117,7 +124,7 @@ packages:
       name: flutter_bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.0"
+    version: "3.2.0"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -144,6 +151,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.4"
+  jaguar_jwt:
+    dependency: "direct main"
+    description:
+      name: jaguar_jwt
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.6"
   matcher:
     dependency: transitive
     description:
