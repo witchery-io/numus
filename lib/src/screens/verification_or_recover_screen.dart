@@ -148,7 +148,7 @@ class _VerificationOrRecoverScreenState
             (String strPin) {
               final encrypt = EncryptHelper(pin: strPin);
               final encrypted = encrypt.encryptByPin(mnemonic);
-              _approved(encrypted.base64);
+              _approved(mnemonic, encrypted.base64);
             },
           );
         });
@@ -160,9 +160,9 @@ class _VerificationOrRecoverScreenState
     super.dispose();
   }
 
-  _approved(bs64) {
+  _approved(String mn, String bs64) {
     BlocProvider.of<MnemonicBloc>(context)
-        .add(AcceptMnemonic(mnemonic: mnemonic, mnemonicBase64: bs64));
+        .add(AcceptMnemonic(mnemonic: mn, mnemonicBase64: bs64));
   }
 }
 
