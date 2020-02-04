@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 
 abstract class MnemonicEvent extends Equatable {
   const MnemonicEvent();
@@ -29,5 +30,12 @@ class AcceptMnemonic extends MnemonicEvent {
   final mnemonic;
   final mnemonicBase64;
 
-  AcceptMnemonic(this.mnemonic, this.mnemonicBase64);
+  AcceptMnemonic({@required this.mnemonic, @required this.mnemonicBase64});
+
+  @override
+  List<Object> get props => [mnemonic, mnemonicBase64];
+
+  @override
+  String toString() =>
+      'Accepted { mnemonic: $mnemonic, mnemonicBase64: $mnemonicBase64 }';
 }
