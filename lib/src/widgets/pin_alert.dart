@@ -49,23 +49,23 @@ class PinAlertDialog extends StatelessWidget {
                   return;
                 }
 
-                String mnemonic = args.mnemonic;
                 final encrypt = EncryptHelper(pin: strPin);
 
-                if (mnemonic == null) {
-                  /* EXISTING SCREEN */
-                  assert(args.base64Mnemonic != null);
+                if (args.isCheck) {
                   try {
-                    mnemonic = encrypt.decryptByPinByBase64(args.base64Mnemonic);
-                    BlocProvider.of<MnemonicBloc>(context).add(AcceptMnemonic(mnemonic, null));
+                    final mnemonic =
+                        encrypt.decryptByPinByBase64(args.mnemonic);
+                    BlocProvider.of<MnemonicBloc>(context).add(AcceptMnemonic(
+                        mnemonic: mnemonic, mnemonicBase64: null));
                   } catch (e) {
-                    Toast.show(e.message, context, duration: 2, gravity: Toast.TOP);
+                    Toast.show(e.message, context,
+                        duration: 2, gravity: Toast.TOP);
                   }
                 } else {
-                  /* VERIFICATION OR RECOVER */
-                  final encrypted = encrypt.encryptByPin(mnemonic);
-                  BlocProvider.of<MnemonicBloc>(context)
-                      .add(AcceptMnemonic(mnemonic, encrypted.base64));
+                  final encrypted = encrypt.encryptByPin(args.mnemonic);
+                  BlocProvider.of<MnemonicBloc>(context).add(AcceptMnemonic(
+                      mnemonic: args.mnemonic,
+                      mnemonicBase64: encrypted.base64));
                 }
               }),
         ]);
@@ -79,10 +79,8 @@ class PinAlertDialog extends StatelessWidget {
 class PinAlertDialogArgs {
   final title;
   final mnemonic;
-  final base64Mnemonic;
+  bool isCheck;
 
   PinAlertDialogArgs(
-      {@required this.title,
-      @required this.mnemonic,
-      @required this.base64Mnemonic});
+      {@required this.title, @required this.mnemonic, @required this.isCheck});
 }
