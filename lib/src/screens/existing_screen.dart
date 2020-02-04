@@ -29,10 +29,12 @@ class ExistingScreen extends StatelessWidget {
                           (String strPin) {
                             try {
                               final encrypt = EncryptHelper(pin: strPin);
-                              final mnemonic = encrypt.decryptByPinByBase64(base64Mnemonic);
+                              final mnemonic =
+                                  encrypt.decryptByPinByBase64(base64Mnemonic);
                               _approved(context, mnemonic);
                             } catch (e) {
-                              Toast.show(e.message, cx, duration: 2, gravity: Toast.TOP);
+                              Toast.show(e.message, cx,
+                                  duration: 2, gravity: Toast.TOP);
                             }
                           },
                         );
