@@ -26,13 +26,11 @@ class ExistingScreen extends StatelessWidget {
                       builder: (BuildContext context) {
                         return PinAlertDialog('Please type your pin.',
                             (String strPin) {
-                          final encrypt = EncryptHelper(pin: strPin);
                           try {
+                            final encrypt = EncryptHelper(pin: strPin);
                             final mnemonic =
                                 encrypt.decryptByPinByBase64(base64Mnemonic);
-                            BlocProvider.of<MnemonicBloc>(context).add(
-                                AcceptMnemonic(
-                                    mnemonic: mnemonic, mnemonicBase64: null));
+                            _approved(context, mnemonic);
                           } catch (e) {
                             Toast.show(e.message, context,
                                 duration: 2, gravity: Toast.TOP);
@@ -49,5 +47,10 @@ class ExistingScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _approved(BuildContext context, String mnemonic) {
+    BlocProvider.of<MnemonicBloc>(context)
+        .add(AcceptMnemonic(mnemonic: mnemonic, mnemonicBase64: null));
   }
 }

@@ -146,10 +146,8 @@ class _VerificationOrRecoverScreenState
           return PinAlertDialog('Set pin for your wallets security.',
               (String strPin) {
             final encrypt = EncryptHelper(pin: strPin);
-
             final encrypted = encrypt.encryptByPin(mnemonic);
-            BlocProvider.of<MnemonicBloc>(context).add(AcceptMnemonic(
-                mnemonic: mnemonic, mnemonicBase64: encrypted.base64));
+            _approved(context, mnemonic, encrypted.base64);
           });
         });
   }
@@ -158,6 +156,11 @@ class _VerificationOrRecoverScreenState
   void dispose() {
     mnemonic = null;
     super.dispose();
+  }
+
+  _approved(BuildContext context, String mnemonic, String base64Mnemonic) {
+    BlocProvider.of<MnemonicBloc>(context).add(
+        AcceptMnemonic(mnemonic: mnemonic, mnemonicBase64: base64Mnemonic));
   }
 }
 
