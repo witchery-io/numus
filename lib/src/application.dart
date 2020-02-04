@@ -26,7 +26,6 @@ class Application extends StatelessWidget {
             child: InitialScreen(),
           );
         },
-        Router.generation: (context) => GenerationScreen(),
       },
     );
   }
