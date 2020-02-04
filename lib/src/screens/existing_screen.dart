@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
+import 'package:flutter_fundamental/src/utils/encrypt_helper.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
+import 'package:toast/toast.dart';
 
 class ExistingScreen extends StatelessWidget {
   final base64Mnemonic;
@@ -22,10 +24,20 @@ class ExistingScreen extends StatelessWidget {
                       context: context,
                       barrierDismissible: false,
                       builder: (BuildContext context) {
-                        return PinAlertDialog(PinAlertDialogArgs(
-                            title: 'Please set your pin.',
-                            mnemonic: null,
-                            base64Mnemonic: base64Mnemonic));
+                        return PinAlertDialog('Please type your pin.',
+                            (String strPin) {
+                          final encrypt = EncryptHelper(pin: strPin);
+                          try {
+                            final mnemonic =
+                                encrypt.decryptByPinByBase64(base64Mnemonic);
+                            BlocProvider.of<MnemonicBloc>(context).add(
+                                AcceptMnemonic(
+                                    mnemonic: mnemonic, mnemonicBase64: null));
+                          } catch (e) {
+                            Toast.show(e.message, context,
+                                duration: 2, gravity: Toast.TOP);
+                          }
+                        });
                       });
                 }),
             CustomButton(
