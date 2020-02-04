@@ -150,6 +150,7 @@ class _VerificationOrRecoverScreenState
               final encrypted = encrypt.encryptByPin(mnemonic);
               BlocProvider.of<MnemonicBloc>(context).add(AcceptMnemonic(
                   mnemonic: mnemonic, mnemonicBase64: encrypted.base64));
+              Navigator.pop(context);
             },
           );
         });

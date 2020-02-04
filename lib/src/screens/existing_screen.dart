@@ -33,6 +33,7 @@ class ExistingScreen extends StatelessWidget {
                                   encrypt.decryptByPinByBase64(base64Mnemonic);
                               BlocProvider.of<MnemonicBloc>(context)
                                   .add(AcceptMnemonic(mnemonic: mnemonic, mnemonicBase64: null));
+                              Navigator.pop(context);
                             } catch (e) {
                               Toast.show(e.message, cx,
                                   duration: 2, gravity: Toast.TOP);

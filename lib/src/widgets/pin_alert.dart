@@ -46,9 +46,7 @@ class PinAlertDialog extends StatelessWidget {
                       duration: 2, gravity: Toast.TOP);
                   return;
                 }
-
                 _onConfirmed(convertToMd5(strPin));
-                Navigator.pop(context);
               }),
         ]);
   }
