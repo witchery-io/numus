@@ -1,5 +1,8 @@
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
+import 'package:flutter_fundamental/src/utils/encrypt_helper.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 import 'package:toast/toast.dart';
 
@@ -140,10 +143,14 @@ class _VerificationOrRecoverScreenState
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return PinAlertDialog(PinAlertDialogArgs(
-              title: 'Set pin for your wallets security.',
-              mnemonic: mnemonic,
-              base64Mnemonic: null));
+          return PinAlertDialog('Set pin for your wallets security.',
+              (String strPin) {
+            final encrypt = EncryptHelper(pin: strPin);
+
+            final encrypted = encrypt.encryptByPin(mnemonic);
+            BlocProvider.of<MnemonicBloc>(context).add(AcceptMnemonic(
+                mnemonic: mnemonic, mnemonicBase64: encrypted.base64));
+          });
         });
   }
 
