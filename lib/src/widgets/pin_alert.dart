@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:toast/toast.dart';
 
 class PinAlertDialog extends StatelessWidget {
-  final pinController = TextEditingController();
+  final _pinController = TextEditingController();
   final String title;
   final Function _onConfirmed;
 
@@ -21,7 +21,7 @@ class PinAlertDialog extends StatelessWidget {
             Container(
                 padding: const EdgeInsets.all(4.0),
                 child: TextField(
-                    controller: pinController,
+                    controller: _pinController,
                     autofocus: true,
                     maxLength: 6,
                     decoration: InputDecoration(
@@ -40,13 +40,14 @@ class PinAlertDialog extends StatelessWidget {
           FlatButton(
               child: Text('Confirmed'),
               onPressed: () async {
-                final strPin = pinController.text;
+                final strPin = _pinController.text;
                 if (strPin.length != 6) {
                   Toast.show('Please set 6 symbol.', context,
                       duration: 2, gravity: Toast.TOP);
                   return;
                 }
                 _onConfirmed(convertToMd5(strPin));
+                _pinController.clear();
               }),
         ]);
   }
