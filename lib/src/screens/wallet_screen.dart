@@ -6,10 +6,6 @@ import 'package:flutter_fundamental/src/models/app_tab.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 
 class WalletScreen extends StatefulWidget {
-  final mnemonic;
-
-  WalletScreen({@required this.mnemonic}) : assert(mnemonic != null);
-
   @override
   _WalletScreenState createState() => _WalletScreenState();
 }
