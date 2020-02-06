@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
 import 'package:flutter_fundamental/src/blocs/tab/bloc.dart';
+import 'package:flutter_fundamental/src/blocs/wallet/bloc.dart';
 import 'package:flutter_fundamental/src/screens/screens.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
+import 'package:multi_currency/multi_currency.dart';
 
 class InitialScreen extends StatelessWidget {
   @override
@@ -21,9 +23,16 @@ class InitialScreen extends StatelessWidget {
       } else if (state is MnemonicVerifyOrRecover) {
         return VerificationOrRecoverScreen(state.mnemonic);
       } else if (state is MnemonicAccepted) {
-        return BlocProvider<TabBloc>(
-            create: (context) => TabBloc(),
-            child: WalletScreen(mnemonic: state.mnemonic));
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider<TabBloc>(create: (context) => TabBloc()),
+            BlocProvider<WalletBloc>(
+                create: (context) =>
+                    WalletBloc(multiCurrency: MultiCurrency(state.mnemonic))
+                      ..add(LoadWallet())),
+          ],
+          child: WalletScreen(),
+        );
       } else {
         return null; // unknown screen
       }
