@@ -34,7 +34,9 @@ class _WalletScreenState extends State<WalletScreen> {
           drawer: LeftMenu(
               onLogout: () =>
                   BlocProvider.of<MnemonicBloc>(context).add(RemoveMnemonic())),
-          body: activeTab == AppTab.general ? _WalletTab(mc: mc) : Games(),
+          body: activeTab == AppTab.general
+              ? _WalletTab(multiCurrency: mc)
+              : Games(),
           bottomNavigationBar: TabSelector(
               activeTab: activeTab,
               onTabSelected: (tab) =>
@@ -44,9 +46,9 @@ class _WalletScreenState extends State<WalletScreen> {
 }
 
 class _WalletTab extends StatelessWidget {
-  final MultiCurrency mc;
+  final MultiCurrency multiCurrency;
 
-  _WalletTab({@required this.mc});
+  _WalletTab({@required this.multiCurrency});
 
   @override
   Widget build(BuildContext context) {
@@ -56,11 +58,10 @@ class _WalletTab extends StatelessWidget {
           child: Text('Currencies', style: TextStyle(fontSize: 24.0))),
       Expanded(
           child: ListView.separated(
-              itemCount: mc.getCurrencies.length,
-              separatorBuilder: (context, index) =>
-                  Divider(color: Colors.white),
+              itemCount: multiCurrency.getCurrencies.length,
+              separatorBuilder: (context, index) => Divider(),
               itemBuilder: (context, index) {
-                final item = mc.getCurrencies[index];
+                final item = multiCurrency.getCurrencies[index];
                 return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: _Currency(item: item));
