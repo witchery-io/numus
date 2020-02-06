@@ -13,14 +13,12 @@ class WalletScreen extends StatelessWidget {
       if (state is WalletLoading) {
         return LoadingIndicator();
       } else if (state is WalletLoaded) {
-        print(state.props);
         return BlocBuilder<TabBloc, AppTab>(builder: (context, activeTab) {
           return Scaffold(
               appBar: activeTab == AppTab.general
                   ? AppBar(title: Text('Wallet'))
                   : null,
               drawer: LeftMenu(
-                  // todo has error on log out
                   onLogout: () => BlocProvider.of<MnemonicBloc>(context)
                       .add(RemoveMnemonic())),
               body: activeTab == AppTab.general ? _WalletTab() : Games(),
