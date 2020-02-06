@@ -17,6 +17,8 @@ dependencies:
   toast: ^0.1.5
   encrypt: ^4.0.0
   jaguar_jwt: ^2.1.6
+  multi_currency:
+    path: ../../multi_currency
 
 dev_dependencies:
   flutter_test:
