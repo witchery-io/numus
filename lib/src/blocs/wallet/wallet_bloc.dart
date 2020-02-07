@@ -22,8 +22,6 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
   }
 
   Stream<WalletState> _loadWalletToState() async* {
-
-
     yield WalletLoaded();
   }
 }

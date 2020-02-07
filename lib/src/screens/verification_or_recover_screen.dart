@@ -144,15 +144,14 @@ class _VerificationOrRecoverScreenState
         barrierDismissible: false,
         builder: (BuildContext cx) {
           return PinAlertDialog(
-            'Set pin for your wallets security.',
-            (String strPin) {
-              final encrypt = EncryptHelper(pin: strPin);
-              final encrypted = encrypt.encryptByPin(mnemonic);
-              BlocProvider.of<MnemonicBloc>(context).add(AcceptMnemonic(
-                  mnemonic: mnemonic, mnemonicBase64: encrypted.base64));
-              Navigator.pop(context);
-            },
-          );
+              title: 'Set pin for your wallets security.',
+              onConfirmed: (String strPin) {
+                final encrypt = EncryptHelper(pin: strPin);
+                final encrypted = encrypt.encryptByPin(mnemonic);
+                BlocProvider.of<MnemonicBloc>(context).add(AcceptMnemonic(
+                    mnemonic: mnemonic, mnemonicBase64: encrypted.base64));
+                Navigator.pop(context);
+              });
         });
   }
 
