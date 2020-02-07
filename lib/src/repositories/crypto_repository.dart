@@ -1,11 +1,12 @@
 import 'package:flutter_fundamental/core/core.dart';
+import 'package:http/http.dart' as http;
 
 class CryptoRepository {
-  final WebClient webClient;
+  WebClient webClient;
 
-  const CryptoRepository({
-    this.webClient = const WebClient(),
-  });
+  CryptoRepository() {
+    webClient = WebClient(httpClient: http.Client());
+  }
 
   Future loadBalanceByAddress() async {
     return await webClient.getBalanceByAddress();

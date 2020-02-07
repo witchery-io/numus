@@ -1,9 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class WebClient {
-  const WebClient();
+  final http.Client httpClient;
+
+  WebClient({@required this.httpClient});
 
   Future getBalanceByAddress() {
-    return http.get('');
+    return httpClient.get('');
   }
 }
