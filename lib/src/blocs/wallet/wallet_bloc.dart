@@ -22,6 +22,9 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
   }
 
   Stream<WalletState> _loadWalletToState() async* {
-    yield WalletLoaded();
+    try {
+      final List currencies = multiCurrency.getCurrencies;
+      yield WalletLoaded(currencies);
+    } catch (_) {}
   }
 }

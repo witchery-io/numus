@@ -18,7 +18,7 @@ class _WalletScreenState extends State<WalletScreen> {
       if (state is WalletLoading) {
         return LoadingIndicator();
       } else if (state is WalletLoaded) {
-        return _WalletScreen();
+        return _WalletScreen(currencies: state.currencies);
       } else {
         return null;
       }
@@ -27,6 +27,10 @@ class _WalletScreenState extends State<WalletScreen> {
 }
 
 class _WalletScreen extends StatelessWidget {
+  final List currencies;
+
+  _WalletScreen({@required this.currencies}) : assert(currencies.isNotEmpty);
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TabBloc, AppTab>(builder: (context, activeTab) {
@@ -38,7 +42,7 @@ class _WalletScreen extends StatelessWidget {
             Navigator.pop(context);
             BlocProvider.of<MnemonicBloc>(context).add(RemoveMnemonic());
           }),
-          body: activeTab == AppTab.general ? _WalletTab() : Games(),
+          body: activeTab == AppTab.general ? _WalletTab(currencies) : Games(),
           bottomNavigationBar: TabSelector(
               activeTab: activeTab,
               onTabSelected: (tab) =>
@@ -48,9 +52,25 @@ class _WalletScreen extends StatelessWidget {
 }
 
 class _WalletTab extends StatelessWidget {
+  final List currencies;
+
+  _WalletTab(this.currencies);
+
   @override
   Widget build(BuildContext context) {
-    return Container(child: Text('Test'),);
+    return Column(
+      children: <Widget>[
+        Container(
+            margin: EdgeInsets.all(8.0),
+            child: Text('Currencies', style: TextStyle(fontSize: 24.0))),
+        Expanded(
+          child: ListView(
+            children: currencies.map((item) {
+              return Text(item.name.toUpperCase());
+            }).toList(),
+          ),
+        ),
+      ],
+    );
   }
 }
-
