@@ -15,6 +15,10 @@ class PinAlertDialog extends StatefulWidget {
 
   @override
   _PinAlertDialogState createState() => _PinAlertDialogState();
+
+  static convertToMd5(val) {
+    return md5.convert(utf8.encode(val)).toString();
+  }
 }
 
 class _PinAlertDialogState extends State<PinAlertDialog> {
@@ -62,13 +66,10 @@ class _PinAlertDialogState extends State<PinAlertDialog> {
               onPressed: () async {
                 if (PinAlertDialog._formKey.currentState.validate()) {
                   PinAlertDialog._formKey.currentState.save();
-                  widget.onConfirmed(convertToMd5(_pin));
+                  widget.onConfirmed(PinAlertDialog.convertToMd5(_pin));
                 }
               }),
         ]);
   }
 
-  static convertToMd5(val) {
-    return md5.convert(utf8.encode(val)).toString();
-  }
 }
