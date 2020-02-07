@@ -1,14 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_fundamental/core/core.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_fundamental/src/models/models.dart';
 
 class CryptoRepository {
-  WebClient webClient;
+  final WebClient webClient;
 
-  CryptoRepository() {
-    webClient = WebClient(httpClient: http.Client());
-  }
+  const CryptoRepository({@required this.webClient});
 
-  Future loadBalanceByAddress() async {
-    return await webClient.getBalanceByAddress();
+  Future<Balance> loadBalanceByAddress(String currency, String address) async {
+    return await webClient.getBalanceByAddress(currency, address);
   }
 }

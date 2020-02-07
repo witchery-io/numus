@@ -26,8 +26,12 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
   Stream<WalletState> _loadWalletToState() async* {
     try {
       final List c = await multiCurrency.getCurrencies;
-      
-      final x = await repository.loadBalanceByAddress();
+
+      print(1);
+      // in iterable must be called async method
+      final balance = await repository.loadBalanceByAddress('btc', 'n1K5YNEcgWXanFsinHhU8WStFx3ZBEyAp8');
+      print(balance);
+      print(2);
 
       yield WalletLoaded(currencies: c);
     } catch (_) {}
