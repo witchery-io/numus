@@ -46,9 +46,8 @@ class ExistingScreen extends StatelessWidget {
                 }),
             CustomButton(
                 child: Text('Log out'),
-                onPressed: () {
-                  BlocProvider.of<MnemonicBloc>(context).add(RemoveMnemonic());
-                }),
+                onPressed: () => BlocProvider.of<MnemonicBloc>(context)
+                    .add(RemoveMnemonic())),
           ],
         ),
       ),
