@@ -48,11 +48,10 @@ class _PinAlertDialogState extends State<PinAlertDialog> {
                     WhitelistingTextInputFormatter.digitsOnly
                   ],
                   validator: (val) {
-                    if (val.trim().isEmpty) {
+                    if (val.trim().isEmpty)
                       return 'Please enter PIN.';
-                    } else if (val.trim().length != 6) {
+                    else if (val.trim().length != 6)
                       return 'Please enter 6 symbol';
-                    }
 
                     return null;
                   },
@@ -71,5 +70,4 @@ class _PinAlertDialogState extends State<PinAlertDialog> {
               }),
         ]);
   }
-
 }
