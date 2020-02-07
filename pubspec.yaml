@@ -19,6 +19,7 @@ dependencies:
   jaguar_jwt: ^2.1.6
   multi_currency:
     path: ../../multi_currency
+  font_awesome_flutter: ^8.5.0
 
 dev_dependencies:
   flutter_test:
