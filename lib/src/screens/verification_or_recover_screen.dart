@@ -145,7 +145,7 @@ class _VerificationOrRecoverScreenState
         builder: (BuildContext cx) {
           return PinAlertDialog(
               title: 'Set pin for your wallets security.',
-              onConfirmed: (String strPin) {
+              onConfirmed: (strPin) {
                 final encrypt = EncryptHelper(pin: strPin);
                 final encrypted = encrypt.encryptByPin(mnemonic);
                 BlocProvider.of<MnemonicBloc>(context).add(AcceptMnemonic(

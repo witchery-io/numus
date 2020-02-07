@@ -26,7 +26,7 @@ class ExistingScreen extends StatelessWidget {
                       builder: (BuildContext cx) {
                         return PinAlertDialog(
                             title: 'Please type your pin.',
-                            onConfirmed: (String strPin) {
+                            onConfirmed: (strPin) {
                               try {
                                 final encrypt = EncryptHelper(pin: strPin);
                                 final mnemonic = encrypt
