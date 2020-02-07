@@ -41,11 +41,10 @@ class PinAlertDialog extends StatelessWidget {
               child: Text('Confirmed'),
               onPressed: () async {
                 final strPin = _pinController.text;
-                if (strPin.length != 6) {
-                  Toast.show('Please set 6 symbol.', context,
+                if (strPin.length != 6)
+                  return Toast.show('Please set 6 symbol.', context,
                       duration: 2, gravity: Toast.TOP);
-                  return;
-                }
+
                 _onConfirmed(convertToMd5(strPin));
                 _pinController.clear();
               }),
