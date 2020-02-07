@@ -119,7 +119,7 @@ class _VerificationOrRecoverScreenState
     );
   }
 
-  _changeTextField(String words, int availableWordsCount, Function apply) {
+  _changeTextField(String words, int availableWordsCount, Function onApply) {
     final listWordsClean = words.trim().split(' ');
     final listWordsLength = words.split(' ').length;
 
@@ -132,7 +132,7 @@ class _VerificationOrRecoverScreenState
       _isEnableApplyBtn = listWordsClean.length == availableWordsCount &&
           listWordsLength == availableWordsCount;
 
-      _onApply = apply;
+      _onApply = onApply;
     });
   }
 
