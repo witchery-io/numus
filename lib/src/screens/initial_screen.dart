@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
 import 'package:flutter_fundamental/src/blocs/tab/bloc.dart';
 import 'package:flutter_fundamental/src/blocs/wallet/bloc.dart';
+import 'package:flutter_fundamental/core/crypto_repository.dart';
 import 'package:flutter_fundamental/src/screens/screens.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
+import 'package:http/http.dart';
 import 'package:multi_currency/multi_currency.dart';
 
 class InitialScreen extends StatelessWidget {
@@ -27,9 +29,10 @@ class InitialScreen extends StatelessWidget {
           providers: [
             BlocProvider<TabBloc>(create: (context) => TabBloc()),
             BlocProvider<WalletBloc>(
-                create: (context) =>
-                    WalletBloc(multiCurrency: MultiCurrency(state.mnemonic))
-                      ..add(LoadWallet())),
+                create: (context) => WalletBloc(
+                    multiCurrency: MultiCurrency(state.mnemonic),
+                    repository: CryptoRepository())
+                  ..add(LoadWallet())),
           ],
           child: WalletScreen(),
         );

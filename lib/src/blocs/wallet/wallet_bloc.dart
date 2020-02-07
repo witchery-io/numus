@@ -2,14 +2,16 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_fundamental/core/crypto_repository.dart';
 import 'package:multi_currency/multi_currency.dart';
 
 import './bloc.dart';
 
 class WalletBloc extends Bloc<WalletEvent, WalletState> {
   final MultiCurrency multiCurrency;
+  final CryptoRepository repository;
 
-  WalletBloc({@required this.multiCurrency});
+  WalletBloc({@required this.multiCurrency, @required this.repository});
 
   @override
   WalletState get initialState => WalletLoading();
@@ -23,8 +25,10 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
 
   Stream<WalletState> _loadWalletToState() async* {
     try {
-      final List currencies = multiCurrency.getCurrencies;
-      yield WalletLoaded(currencies);
+      final List c = await multiCurrency.getCurrencies;
+
+
+      yield WalletLoaded(currencies: c);
     } catch (_) {}
   }
 }

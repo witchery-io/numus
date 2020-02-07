@@ -8,7 +8,3 @@ abstract class WalletEvent extends Equatable {
 }
 
 class LoadWallet extends WalletEvent {}
-
-class RemoveWallet extends WalletEvent {}
-
-class NewWallet extends WalletEvent {}
