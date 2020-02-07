@@ -5,6 +5,7 @@ import 'package:flutter_fundamental/src/blocs/tab/bloc.dart';
 import 'package:flutter_fundamental/src/blocs/wallet/bloc.dart';
 import 'package:flutter_fundamental/src/models/app_tab.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class WalletScreen extends StatefulWidget {
   @override
@@ -64,13 +65,35 @@ class _WalletTab extends StatelessWidget {
             margin: EdgeInsets.all(8.0),
             child: Text('Currencies', style: TextStyle(fontSize: 24.0))),
         Expanded(
-          child: ListView(
-            children: currencies.map((item) {
-              return Text(item.name.toUpperCase());
-            }).toList(),
-          ),
+          child: ListView.separated(
+              padding: EdgeInsets.all(8.0),
+              itemBuilder: (context, index) => _Currency(currencies[index]),
+              separatorBuilder: (context, index) => Divider(),
+              itemCount: currencies.length),
         ),
       ],
+    );
+  }
+}
+
+class _Currency extends StatelessWidget {
+  final item;
+
+  _Currency(this.item);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Icon(FontAwesomeIcons.coins),
+      title: Text('${item.name.toUpperCase()}'),
+      subtitle: Text('${item.getPublicKey()}'),
+      isThreeLine: true,
+      trailing: FutureBuilder(
+        future: item.getAddress(),
+        builder: (context, snapshot) {
+          return Text('0.55');
+        },
+      ),
     );
   }
 }
