@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 class WebClient {
   final http.Client httpClient;
-  final _baseUrl = "https://api.coven.in/public";
+  final _baseUrl = "https://346aa1d6.ngrok.io/public";
 
   const WebClient({@required this.httpClient});
 
