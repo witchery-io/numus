@@ -5,7 +5,6 @@ import 'package:flutter_fundamental/src/blocs/tab/bloc.dart';
 import 'package:flutter_fundamental/src/blocs/wallet/bloc.dart';
 import 'package:flutter_fundamental/src/models/app_tab.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class WalletScreen extends StatefulWidget {
   @override
