@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
 import 'package:flutter_fundamental/src/blocs/tab/bloc.dart';
 import 'package:flutter_fundamental/src/blocs/wallet/bloc.dart';
 import 'package:flutter_fundamental/src/models/app_tab.dart';
+import 'package:flutter_fundamental/src/models/models.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 
 class WalletScreen extends StatefulWidget {
@@ -67,9 +69,8 @@ class _WalletTab extends StatelessWidget {
             child: Text('Currencies', style: TextStyle(fontSize: 24.0))),
         Expanded(
           child: ListView.separated(
-              padding: EdgeInsets.all(8.0),
-              itemBuilder: (context, index) => _Currency(currencies[index]),
               separatorBuilder: (context, index) => Divider(),
+              itemBuilder: (context, index) => _Currency(currencies[index]),
               itemCount: currencies.length),
         ),
       ],
@@ -78,23 +79,42 @@ class _WalletTab extends StatelessWidget {
 }
 
 class _Currency extends StatelessWidget {
-  final item;
+  final Future<OwnCoin> item;
 
   _Currency(this.item);
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Icon(item.icon),
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text('${item.name.toUpperCase()}'),
-          Text('${item.address}'),
-        ],
-      ),
-      subtitle: Text('${item.publicKey}'),
-      isThreeLine: true,
+    return FutureBuilder(
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final OwnCoin data = snapshot.data;
+          return ListTile(
+            leading: Icon(data.icon),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text('${data.name.toUpperCase()}'),
+                Text('${data.balance}'),
+              ],
+            ),
+            subtitle: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                CustomButton(onPressed: () {}, child: Text('Send')),
+                SizedBox(width: 8.0),
+                CustomButton(onPressed: () {}, child: Text('Receive')),
+                SizedBox(width: 8.0),
+                CustomButton(onPressed: () {}, child: Text('Transaction')),
+              ],
+            ),
+            isThreeLine: true,
+          );
+        }
+
+        return Center(child: Text('Loading...'));
+      },
+      future: item,
     );
   }
 }
