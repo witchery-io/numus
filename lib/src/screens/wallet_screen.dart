@@ -86,16 +86,10 @@ class _Currency extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(FontAwesomeIcons.coins),
+      leading: Icon(item.icon),
       title: Text('${item.name.toUpperCase()}'),
       subtitle: Text('${item.getPublicKey()}'),
       isThreeLine: true,
-      trailing: FutureBuilder(
-        future: item.getAddress(),
-        builder: (context, snapshot) {
-          return Text('0.55');
-        },
-      ),
     );
   }
 }
