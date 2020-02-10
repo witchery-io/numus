@@ -10,8 +10,8 @@ class CryptoRepository {
   Future<Balance> loadBalanceByAddress(String currency, String address) async {
     try {
       return await webClient.getBalanceByAddress(currency, address);
-    } catch (_) {
-      throw Exception(_.message);
+    } catch (e) {
+      throw Exception(e.message);
     }
   }
 }

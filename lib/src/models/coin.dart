@@ -5,7 +5,7 @@ class Coin {
   final String name;
   final String publicKey;
   final String privateKey;
-  final Future address;
+  final Future<String> address;
   final Function transaction;
 
   Coin(

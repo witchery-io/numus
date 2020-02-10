@@ -86,8 +86,14 @@ class _Currency extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(item.icon),
-      title: Text('${item.name.toUpperCase()}'),
-      subtitle: Text('${item.getPublicKey()}'),
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text('${item.name.toUpperCase()}'),
+          Text('${item.address}'),
+        ],
+      ),
+      subtitle: Text('${item.publicKey}'),
       isThreeLine: true,
     );
   }
