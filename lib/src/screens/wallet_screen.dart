@@ -20,6 +20,8 @@ class _WalletScreenState extends State<WalletScreen> {
         return LoadingIndicator();
       } else if (state is WalletLoaded) {
         return _WalletScreen(currencies: state.currencies);
+      } else if (state is WalletNotLoaded) {
+        return Scaffold(body: Center(child: Text('No result.')));
       } else {
         return null;
       }

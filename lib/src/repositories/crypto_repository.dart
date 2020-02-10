@@ -8,6 +8,10 @@ class CryptoRepository {
   const CryptoRepository({@required this.webClient});
 
   Future<Balance> loadBalanceByAddress(String currency, String address) async {
-    return await webClient.getBalanceByAddress(currency, address);
+    try {
+      return await webClient.getBalanceByAddress(currency, address);
+    } catch (_) {
+      throw Exception(_.message);
+    }
   }
 }
