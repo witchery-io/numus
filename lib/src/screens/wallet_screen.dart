@@ -73,7 +73,8 @@ class _WalletTab extends StatelessWidget {
             child: ListView.separated(
                 padding: EdgeInsets.all(8.0),
                 separatorBuilder: (context, index) => Divider(),
-                itemBuilder: (context, index) => _Currency(currencies[index]),
+                itemBuilder: (context, index) =>
+                    _Currency(item: currencies[index]),
                 itemCount: currencies.length)),
       ],
     );
@@ -81,36 +82,37 @@ class _WalletTab extends StatelessWidget {
 }
 
 class _Currency extends StatelessWidget {
-  final Future<Coin> items;
+  final Future<Coin> item;
 
-  _Currency(this.items);
+  _Currency({this.item});
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final Coin item = snapshot.data;
-            return ListTile(
-                leading: Icon(item.icon),
-                title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text('${item.name.toUpperCase()}'),
-                      _fBalance(item.fb),
-                    ]),
-                subtitle: Row(
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final Coin coin = snapshot.data;
+          return ListTile(
+              leading: Icon(coin.icon),
+              title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    CustomButton(child: Text('Send'), onPressed: () {}),
-                    CustomButton(child: Text('Receive'), onPressed: () {}),
-                    CustomButton(child: Text('Transactions'), onPressed: () {}),
-                  ],
-                ));
-          }
-          return _centerLoading();
-        },
-        future: items);
+                    Text('${coin.name.toUpperCase()}'),
+                    _fBalance(coin.fb),
+                  ]),
+              subtitle: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  CustomButton(child: Text('Send'), onPressed: () {}),
+                  CustomButton(child: Text('Receive'), onPressed: () {}),
+                  CustomButton(child: Text('Transactions'), onPressed: () {}),
+                ],
+              ));
+        }
+        return _centerLoading();
+      },
+      future: item,
+    );
   }
 
   FutureBuilder _fBalance(fb) {
