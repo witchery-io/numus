@@ -92,16 +92,15 @@ class _Currency extends StatelessWidget {
             return Column(
               children: <Widget>[
                 Text('${item.name}'),
-                item.balance != null
+                item.fb != null
                     ? FutureBuilder(
-                        future: item.balance,
+                        future: item.fb,
                         builder: (cx, snapshot) {
-                          if (snapshot.hasData) {
+                          if (snapshot.hasData)
                             return Text('${snapshot.data.balance}');
-                          } else if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
+                          else if (snapshot.connectionState ==
+                              ConnectionState.waiting)
                             return Text('Loading...');
-                          }
 
                           return SizedBox.shrink();
                         },
