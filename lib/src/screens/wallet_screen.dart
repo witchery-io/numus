@@ -89,29 +89,47 @@ class _Currency extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final Coin item = snapshot.data;
-            return Column(
-              children: <Widget>[
-                Text('${item.name}'),
-                item.fb != null
-                    ? FutureBuilder(
-                        future: item.fb,
-                        builder: (cx, snapshot) {
-                          if (snapshot.hasData)
-                            return Text('${snapshot.data.balance}');
-                          else if (snapshot.connectionState ==
-                              ConnectionState.waiting)
-                            return Text('Loading...');
-
-                          return SizedBox.shrink();
-                        },
-                      )
-                    : SizedBox.shrink(),
-              ],
+            return ListTile(
+              leading: Icon(item.icon),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('${item.name.toUpperCase()}'),
+                  item.fb != null ? _fBalance(item.fb) : SizedBox.shrink()
+                ],
+              ),
+              subtitle: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  CustomButton(child: Text('Send'), onPressed: () {}),
+                  CustomButton(child: Text('Receive'), onPressed: () {}),
+                  CustomButton(child: Text('Transactions'), onPressed: () {}),
+                ],
+              ),
             );
           }
-
-          return Text('Loading...');
+          return _centerLoading();
         },
         future: items);
+  }
+
+  FutureBuilder _fBalance(Future<Balance> fb) {
+    return FutureBuilder(
+      future: fb,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final Balance data = snapshot.data;
+          return Text('${data.balance / 100000000}');
+        }
+        else if (snapshot.connectionState == ConnectionState.waiting)
+          return _centerLoading();
+
+        return SizedBox.shrink();
+      },
+    );
+  }
+
+  Widget _centerLoading() {
+    return Center(child: Text('Loading...', style: TextStyle(fontSize: 12.0),));
   }
 }

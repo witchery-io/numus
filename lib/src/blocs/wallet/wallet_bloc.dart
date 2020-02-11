@@ -37,8 +37,7 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
             fb = repository.loadBalanceByAddress(item.name, address);
           } catch (_) {}
         }
-        return Coin(
-            name: item.name, icon: item.icon, address: address, fb: fb);
+        return Coin(name: item.name, icon: item.icon, address: address, fb: fb);
       }).toList());
     } catch (_) {
       yield WalletNotLoaded();

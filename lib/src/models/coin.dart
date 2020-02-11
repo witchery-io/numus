@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_fundamental/src/models/models.dart';
 
 class Coin {
   final IconData icon;
   final String name;
   final String address;
-  Future fb;
+  Future<Balance> fb;
 
   Coin(
       {@required this.icon,
