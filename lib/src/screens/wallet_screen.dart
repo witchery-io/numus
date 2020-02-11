@@ -98,7 +98,22 @@ class _Currency extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text('${coin.name.toUpperCase()}'),
-                    _fBalance(coin.fb),
+                    FutureBuilder(
+                      future: coin.fb,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          return Text('${snapshot.error}', style: loadingStyle);
+                        } else if (snapshot.hasData) {
+                          final Balance data = snapshot.data;
+                          return Text('${data.balance / 100000000}');
+                        } else if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return _centerLoading();
+                        }
+
+                        return Text('No Balance', style: loadingStyle);
+                      },
+                    ),
                   ]),
               subtitle: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -112,24 +127,6 @@ class _Currency extends StatelessWidget {
         return _centerLoading();
       },
       future: item,
-    );
-  }
-
-  FutureBuilder _fBalance(fb) {
-    return FutureBuilder(
-      future: fb,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-//          print('${snapshot.error}');
-        } else if (snapshot.hasData) {
-          final Balance data = snapshot.data;
-          return Text('${data.balance / 100000000}');
-        } else if (snapshot.connectionState == ConnectionState.waiting) {
-          return _centerLoading();
-        }
-
-        return Text('No Balance', style: loadingStyle);
-      },
     );
   }
 
