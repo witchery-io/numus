@@ -27,9 +27,9 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
 
   Stream<WalletState> _loadWalletToState() async* {
     try {
-      final curr = await multiCurrency.getCurrencies;
+      final currencies = await multiCurrency.getCurrencies;
       yield WalletLoaded(
-          currencies: curr.map((item) async {
+          currencies: currencies.map((item) async {
         final address = await item.getAddress();
         Future<Balance> fb;
         if (address != null) {
