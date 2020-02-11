@@ -116,14 +116,13 @@ class _Currency extends StatelessWidget {
   }
 
   Widget _fBalance(Future<Balance> fb) {
-    if (fb == null)
-      return Text('Address is absent', style: loadingStyle);
+    print(fb);
 
     return FutureBuilder(
       future: fb,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          print('CurrError#1: ${snapshot.error}');
+          print('#1: ${snapshot.error}');
         }
 
         if (snapshot.hasData) {
