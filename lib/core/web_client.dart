@@ -16,7 +16,7 @@ class WebClient {
     if (response.statusCode == 200) {
       return Balance.fromJson(json.decode(response.body));
     } else {
-      throw Exception(json.decode(response.body).messages);
+      throw Exception(json.decode(response.body)['message']);
     }
   }
 }
