@@ -97,7 +97,7 @@ class _Currency extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text('${item.name.toUpperCase()}'),
-                  item.fb != null ? _fBalance(item.fb) : SizedBox.shrink()
+                  _fBalance(item.fb),
                 ],
               ),
               subtitle: Row(
@@ -115,10 +115,17 @@ class _Currency extends StatelessWidget {
         future: items);
   }
 
-  FutureBuilder _fBalance(Future<Balance> fb) {
+  Widget _fBalance(Future<Balance> fb) {
+    if (fb == null)
+      return Text('Address is absent', style: loadingStyle);
+
     return FutureBuilder(
       future: fb,
       builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          print('CurrError#1: ${snapshot.error}');
+        }
+
         if (snapshot.hasData) {
           final Balance data = snapshot.data;
           return Text('${data.balance / 100000000}');

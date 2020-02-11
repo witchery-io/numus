@@ -32,11 +32,10 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
           currencies: currencies.map((item) async {
         final address = await item.getAddress();
         Future<Balance> fb;
-        if (address != null) {
-          try {
-            fb = repository.loadBalanceByAddress(item.name, address);
-          } catch (_) {}
-        }
+
+        if (address != null)
+          fb = repository.loadBalanceByAddress(item.name, address);
+
         return Coin(name: item.name, icon: item.icon, address: address, fb: fb);
       }).toList());
     } catch (_) {
