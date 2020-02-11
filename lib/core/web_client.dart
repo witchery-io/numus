@@ -16,7 +16,7 @@ class WebClient {
     if (response.statusCode == 200) {
       return Balance.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Failed to load balance of address');
+      throw Exception(json.decode(response.body).messages);
     }
   }
 }
