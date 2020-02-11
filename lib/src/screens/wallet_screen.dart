@@ -91,8 +91,22 @@ class _Currency extends StatelessWidget {
             final Coin item = snapshot.data;
             return Column(
               children: <Widget>[
-                Text('${item.address}'),
-                Text('${item.balance}'),
+                Text('${item.name}'),
+                item.balance != null
+                    ? FutureBuilder(
+                        future: item.balance,
+                        builder: (cx, snapshot) {
+                          if (snapshot.hasData) {
+                            return Text('${snapshot.data.balance}');
+                          } else if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Text('Loading...');
+                          }
+
+                          return SizedBox.shrink();
+                        },
+                      )
+                    : SizedBox.shrink(),
               ],
             );
           }

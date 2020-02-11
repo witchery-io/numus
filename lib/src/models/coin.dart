@@ -4,11 +4,11 @@ class Coin {
   final IconData icon;
   final String name;
   final String address;
-  int balance;
+  Future balance;
 
   Coin(
       {@required this.icon,
       @required this.name,
       @required this.address,
-      this.balance = 0});
+      this.balance});
 }

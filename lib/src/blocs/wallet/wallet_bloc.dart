@@ -28,16 +28,14 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
   Stream<WalletState> _loadWalletToState() async* {
     try {
       final curr = await multiCurrency.getCurrencies;
-      final c = curr.map((c) async =>
-          Coin(name: c.name, icon: c.icon, address: await c.getAddress()));
+      final c = curr.map((item) async => Coin(
+          name: item.name, icon: item.icon, address: await item.getAddress()));
 
       final c2 = c.map((futureCoin) async {
         final coin = await futureCoin;
         if (coin.address != null) {
           try {
-            final Balance b =
-                await repository.loadBalanceByAddress(coin.name, coin.address);
-            coin.balance = b.balance;
+            coin.balance = repository.loadBalanceByAddress(coin.name, coin.address);
           } catch (_) {}
         }
 
