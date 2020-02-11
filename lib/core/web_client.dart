@@ -16,7 +16,9 @@ class WebClient {
     if (response.statusCode == 200) {
       return Balance.fromJson(json.decode(response.body));
     } else {
-      throw Exception(json.decode(response.body)['message']);
+      final msg =
+          '[${currency.toLowerCase()}]: ${json.decode(response.body)['message']}';
+      throw Exception(msg);
     }
   }
 }
