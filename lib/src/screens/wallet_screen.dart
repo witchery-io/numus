@@ -8,6 +8,8 @@ import 'package:flutter_fundamental/src/models/app_tab.dart';
 import 'package:flutter_fundamental/src/models/models.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 
+final TextStyle loadingStyle = TextStyle(fontSize: 12.0, color: Colors.grey);
+
 class WalletScreen extends StatefulWidget {
   @override
   _WalletScreenState createState() => _WalletScreenState();
@@ -120,16 +122,15 @@ class _Currency extends StatelessWidget {
         if (snapshot.hasData) {
           final Balance data = snapshot.data;
           return Text('${data.balance / 100000000}');
-        }
-        else if (snapshot.connectionState == ConnectionState.waiting)
+        } else if (snapshot.connectionState == ConnectionState.waiting)
           return _centerLoading();
 
-        return Text('No Balance');
+        return Text('No Balance', style: loadingStyle);
       },
     );
   }
 
   Widget _centerLoading() {
-    return Center(child: Text('Loading...', style: TextStyle(fontSize: 12.0),));
+    return Center(child: Text('Loading...', style: loadingStyle));
   }
 }
