@@ -124,7 +124,7 @@ class _Currency extends StatelessWidget {
         else if (snapshot.connectionState == ConnectionState.waiting)
           return _centerLoading();
 
-        return SizedBox.shrink();
+        return Text('No Balance');
       },
     );
   }
