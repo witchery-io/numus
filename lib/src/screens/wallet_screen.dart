@@ -113,7 +113,7 @@ class _Currency extends StatelessWidget {
         future: items);
   }
 
-  Widget _fBalance(fb) {
+  FutureBuilder _fBalance(fb) {
     return FutureBuilder(
       future: fb,
       builder: (context, snapshot) {
