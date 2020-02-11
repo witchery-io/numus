@@ -103,15 +103,19 @@ class _Currency extends StatelessWidget {
                       builder: (context, snapshot) {
                         if (snapshot.hasError) {
                           return Text('${snapshot.error}', style: loadingStyle);
-                        } else if (snapshot.hasData) {
-                          final Balance data = snapshot.data;
-                          return Text('${data.balance / 100000000}');
-                        } else if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return _centerLoading();
                         }
 
-                        return Text('No Balance', style: loadingStyle);
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return _centerLoading();
+                          case ConnectionState.none:
+                            return Text('No data', style: loadingStyle);
+                          case ConnectionState.done:
+                            final Balance data = snapshot.data;
+                            return Text('${data.balance / 100000000}');
+                          default:
+                            return null; // unknown
+                        }
                       },
                     ),
                   ]),
