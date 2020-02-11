@@ -92,23 +92,21 @@ class _Currency extends StatelessWidget {
           if (snapshot.hasData) {
             final Coin item = snapshot.data;
             return ListTile(
-              leading: Icon(item.icon),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text('${item.name.toUpperCase()}'),
-                  _fBalance(item.fb),
-                ],
-              ),
-              subtitle: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  CustomButton(child: Text('Send'), onPressed: () {}),
-                  CustomButton(child: Text('Receive'), onPressed: () {}),
-                  CustomButton(child: Text('Transactions'), onPressed: () {}),
-                ],
-              ),
-            );
+                leading: Icon(item.icon),
+                title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text('${item.name.toUpperCase()}'),
+                      _fBalance(item.fb),
+                    ]),
+                subtitle: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    CustomButton(child: Text('Send'), onPressed: () {}),
+                    CustomButton(child: Text('Receive'), onPressed: () {}),
+                    CustomButton(child: Text('Transactions'), onPressed: () {}),
+                  ],
+                ));
           }
           return _centerLoading();
         },
@@ -120,11 +118,8 @@ class _Currency extends StatelessWidget {
       future: fb,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          // 
 //          print('${snapshot.error}');
-        }
-
-        if (snapshot.hasData) {
+        } else if (snapshot.hasData) {
           final Balance data = snapshot.data;
           return Text('${data.balance / 100000000}');
         } else if (snapshot.connectionState == ConnectionState.waiting) {
