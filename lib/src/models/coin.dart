@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 
-class OwnCoin {
+class Coin {
   final IconData icon;
   final String name;
-  final int balance;
-  final Function transaction;
+  final String address;
+  int balance;
 
-  OwnCoin(
+  Coin(
       {@required this.icon,
       @required this.name,
-      this.balance = 0,
-      this.transaction});
+      @required this.address,
+      this.balance = 0});
 }

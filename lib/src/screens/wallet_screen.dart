@@ -79,42 +79,26 @@ class _WalletTab extends StatelessWidget {
 }
 
 class _Currency extends StatelessWidget {
-  final Future<OwnCoin> item;
+  final Future<Coin> items;
 
-  _Currency(this.item);
+  _Currency(this.items);
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          final OwnCoin data = snapshot.data;
-          return ListTile(
-            leading: Icon(data.icon),
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final Coin item = snapshot.data;
+            return Column(
               children: <Widget>[
-                Text('${data.name.toUpperCase()}'),
-                Text('${data.balance}'),
+                Text('${item.address}'),
+                Text('${item.balance}'),
               ],
-            ),
-            subtitle: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                CustomButton(onPressed: () {}, child: Text('Send')),
-                SizedBox(width: 8.0),
-                CustomButton(onPressed: () {}, child: Text('Receive')),
-                SizedBox(width: 8.0),
-                CustomButton(onPressed: () {}, child: Text('Transaction')),
-              ],
-            ),
-            isThreeLine: true,
-          );
-        }
+            );
+          }
 
-        return Center(child: Text('Loading...'));
-      },
-      future: item,
-    );
+          return Text('Loading...');
+        },
+        future: items);
   }
 }

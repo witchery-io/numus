@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_fundamental/src/models/models.dart';
 import 'package:flutter_fundamental/src/repositories/crypto_repository.dart';
 import 'package:multi_currency/multi_currency.dart';
@@ -27,23 +28,23 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
   Stream<WalletState> _loadWalletToState() async* {
     try {
       final curr = await multiCurrency.getCurrencies;
-      final c1 = curr.map((c) async {
-        int balance = 0;
-        final address = await c.getAddress();
-        try {
-          if (address != null) {
-            Balance b = await repository.loadBalanceByAddress(c.name, address);
-            balance = b.balance;
-          }
-        } catch (_) {}
-        return OwnCoin(
-            name: c.name,
-            icon: c.icon,
-            balance: balance ,
-            transaction: c.transaction);
+      final c = curr.map((c) async =>
+          Coin(name: c.name, icon: c.icon, address: await c.getAddress()));
+
+      final c2 = c.map((futureCoin) async {
+        final coin = await futureCoin;
+        if (coin.address != null) {
+          try {
+            final Balance b =
+                await repository.loadBalanceByAddress(coin.name, coin.address);
+            coin.balance = b.balance;
+          } catch (_) {}
+        }
+
+        return coin;
       });
 
-      yield WalletLoaded(currencies: c1.toList());
+      yield WalletLoaded(currencies: c2.toList());
     } catch (_) {
       yield WalletNotLoaded();
     }
