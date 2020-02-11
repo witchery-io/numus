@@ -115,21 +115,20 @@ class _Currency extends StatelessWidget {
         future: items);
   }
 
-  Widget _fBalance(Future<Balance> fb) {
-    print(fb);
-
+  Widget _fBalance(fb) {
     return FutureBuilder(
       future: fb,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          print('#1: ${snapshot.error}');
+          print('${snapshot.error}');
         }
 
         if (snapshot.hasData) {
           final Balance data = snapshot.data;
           return Text('${data.balance / 100000000}');
-        } else if (snapshot.connectionState == ConnectionState.waiting)
+        } else if (snapshot.connectionState == ConnectionState.waiting) {
           return _centerLoading();
+        }
 
         return Text('No Balance', style: loadingStyle);
       },

@@ -31,7 +31,9 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
       yield WalletLoaded(
           currencies: currencies.map((item) async {
         final address = await item.getAddress();
-        Future<Balance> fb = repository.loadBalanceByAddress(item.name, address);
+        Future<Balance> fb;
+        if (address != null)
+          fb = repository.loadBalanceByAddress(item.name, address);
         return Coin(name: item.name, icon: item.icon, address: address, fb: fb);
       }).toList());
     } catch (_) {
