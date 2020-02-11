@@ -71,6 +71,7 @@ class _WalletTab extends StatelessWidget {
             child: Text('Currencies', style: TextStyle(fontSize: 24.0))),
         Expanded(
           child: ListView.separated(
+            padding: EdgeInsets.all(8.0),
               separatorBuilder: (context, index) => Divider(),
               itemBuilder: (context, index) => _Currency(currencies[index]),
               itemCount: currencies.length),
@@ -120,7 +121,8 @@ class _Currency extends StatelessWidget {
       future: fb,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          print('${snapshot.error}');
+          // 
+//          print('${snapshot.error}');
         }
 
         if (snapshot.hasData) {
