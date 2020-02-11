@@ -70,12 +70,11 @@ class _WalletTab extends StatelessWidget {
             margin: EdgeInsets.all(8.0),
             child: Text('Currencies', style: TextStyle(fontSize: 24.0))),
         Expanded(
-          child: ListView.separated(
-            padding: EdgeInsets.all(8.0),
-              separatorBuilder: (context, index) => Divider(),
-              itemBuilder: (context, index) => _Currency(currencies[index]),
-              itemCount: currencies.length),
-        ),
+            child: ListView.separated(
+                padding: EdgeInsets.all(8.0),
+                separatorBuilder: (context, index) => Divider(),
+                itemBuilder: (context, index) => _Currency(currencies[index]),
+                itemCount: currencies.length)),
       ],
     );
   }
