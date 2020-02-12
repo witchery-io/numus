@@ -50,7 +50,7 @@ class _WalletScreen extends StatelessWidget {
           }),
           body: activeTab == AppTab.general
               ? WalletTab(currencies: currencies)
-              : Games(currencies: currencies),
+              : GameTab(currencies: currencies),
           bottomNavigationBar: TabSelector(
               activeTab: activeTab,
               onTabSelected: (tab) =>

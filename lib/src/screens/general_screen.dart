@@ -10,7 +10,7 @@ class GeneralScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<TabBloc, AppTab>(builder: (context, activeTab) {
       return Scaffold(
-          body: activeTab == AppTab.general ? _GeneralTab() : Games(),
+          body: activeTab == AppTab.general ? _GeneralTab() : GameTab(),
           bottomNavigationBar: TabSelector(
               activeTab: activeTab,
               onTabSelected: (tab) =>
