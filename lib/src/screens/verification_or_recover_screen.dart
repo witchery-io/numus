@@ -2,6 +2,7 @@ import 'package:bip39/bip39.dart' as bip39;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
+import 'package:flutter_fundamental/src/screens/screens.dart';
 import 'package:flutter_fundamental/src/utils/encrypt_helper.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 import 'package:toast/toast.dart';
@@ -41,9 +42,8 @@ class _VerificationOrRecoverScreenState
               Column(
                 children: <Widget>[
                   Text(isRecover ? 'Recover' : 'Verification',
-                      style: TextStyle(fontSize: 24.0)),
-                  Text('* For split up words use space',
-                      style: TextStyle(color: Colors.deepOrange))
+                      style: titleTextStyle),
+                  Text('* For split up words use space', style: infoTextStyle)
                 ],
               ),
               SizedBox(height: 12.0),

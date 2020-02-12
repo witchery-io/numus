@@ -32,11 +32,8 @@ class GenerationScreen extends StatelessWidget {
                     Wrap(
                         spacing: 6.0,
                         children: listMnemonic.asMap().entries.map((entry) {
-                          return Chip(
-                              avatar: CircleAvatar(
-                                  backgroundColor: Colors.grey.shade800,
-                                  child: Text('${entry.key + 1}')),
-                              label: Text('${entry.value}'));
+                          return SpecCustomChip(
+                              (entry.key + 1).toString(), entry.value);
                         }).toList()),
                     SizedBox(height: 12.0),
                     Row(
@@ -51,5 +48,20 @@ class GenerationScreen extends StatelessWidget {
                         ]),
                   ]),
                 ))));
+  }
+}
+
+class SpecCustomChip extends StatelessWidget {
+  final String index;
+  final String value;
+
+  const SpecCustomChip(this.index, this.value);
+
+  @override
+  Widget build(BuildContext context) {
+    return Chip(
+        avatar: CircleAvatar(
+            backgroundColor: Colors.grey.shade800, child: Text(index)),
+        label: Text(value));
   }
 }
