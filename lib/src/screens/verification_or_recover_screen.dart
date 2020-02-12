@@ -1,10 +1,13 @@
+import 'package:barcode_scan/barcode_scan.dart';
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
 import 'package:flutter_fundamental/src/screens/screens.dart';
 import 'package:flutter_fundamental/src/utils/encrypt_helper.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:toast/toast.dart';
 
 class VerificationOrRecoverScreen extends StatefulWidget {
@@ -107,6 +110,10 @@ class _VerificationOrRecoverScreenState
                       : []),
               Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
                 CustomButton(
+                    child: Icon(FontAwesomeIcons.qrcode),
+                    onPressed: () => _scan()),
+                SizedBox(width: 12.0),
+                CustomButton(
                     child: Text('Apply'),
                     onPressed: _isEnableApplyBtn ? _onApply : null),
               ])
@@ -151,6 +158,20 @@ class _VerificationOrRecoverScreenState
                 Navigator.pop(context);
               });
         });
+  }
+
+  void _scan() async {
+    try {
+      String barcode = await BarcodeScanner.scan();
+      if (barcode.length < 11)
+        return Toast.show('Wrong Qr', context, duration: 2, gravity: Toast.TOP);
+
+      final scan = barcode.substring(0, barcode.length - 11);
+      _pinAlert(scan);
+    } on PlatformException catch (_) {
+      return Toast.show('You have platform issue', context,
+          duration: 2, gravity: Toast.TOP);
+    }
   }
 
   @override
