@@ -37,11 +37,10 @@ class GenerationScreen extends StatelessWidget {
                               index: entry.key + 1, title: entry.value);
                         }).toList()),
                     Center(
-                      child: QrImage(
-                          data: mnemonic + ' bip39numus',
-                          foregroundColor: Colors.grey.shade300,
-                          size: MediaQuery.of(context).size.height / 2.6),
-                    ),
+                        child: QrImage(
+                            data: mnemonic + ' bip39numus',
+                            foregroundColor: Colors.grey.shade300,
+                            size: MediaQuery.of(context).size.height / 2.6)),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
