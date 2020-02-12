@@ -4,6 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 
+final TextStyle titleTextStyle =
+    TextStyle(fontSize: 24.0, color: Colors.grey.shade300);
+final TextStyle infoTextStyle =
+    TextStyle(fontSize: 12.0, color: Colors.deepOrange);
+
 class GenerationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -16,11 +21,9 @@ class GenerationScreen extends StatelessWidget {
                 padding: EdgeInsets.all(24.0),
                 child: Center(
                   child: ListBody(children: <Widget>[
-                    Text('Mnemonic has generated.',
-                        style: TextStyle(fontSize: 24.0)),
+                    Text('Mnemonic has generated.', style: titleTextStyle),
                     SizedBox(height: 4.0),
-                    Text('* Please save in your note',
-                        style: TextStyle(color: Colors.deepOrange)),
+                    Text('* Please save in your note', style: infoTextStyle),
                     SizedBox(height: 12.0),
                     Wrap(
                         spacing: 6.0,
@@ -37,10 +40,9 @@ class GenerationScreen extends StatelessWidget {
                         children: <Widget>[
                           CustomButton(
                             child: Text('Verify'),
-                            onPressed: () {
-                              BlocProvider.of<MnemonicBloc>(context)
-                                  .add(VerifyOrRecoverMnemonic(mnemonic));
-                            },
+                            onPressed: () =>
+                                BlocProvider.of<MnemonicBloc>(context)
+                                    .add(VerifyOrRecoverMnemonic(mnemonic)),
                           )
                         ]),
                   ]),
