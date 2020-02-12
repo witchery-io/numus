@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 class GameTab extends StatefulWidget {
   final List currencies;
@@ -19,6 +20,11 @@ class _GameTabState extends State<GameTab> {
 
   @override
   Widget build(BuildContext context) {
-    return Text('1');
+    return WebviewScaffold(
+      url: "https://www.google.com",
+      appBar: new AppBar(
+        title: new Text("Widget webview"),
+      ),
+    );
   }
 }
