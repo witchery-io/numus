@@ -48,7 +48,6 @@ class _VerificationOrRecoverScreenState
               ),
               SizedBox(height: 12.0),
               isRecover
-                  /* RECOVER */
                   ? MnemonicVerificationTextField(
                       helperText:
                           '* Please type mnemonic (12 words) in your note for recover.',
@@ -69,7 +68,6 @@ class _VerificationOrRecoverScreenState
                           _pinAlert(typedWords);
                         });
                       })
-                  /* VERIFICATION */
                   : MnemonicVerificationTextField(
                       helperText:
                           '* Please type 1, 5, 9 words in your note for verification.',
@@ -97,14 +95,14 @@ class _VerificationOrRecoverScreenState
                       }),
               SizedBox(height: 12.0),
               Wrap(
-                  spacing: 8.0,
+                  spacing: 6.0,
                   children: _isShowTags
                       ? _listWords.asMap().entries.map((entry) {
+                          final index = isRecover
+                              ? entry.key
+                              : _verificationKeys[entry.key];
                           return CustomChip(
-                              index: isRecover
-                                  ? (entry.key + 1)
-                                  : (_verificationKeys[entry.key] + 1),
-                              title: entry.value);
+                              index: index + 1, title: entry.value);
                         }).toList()
                       : []),
               Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
