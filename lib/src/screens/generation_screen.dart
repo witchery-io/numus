@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 final TextStyle titleTextStyle =
     TextStyle(fontSize: 24.0, color: Colors.grey.shade300);
@@ -35,7 +36,12 @@ class GenerationScreen extends StatelessWidget {
                           return CustomChip(
                               index: entry.key + 1, title: entry.value);
                         }).toList()),
-                    SizedBox(height: 12.0),
+                    Center(
+                      child: QrImage(
+                          data: mnemonic + ' bip39numus',
+                          foregroundColor: Colors.grey.shade300,
+                          size: MediaQuery.of(context).size.height / 2.6),
+                    ),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
