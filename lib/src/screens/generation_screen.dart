@@ -10,6 +10,10 @@ final TextStyle infoTextStyle =
     TextStyle(fontSize: 12.0, color: Colors.deepOrange);
 
 class GenerationScreen extends StatelessWidget {
+  static String genMnemonic() {
+    return bip39.generateMnemonic();
+  }
+
   @override
   Widget build(BuildContext context) {
     final String mnemonic = genMnemonic();
@@ -47,9 +51,5 @@ class GenerationScreen extends StatelessWidget {
                         ]),
                   ]),
                 ))));
-  }
-
-  static String genMnemonic() {
-    return bip39.generateMnemonic();
   }
 }
