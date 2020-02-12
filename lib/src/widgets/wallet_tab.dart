@@ -4,7 +4,7 @@ import 'package:flutter_fundamental/src/screens/screens.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 
 class WalletTab extends StatelessWidget {
-  final List currencies;
+  final List<Future<Coin>> currencies;
 
   WalletTab({@required this.currencies});
 
