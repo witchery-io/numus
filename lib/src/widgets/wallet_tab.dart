@@ -36,41 +36,41 @@ class _Currency extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final Coin coin = snapshot.data;
-          return ListTile(
-              leading: Icon(coin.icon),
-              title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text('${coin.name.toUpperCase()}'),
-                    FutureBuilder(
-                      future: coin.fb,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) {
-                          return Text('${snapshot.error}', style: loadingStyle);
-                        }
+          return Column(
+            children: <Widget>[
+              ListTile(
+                  leading: Icon(coin.icon),
+                  title: Text('${coin.name.toUpperCase()}'),
+                  subtitle: FutureBuilder(
+                    future: coin.fb,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return Text('${snapshot.error}', style: loadingStyle);
+                      }
 
-                        switch (snapshot.connectionState) {
-                          case ConnectionState.waiting:
-                            return _centerLoading();
-                          case ConnectionState.none:
-                            return Text('No data', style: loadingStyle);
-                          case ConnectionState.done:
-                            final Balance data = snapshot.data;
-                            return Text('${data.balance / 100000000}');
-                          default:
-                            return null; // unknown
-                        }
-                      },
-                    ),
-                  ]),
-              subtitle: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.waiting:
+                          return _centerLoading();
+                        case ConnectionState.none:
+                          return Text('No data', style: loadingStyle);
+                        case ConnectionState.done:
+                          final Balance data = snapshot.data;
+                          return Text('${data.balance / 100000000}');
+                        default:
+                          return null; // unknown
+                      }
+                    },
+                  )),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   CustomButton(child: Text('Send'), onPressed: () {}),
                   CustomButton(child: Text('Receive'), onPressed: () {}),
                   CustomButton(child: Text('Transactions'), onPressed: () {}),
                 ],
-              ));
+              ),
+            ],
+          );
         }
         return _centerLoading();
       },
