@@ -19,32 +19,29 @@ class GameTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      // error
-      future: currencies.first,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          final Coin coin = snapshot.data;
-          final url = 'https://m.avocado.casino';
-          final token =
-              _getToken(coin.privateKey, GameTab.convertMd5(coin.address));
-          final jwtHeader = {
-            HttpHeaders.authorizationHeader: 'Bearer ' + token
-          };
-          return SafeArea(
-            child: WebviewScaffold(
-                url: url,
-                headers: jwtHeader,
-                initialChild: Center(child: Text('Loading...'))),
-          );
-        } else if (snapshot.connectionState == ConnectionState.waiting) {
-          return LoadingIndicator();
-        } else if (snapshot.connectionState == ConnectionState.none) {
-          print('NONE');
-        }
+    return Scaffold(
+      body: currencies == null
+          ? _GameWebView()
+          : FutureBuilder(
+              future: currencies.first,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) return Center(child: Text('Ups!'));
 
-        return Text('Loading...');
-      },
+                switch (snapshot.connectionState) {
+                  case ConnectionState.done:
+                    final Coin coin = snapshot.data;
+                    final token = _getToken(
+                        coin.privateKey, GameTab.convertMd5(coin.address));
+                    final jwtHeader = {
+                      HttpHeaders.authorizationHeader: 'Bearer ' + token
+                    };
+                    return SafeArea(child: _GameWebView(headers: jwtHeader));
+                  case ConnectionState.waiting:
+                    return LoadingIndicator();
+                  default:
+                    return null; // unknown
+                }
+              }),
     );
   }
 
@@ -61,5 +58,22 @@ class GameTab extends StatelessWidget {
     } catch (e) {
       throw Exception(e.message);
     }
+  }
+}
+
+class _GameWebView extends StatelessWidget {
+  final url = 'https://m.avocado.casino';
+  final Map<String, String> headers;
+
+  _GameWebView({this.headers});
+
+  @override
+  Widget build(BuildContext context) {
+    return WebviewScaffold(
+        url: url, headers: headers, initialChild: _centerLoading());
+  }
+
+  _centerLoading() {
+    return Center(child: Text('Loading...'));
   }
 }
