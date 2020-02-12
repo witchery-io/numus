@@ -62,7 +62,7 @@ class GameTab extends StatelessWidget {
 }
 
 class _GameWebView extends StatelessWidget {
-  final url = 'https://m.avocado.casino';
+  final url = 'https://a9985d07.ngrok.io/public';
   final Map<String, String> headers;
 
   _GameWebView({this.headers});
