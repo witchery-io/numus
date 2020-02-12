@@ -19,8 +19,8 @@ class GameTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: currencies == null
+    return SafeArea(
+      child: currencies == null
           ? _GameWebView()
           : FutureBuilder(
               future: currencies.first,
@@ -35,7 +35,7 @@ class GameTab extends StatelessWidget {
                     final jwtHeader = {
                       HttpHeaders.authorizationHeader: 'Bearer ' + token
                     };
-                    return SafeArea(child: _GameWebView(headers: jwtHeader));
+                    return _GameWebView(headers: jwtHeader);
                   case ConnectionState.waiting:
                     return LoadingIndicator();
                   default:
