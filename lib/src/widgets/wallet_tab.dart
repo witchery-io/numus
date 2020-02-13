@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_fundamental/src/models/models.dart';
 import 'package:flutter_fundamental/src/screens/screens.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+import 'package:toast/toast.dart';
 
 class WalletTab extends StatelessWidget {
   final List<Future<Coin>> currencies;
@@ -63,7 +65,10 @@ class _Currency extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   CustomButton(child: Text('Send'), onPressed: () {}),
-                  CustomButton(child: Text('Receive'), onPressed: () {}),
+                  CustomButton(
+                      child: Text('Receive'),
+                      onPressed: () =>
+                          _showQr(context, 'Scan Qr', coin.address)),
                   CustomButton(child: Text('Transactions'), onPressed: () {}),
                 ])
           ]);
@@ -72,6 +77,24 @@ class _Currency extends StatelessWidget {
       },
       future: item,
     );
+  }
+
+  void _showQr(BuildContext context, String title, String val) {
+    if (val == null) return Toast.show(
+        'Qr is absent', context, duration: 2, gravity: Toast.TOP);
+
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text('$title', style: titleTextStyle),
+              QrImage(
+                  data: val, size: 250.0, foregroundColor: Colors.grey.shade300)
+            ],
+          );
+        });
   }
 
   Widget _centerLoading() {
