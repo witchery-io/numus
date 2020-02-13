@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_fundamental/src/models/models.dart';
 import 'package:flutter_fundamental/src/screens/screens.dart';
+import 'package:flutter_fundamental/src/utils/utils.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:toast/toast.dart';
 
 class Currency extends StatelessWidget {
   final Future<Coin> item;
@@ -105,12 +105,13 @@ class Currency extends StatelessWidget {
                     if (_sendFormKey.currentState.validate()) {
                       try {
                         Currency._sendFormKey.currentState.save();
-                        Toast.show('Loading...', context, duration: 3000, gravity: Toast.TOP);
+                        FocusScope.of(context).requestFocus(FocusNode());
+                        Message.show(context, 'Your request is checking');
                         await coin.transaction(_address, double.parse(_price));
-                        Toast.show('Success', context, duration: 2, gravity: Toast.TOP);
+                        Message.show(context, 'Your request has accepted');
                         Navigator.pop(context);
                       } catch (e) {
-                        Toast.show(e.message, context, duration: 2, gravity: Toast.TOP);
+                        Message.show(context, e.message);
                       }
                     }
                   }),
@@ -120,9 +121,7 @@ class Currency extends StatelessWidget {
   }
 
   void _showQr(BuildContext context, String title, String val) async {
-    if (val == null)
-      return Toast.show('Qr is absent', context,
-          duration: 2, gravity: Toast.TOP);
+    if (val == null) return Message.show(context, 'Qr is absent');
 
     await showModalBottomSheet(
         context: context,
