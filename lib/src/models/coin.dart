@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_fundamental/src/models/models.dart';
 
-typedef OnTransaction = Function(String address, double price);
+typedef OnTransaction = Future Function(String address, double price);
 
 class Coin {
   final IconData icon;

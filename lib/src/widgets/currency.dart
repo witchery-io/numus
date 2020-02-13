@@ -105,10 +105,12 @@ class Currency extends StatelessWidget {
                     if (_sendFormKey.currentState.validate()) {
                       try {
                         Currency._sendFormKey.currentState.save();
-                        coin.transaction(_address, double.parse(_price));
+                        Toast.show('Loading...', context, duration: 3000, gravity: Toast.TOP);
+                        await coin.transaction(_address, double.parse(_price));
+                        Toast.show('Success', context, duration: 2, gravity: Toast.TOP);
+                        Navigator.pop(context);
                       } catch (e) {
-                        Toast.show(e.message, context,
-                            duration: 2, gravity: Toast.TOP);
+                        Toast.show(e.message, context, duration: 2, gravity: Toast.TOP);
                       }
                     }
                   }),
