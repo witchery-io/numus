@@ -60,71 +60,68 @@ class Currency extends StatelessWidget {
     );
   }
 
-  void _send(BuildContext context, Coin coin) {
-    String _address = '';
-    String _price = '';
+  void _send(BuildContext context, Coin coin) async {
+    String _address, _price;
+    await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Form(
+              key: _sendFormKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  TextFormField(
+                    decoration: InputDecoration(
+                        hintText:
+                            'Enter only ${coin.name.toUpperCase()} address'),
+                    validator: (String value) {
+                      if (value.isEmpty) return 'Please enter address';
 
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: Form(
-            key: _sendFormKey,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                TextFormField(
-                  decoration: InputDecoration(
-                      hintText:
-                          'Enter only ${coin.name.toUpperCase()} address'),
-                  validator: (String value) {
-                    if (value.isEmpty) return 'Please enter address';
+                      return null;
+                    },
+                    onSaved: (value) => _address = value,
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(hintText: 'Price'),
+                    validator: (String value) {
+                      if (value.isEmpty) return 'Please enter price';
 
-                    return null;
-                  },
-                  onSaved: (value) => _address = value,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(hintText: 'Price'),
-                  validator: (String value) {
-                    if (value.isEmpty) return 'Please enter price';
+                      final n = double.tryParse(value);
+                      if (n == null) return 'Invalid: $value';
 
-                    final n = double.tryParse(value);
-                    if (n == null) return 'Invalid: $value';
-
-                    return null;
-                  },
-                  keyboardType: TextInputType.number,
-                  onSaved: (value) => _price = value,
-                ),
-              ],
+                      return null;
+                    },
+                    keyboardType: TextInputType.number,
+                    onSaved: (value) => _price = value,
+                  ),
+                ],
+              ),
             ),
-          ),
-          actions: <Widget>[
-            FlatButton(
-                child: Text('Send'),
-                onPressed: () async {
-                  if (_sendFormKey.currentState.validate()) {
-                    try {
-                      Currency._sendFormKey.currentState.save();
-                      coin.transaction(_address, double.parse(_price));
-                    } catch (e) {
-                      Toast.show(e.messgae, context);
+            actions: <Widget>[
+              FlatButton(
+                  child: Text('Send'),
+                  onPressed: () async {
+                    if (_sendFormKey.currentState.validate()) {
+                      try {
+                        Currency._sendFormKey.currentState.save();
+                        coin.transaction(_address, double.parse(_price));
+                      } catch (e) {
+                        Toast.show(e.messgae, context);
+                      }
                     }
-                  }
-                }),
-          ],
-        );
-      },
-    );
+                  }),
+            ],
+          );
+        });
   }
 
-  void _showQr(BuildContext context, String title, String val) {
+  void _showQr(BuildContext context, String title, String val) async {
     if (val == null)
       return Toast.show('Qr is absent', context,
           duration: 2, gravity: Toast.TOP);
 
-    showModalBottomSheet(
+    await showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
           return Column(
