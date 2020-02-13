@@ -40,7 +40,7 @@ class GenerationScreen extends StatelessWidget {
                         child: QrImage(
                             data: mnemonic + ' bip39numus',
                             foregroundColor: Colors.grey.shade300,
-                            size: MediaQuery.of(context).size.height / 2.6)),
+                            size: 250.0)),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
