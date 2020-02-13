@@ -107,7 +107,8 @@ class Currency extends StatelessWidget {
                         Currency._sendFormKey.currentState.save();
                         coin.transaction(_address, double.parse(_price));
                       } catch (e) {
-                        Toast.show(e.messgae, context);
+                        Toast.show(e.message, context,
+                            duration: 2, gravity: Toast.TOP);
                       }
                     }
                   }),
