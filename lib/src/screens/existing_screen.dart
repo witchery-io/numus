@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
 import 'package:flutter_fundamental/src/utils/encrypt_helper.dart';
+import 'package:flutter_fundamental/src/utils/utils.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
-import 'package:toast/toast.dart';
 
 class ExistingScreen extends StatelessWidget {
   final base64Mnemonic;
@@ -25,7 +25,7 @@ class ExistingScreen extends StatelessWidget {
                       barrierDismissible: false,
                       builder: (BuildContext cx) {
                         return PinAlertDialog(
-                            title: 'Please type your pin.',
+                            title: 'Please type your pin',
                             onConfirmed: (strPin) {
                               try {
                                 final encrypt = EncryptHelper(pin: strPin);
@@ -37,8 +37,7 @@ class ExistingScreen extends StatelessWidget {
                                         mnemonicBase64: null));
                                 Navigator.pop(context);
                               } catch (e) {
-                                Toast.show(e.message, cx,
-                                    duration: 2, gravity: Toast.TOP);
+                                Message.show(cx, e.message);
                               }
                             });
                       });

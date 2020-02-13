@@ -26,12 +26,14 @@ class _GeneralTab extends StatelessWidget {
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-          CustomButton(child: Text('Create New'), onPressed: () {
-            BlocProvider.of<MnemonicBloc>(context).add(NewMnemonic());
-          }),
-          CustomButton(child: Text('Recover'), onPressed: () {
-            BlocProvider.of<MnemonicBloc>(context).add(VerifyOrRecoverMnemonic(null));
-          }),
+          CustomButton(
+              child: Text('Create New'),
+              onPressed: () =>
+                  BlocProvider.of<MnemonicBloc>(context).add(NewMnemonic())),
+          CustomButton(
+              child: Text('Recover'),
+              onPressed: () => BlocProvider.of<MnemonicBloc>(context)
+                  .add(VerifyOrRecoverMnemonic(null))),
         ]));
   }
 }

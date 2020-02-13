@@ -6,9 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
 import 'package:flutter_fundamental/src/screens/screens.dart';
 import 'package:flutter_fundamental/src/utils/encrypt_helper.dart';
+import 'package:flutter_fundamental/src/utils/utils.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:toast/toast.dart';
 
 class VerificationOrRecoverScreen extends StatefulWidget {
   final String mnemonic;
@@ -53,7 +53,7 @@ class _VerificationOrRecoverScreenState
               isRecover
                   ? MnemonicVerificationTextField(
                       helperText:
-                          '* Please type mnemonic (12 words) in your note for recover.',
+                          '* Please type mnemonic (12 words) in your note for recover',
                       labelText: 'Recover words',
                       onChanged: (String typedWords) {
                         _changeTextField(typedWords, 12, () {
@@ -62,8 +62,7 @@ class _VerificationOrRecoverScreenState
                           bool isValid = true;
                           if (!isValidMnemonic) {
                             isValid = false;
-                            Toast.show('Mnemonic is not correct.', context,
-                                duration: 2, gravity: Toast.TOP);
+                            Message.show(context, 'Mnemonic is not correct');
                           }
 
                           if (!isValid) return;
@@ -73,7 +72,7 @@ class _VerificationOrRecoverScreenState
                       })
                   : MnemonicVerificationTextField(
                       helperText:
-                          '* Please type 1, 5, 9 words in your note for verification.',
+                          '* Please type 1, 5, 9 words in your note for verification',
                       labelText: 'Mnemonic verification',
                       onChanged: (String typedWords) {
                         _changeTextField(typedWords, 3, () {
@@ -85,8 +84,7 @@ class _VerificationOrRecoverScreenState
                           for (int i = 0; i < 3; i++)
                             if (mnemonicWordsList[_verificationKeys[i]] !=
                                 _listWords[i]) {
-                              Toast.show('Key words is not correct.', context,
-                                  duration: 2, gravity: Toast.TOP);
+                              Message.show(context, 'Key words is not correct');
                               isValid = false;
                               break;
                             }
@@ -163,14 +161,12 @@ class _VerificationOrRecoverScreenState
   void _scan() async {
     try {
       String barcode = await BarcodeScanner.scan();
-      if (barcode.length < 11)
-        return Toast.show('Wrong Qr', context, duration: 2, gravity: Toast.TOP);
+      if (barcode.length < 11) return Message.show(context, 'Wrong Qr');
 
       final scan = barcode.substring(0, barcode.length - 11);
       _pinAlert(scan);
     } on PlatformException catch (_) {
-      return Toast.show('You have platform issue', context,
-          duration: 2, gravity: Toast.TOP);
+      return Message.show(context, 'You have platform issue');
     }
   }
 
