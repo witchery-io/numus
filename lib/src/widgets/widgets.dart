@@ -1,3 +1,4 @@
+export 'currency.dart';
 export 'custom_button.dart';
 export 'custom_chip.dart';
 export 'game_tab.dart';

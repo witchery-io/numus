@@ -39,7 +39,8 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
             icon: item.icon,
             privateKey: item.getPrivateKey(),
             address: address,
-            fb: fb);
+            fb: fb,
+            transaction: item.transaction);
       }).toList());
     } catch (_) {
       yield WalletNotLoaded();
