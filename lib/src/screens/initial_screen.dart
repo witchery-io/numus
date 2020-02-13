@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fundamental/core/core.dart';
+import 'package:flutter_fundamental/src/app_keys.dart';
 import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
 import 'package:flutter_fundamental/src/blocs/tab/bloc.dart';
 import 'package:flutter_fundamental/src/blocs/wallet/bloc.dart';
@@ -15,7 +16,7 @@ class InitialScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MnemonicBloc, MnemonicState>(builder: (context, state) {
       if (state is MnemonicLoading) {
-        return LoadingIndicator();
+        return LoadingIndicator(key: AppKeys.statsLoadingIndicator);
       } else if (state is MnemonicNotLoaded || state is MnemonicRemoved) {
         return BlocProvider<TabBloc>(
             create: (context) => TabBloc(), child: GeneralScreen());
@@ -39,7 +40,7 @@ class InitialScreen extends StatelessWidget {
           child: WalletScreen(),
         );
       } else {
-        return null; // unknown screen
+        return Container(key: AppKeys.emptyStatsContainer);
       }
     });
   }

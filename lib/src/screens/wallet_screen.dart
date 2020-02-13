@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_fundamental/src/app_keys.dart';
 import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
 import 'package:flutter_fundamental/src/blocs/tab/bloc.dart';
 import 'package:flutter_fundamental/src/blocs/wallet/bloc.dart';
@@ -20,13 +21,13 @@ class _WalletScreenState extends State<WalletScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<WalletBloc, WalletState>(builder: (context, state) {
       if (state is WalletLoading) {
-        return LoadingIndicator();
+        return LoadingIndicator(key: AppKeys.statsLoadingIndicator);
       } else if (state is WalletLoaded) {
         return _WalletScreen(currencies: state.currencies);
       } else if (state is WalletNotLoaded) {
         return Scaffold(body: Center(child: Text('No result.')));
       } else {
-        return null;
+        return Container(key: AppKeys.emptyStatsContainer);
       }
     });
   }

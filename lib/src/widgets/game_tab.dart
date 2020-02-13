@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_fundamental/src/app_keys.dart';
 import 'package:flutter_fundamental/src/models/models.dart';
 import 'package:flutter_fundamental/src/widgets/loading_indicator.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
@@ -37,9 +38,9 @@ class GameTab extends StatelessWidget {
                     };
                     return _GameWebView(headers: jwtHeader);
                   case ConnectionState.waiting:
-                    return LoadingIndicator();
+                    return LoadingIndicator(key: AppKeys.statsLoadingIndicator);
                   default:
-                    return null; // unknown
+                    return Container(key: AppKeys.emptyDetailsContainer);
                 }
               }),
     );
