@@ -16,16 +16,15 @@ class MnemonicVerificationTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      autofocus: true,
-      decoration: InputDecoration(
-        border: OutlineInputBorder(borderSide: BorderSide()),
-        hintText: hintText,
-        helperText: helperText,
-        helperStyle: TextStyle(color: Colors.deepOrange),
-        labelText: labelText,
-        prefixIcon: Icon(Icons.lock_outline, color: Colors.deepOrange),
-      ),
-      onChanged: (words) => onChanged(words),
-    );
+        autofocus: true,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(borderSide: BorderSide()),
+          hintText: hintText,
+          helperText: helperText,
+          helperStyle: TextStyle(color: Colors.deepOrange),
+          labelText: labelText,
+          prefixIcon: Icon(Icons.lock_outline, color: Colors.deepOrange),
+        ),
+        onChanged: (words) => onChanged(words));
   }
 }

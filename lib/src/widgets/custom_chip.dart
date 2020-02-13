@@ -9,9 +9,8 @@ class CustomChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Chip(
-      avatar: CircleAvatar(
-          backgroundColor: Colors.grey.shade800, child: Text('$index')),
-      label: Text('$title'),
-    );
+        avatar: CircleAvatar(
+            backgroundColor: Colors.grey.shade800, child: Text('$index')),
+        label: Text('$title'));
   }
 }

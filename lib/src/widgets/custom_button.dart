@@ -13,9 +13,8 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-      onPressed: onPressed,
-      child: child,
-      color: Theme.of(context).buttonColor,
-    );
+        onPressed: onPressed,
+        child: child,
+        color: Theme.of(context).buttonColor);
   }
 }
