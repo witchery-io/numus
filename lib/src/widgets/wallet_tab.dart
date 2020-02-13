@@ -36,12 +36,11 @@ class _Currency extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final Coin coin = snapshot.data;
-          return Column(
-            children: <Widget>[
-              ListTile(
-                  leading: Icon(coin.icon),
-                  title: Text('${coin.name.toUpperCase()}'),
-                  subtitle: FutureBuilder(
+          return Column(children: <Widget>[
+            ListTile(
+                leading: Icon(coin.icon),
+                title: Text('${coin.name.toUpperCase()}'),
+                subtitle: FutureBuilder(
                     future: coin.fb,
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
@@ -59,18 +58,15 @@ class _Currency extends StatelessWidget {
                         default:
                           return null; // unknown
                       }
-                    },
-                  )),
-              Row(
+                    })),
+            Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   CustomButton(child: Text('Send'), onPressed: () {}),
                   CustomButton(child: Text('Receive'), onPressed: () {}),
                   CustomButton(child: Text('Transactions'), onPressed: () {}),
-                ],
-              ),
-            ],
-          );
+                ])
+          ]);
         }
         return _centerLoading();
       },
