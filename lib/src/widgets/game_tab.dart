@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -6,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_fundamental/src/app_keys.dart';
 import 'package:flutter_fundamental/src/models/models.dart';
 import 'package:flutter_fundamental/src/widgets/loading_indicator.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:jaguar_jwt/jaguar_jwt.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class GameTab extends StatelessWidget {
   final List<Future<Coin>> currencies;
@@ -62,19 +63,24 @@ class GameTab extends StatelessWidget {
   }
 }
 
-class _GameWebView extends StatelessWidget {
-  final url = 'https://mighty-octopus-74.localtunnel.me/public';
+class _GameWebView extends StatefulWidget {
   final Map<String, String> headers;
 
   _GameWebView({this.headers});
 
   @override
-  Widget build(BuildContext context) {
-    return WebviewScaffold(
-        url: url, headers: headers, initialChild: _centerLoading());
-  }
+  __GameWebViewState createState() => __GameWebViewState();
+}
 
-  _centerLoading() {
-    return Center(child: Text('Loading...'));
+class __GameWebViewState extends State<_GameWebView> {
+  final url = 'https://mighty-octopus-74.localtunnel.me/public';
+
+  @override
+  Widget build(BuildContext context) {
+    return WebView(
+      initialUrl: url,
+      debuggingEnabled: true,
+      javascriptMode: JavascriptMode.unrestricted,
+    );
   }
 }
