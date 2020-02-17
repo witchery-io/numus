@@ -9,7 +9,7 @@ class GameWebView extends StatelessWidget {
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
 
-  GameWebView({this.headers});
+  GameWebView({Key key, this.headers}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
