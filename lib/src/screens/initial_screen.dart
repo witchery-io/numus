@@ -37,7 +37,7 @@ class InitialScreen extends StatelessWidget {
                         webClient: WebClient(httpClient: http.Client())))
                   ..add(LoadWallet())),
           ],
-          child: WalletScreen(),
+          child: RenderWalletScreen(),
         );
       } else {
         return Container(key: AppKeys.emptyStatsContainer);

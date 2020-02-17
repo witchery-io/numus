@@ -11,12 +11,7 @@ import 'package:flutter_fundamental/src/widgets/widgets.dart';
 
 final TextStyle loadingStyle = TextStyle(fontSize: 12.0, color: Colors.grey);
 
-class WalletScreen extends StatefulWidget {
-  @override
-  _WalletScreenState createState() => _WalletScreenState();
-}
-
-class _WalletScreenState extends State<WalletScreen> {
+class RenderWalletScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<WalletBloc, WalletState>(builder: (context, state) {
@@ -25,7 +20,7 @@ class _WalletScreenState extends State<WalletScreen> {
       } else if (state is WalletLoaded) {
         return _WalletScreen(currencies: state.currencies);
       } else if (state is WalletNotLoaded) {
-        return Scaffold(body: Center(child: Text('No result.')));
+        return NoResult(key: AppKeys.noResultContainer);
       } else {
         return Container(key: AppKeys.emptyStatsContainer);
       }
