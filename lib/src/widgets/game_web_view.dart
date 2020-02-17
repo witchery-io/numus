@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bip21/bip21.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -25,6 +26,9 @@ class GameWebView extends StatelessWidget {
       navigationDelegate: (NavigationRequest action) {
         final isLink = action.url.contains(RegExp("^(http|https)://"), 0);
         if (isLink) return NavigationDecision.navigate;
+
+        final decoded = Bip21.decode(action.url);
+        print(decoded);
 
         return Future.value(null);
       },
