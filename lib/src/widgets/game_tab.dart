@@ -48,14 +48,15 @@ class GameTab extends StatelessWidget {
 
   String _getToken(String privateKey, String jwtId) {
     try {
-      final claimSet = JwtClaim(
-          jwtId: jwtId,
-          maxAge: const Duration(hours: 300),
-          otherClaims: <String, dynamic>{
-            'id': jwtId,
-            'createdAt': DateTime.now().millisecondsSinceEpoch
-          });
-      return issueJwtHS256(claimSet, privateKey);
+      return issueJwtHS256(
+          JwtClaim(
+              jwtId: jwtId,
+              maxAge: const Duration(hours: 300),
+              otherClaims: <String, dynamic>{
+                'id': jwtId,
+                'createdAt': DateTime.now().millisecondsSinceEpoch
+              }),
+          privateKey);
     } catch (e) {
       throw Exception(e.message);
     }
