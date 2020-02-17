@@ -21,30 +21,27 @@ class GameTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: currencies == null
-          ? GameWebView(key: AppKeys.gameWebView)
-          : FutureBuilder(
-              future: currencies.first,
-              builder: (context, snapshot) {
-                if (snapshot.hasError) return Center(child: Text('Ups!'));
+        child: FutureBuilder(
+            future: currencies.first,
+            builder: (context, snapshot) {
+              if (snapshot.hasError) return Center(child: Text('Ups!'));
 
-                switch (snapshot.connectionState) {
-                  case ConnectionState.done:
-                    final Coin coin = snapshot.data;
-                    final token = _getToken(
-                        coin.privateKey, GameTab.convertMd5(coin.address));
-                    final jwtHeader = {
-                      HttpHeaders.authorizationHeader: 'Bearer ' + token
-                    };
-                    return GameWebView(
-                        key: AppKeys.gameWebView, headers: jwtHeader);
-                  case ConnectionState.waiting:
-                    return LoadingIndicator(key: AppKeys.statsLoadingIndicator);
-                  default:
-                    return Container(key: AppKeys.emptyDetailsContainer);
-                }
-              }),
-    );
+              switch (snapshot.connectionState) {
+                case ConnectionState.done:
+                  final Coin coin = snapshot.data;
+                  final md5Address = GameTab.convertMd5(coin.address);
+                  final token = _getToken(coin.privateKey, md5Address);
+                  final jwtHeader = {
+                    HttpHeaders.authorizationHeader: 'Bearer ' + token
+                  };
+                  return GameWebView(
+                      key: AppKeys.gameWebView, headers: jwtHeader);
+                case ConnectionState.waiting:
+                  return LoadingIndicator(key: AppKeys.statsLoadingIndicator);
+                default:
+                  return Container(key: AppKeys.emptyDetailsContainer);
+              }
+            }));
   }
 
   String _getToken(String privateKey, String jwtId) {
