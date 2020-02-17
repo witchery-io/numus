@@ -14,7 +14,6 @@ class GameWebView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WebView(
-      debuggingEnabled: true,
       javascriptMode: JavascriptMode.unrestricted,
       onWebViewCreated: (WebViewController webViewController) {
         webViewController.loadUrl(url, headers: headers);
