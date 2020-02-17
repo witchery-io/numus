@@ -56,6 +56,7 @@ class _PinAlertDialogState extends State<PinAlertDialog> {
                     return null;
                   },
                   onSaved: (value) => _pin = value,
+                  obscureText: true,
                 ),
               )),
         ),
