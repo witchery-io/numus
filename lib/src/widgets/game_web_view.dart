@@ -20,12 +20,12 @@ class GameWebView extends StatelessWidget {
         webViewController.loadUrl(url, headers: headers);
         _controller.complete(webViewController);
       },
-      debuggingEnabled: false,
+      debuggingEnabled: true,
       navigationDelegate: (NavigationRequest action) {
         final isLink = action.url.contains(RegExp("^(http|https)://"), 0);
         if (isLink) return NavigationDecision.navigate;
 
-
+        
 
         return Future.value(null);
       },
