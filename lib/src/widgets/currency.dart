@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_fundamental/src/models/models.dart';
 import 'package:flutter_fundamental/src/screens/screens.dart';
 import 'package:flutter_fundamental/src/utils/utils.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+
+final TextStyle minorStyle = TextStyle(fontSize: 12.0, color: Colors.white);
 
 class Currency extends StatelessWidget {
   final Future<Coin> item;
@@ -130,8 +133,17 @@ class Currency extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text('$title', style: titleTextStyle),
-              QrImage(
-                  data: val, size: 250.0, foregroundColor: Colors.grey.shade300)
+              GestureDetector(
+                onTap: () {
+                  Message.show(context, 'Copied');
+                  Clipboard.setData(new ClipboardData(text: val));
+                },
+                child: QrImage(
+                    data: val,
+                    size: 250.0,
+                    foregroundColor: Colors.grey.shade300),
+              ),
+              Text(val, style: minorStyle)
             ],
           );
         });
