@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_fundamental/src/app_keys.dart';
 import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
 import 'package:flutter_fundamental/src/blocs/tab/bloc.dart';
 import 'package:flutter_fundamental/src/models/app_tab.dart';
@@ -10,7 +11,9 @@ class GeneralScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<TabBloc, AppTab>(builder: (context, activeTab) {
       return Scaffold(
-          body: activeTab == AppTab.general ? _GeneralTab() : GameTab(),
+          body: activeTab == AppTab.general
+              ? _GeneralTab()
+              : GameTab(key: AppKeys.gameTab),
           bottomNavigationBar: TabSelector(
               activeTab: activeTab,
               onTabSelected: (tab) =>

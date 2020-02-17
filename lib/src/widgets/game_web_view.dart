@@ -14,18 +14,17 @@ class GameWebView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WebView(
+      initialUrl: url,
       gestureNavigationEnabled: true,
       javascriptMode: JavascriptMode.unrestricted,
-      onWebViewCreated: (WebViewController webViewController) {
-        webViewController.loadUrl(url, headers: headers);
+      onWebViewCreated: (WebViewController webViewController) async {
+        await webViewController.loadUrl(url, headers: headers);
         _controller.complete(webViewController);
       },
       debuggingEnabled: true,
       navigationDelegate: (NavigationRequest action) {
         final isLink = action.url.contains(RegExp("^(http|https)://"), 0);
         if (isLink) return NavigationDecision.navigate;
-
-        
 
         return Future.value(null);
       },

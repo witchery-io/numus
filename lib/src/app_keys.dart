@@ -5,4 +5,5 @@ class AppKeys {
   static final emptyStatsContainer = const Key('__emptyStatsContainer__');
   static final emptyDetailsContainer = const Key('__emptyDetailsContainer__');
   static final noResultContainer = const Key('__noResultContainer__');
+  static final gameTab = const Key('__gameTab__');
 }

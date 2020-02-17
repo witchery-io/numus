@@ -16,7 +16,7 @@ class GameTab extends StatelessWidget {
     return md5.convert(utf8.encode(val)).toString();
   }
 
-  GameTab({this.currencies});
+  GameTab({Key key, this.currencies}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
