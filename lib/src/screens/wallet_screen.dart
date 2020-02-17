@@ -18,7 +18,7 @@ class RenderWalletScreen extends StatelessWidget {
       if (state is WalletLoading) {
         return LoadingIndicator(key: AppKeys.statsLoadingIndicator);
       } else if (state is WalletLoaded) {
-        return _WalletScreen(currencies: state.currencies);
+        return WalletScreen(currencies: state.currencies);
       } else if (state is WalletNotLoaded) {
         return NoResult(key: AppKeys.noResultContainer);
       } else {
@@ -28,10 +28,10 @@ class RenderWalletScreen extends StatelessWidget {
   }
 }
 
-class _WalletScreen extends StatelessWidget {
+class WalletScreen extends StatelessWidget {
   final List currencies;
 
-  _WalletScreen({@required this.currencies}) : assert(currencies.isNotEmpty);
+  WalletScreen({@required this.currencies}) : assert(currencies.isNotEmpty);
 
   @override
   Widget build(BuildContext context) {

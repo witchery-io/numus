@@ -356,13 +356,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.23.1"
-  screen:
+  screen_state:
     dependency: "direct main"
     description:
-      name: screen
+      name: screen_state
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.5"
+    version: "0.1.1"
   sky_engine:
     dependency: transitive
     description: flutter
