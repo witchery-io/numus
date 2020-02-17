@@ -6,7 +6,6 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fundamental/src/app_keys.dart';
 import 'package:flutter_fundamental/src/models/models.dart';
-import 'package:flutter_fundamental/src/widgets/loading_indicator.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 import 'package:jaguar_jwt/jaguar_jwt.dart';
 
