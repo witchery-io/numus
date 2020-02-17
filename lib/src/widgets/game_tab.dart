@@ -54,7 +54,7 @@ class GameTab extends StatelessWidget {
               maxAge: const Duration(hours: 300),
               otherClaims: <String, dynamic>{
                 'id': jwtId,
-                'createdAt': DateTime.now().millisecondsSinceEpoch
+                'createdAt': DateTime.now().millisecondsSinceEpoch,
               }),
           privateKey);
     } catch (e) {
