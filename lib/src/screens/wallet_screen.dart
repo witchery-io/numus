@@ -55,6 +55,7 @@ class _WalletScreenState extends State<WalletScreen> {
               : GameTab(
                   key: AppKeys.gameTab,
                   showInvoiceDialog: _onShowInvoice,
+                  isAuth: true,
                   currencies: widget.currencies),
           bottomNavigationBar: TabSelector(
               activeTab: activeTab,

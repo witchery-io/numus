@@ -16,17 +16,19 @@ typedef OnShowInvoice = Function(String address, double price);
 class GameTab extends StatelessWidget {
   final List<Future<Coin>> currencies;
   final OnShowInvoice showInvoiceDialog;
+  final bool isAuth;
 
   static String convertMd5(String val) {
     return md5.convert(utf8.encode(val)).toString();
   }
 
-  const GameTab({Key key, this.showInvoiceDialog, this.currencies})
+  const GameTab(
+      {Key key, this.showInvoiceDialog, this.currencies, this.isAuth = false})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (currencies == null)
+    if (!isAuth)
       return SafeArea(
           child: GameWebView(
               key: AppKeys.gameWebView,
