@@ -64,7 +64,7 @@ class _WalletScreenState extends State<WalletScreen> {
     });
   }
 
-  _onShowInvoice(String address, double price) async {
+  void _onShowInvoice(String address, double price) async {
     await showDialog<void>(
         context: context,
         barrierDismissible: false,
