@@ -7,6 +7,7 @@ import 'package:flutter_fundamental/src/blocs/tab/bloc.dart';
 import 'package:flutter_fundamental/src/blocs/wallet/bloc.dart';
 import 'package:flutter_fundamental/src/models/app_tab.dart';
 import 'package:flutter_fundamental/src/models/models.dart';
+import 'package:flutter_fundamental/src/utils/message.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 
 final TextStyle loadingStyle = TextStyle(fontSize: 12.0, color: Colors.grey);
@@ -38,9 +39,6 @@ class WalletScreen extends StatefulWidget {
 }
 
 class _WalletScreenState extends State<WalletScreen> {
-
-  /// todo show accepted dialog when have valid deep link
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TabBloc, AppTab>(builder: (context, activeTab) {
@@ -54,7 +52,10 @@ class _WalletScreenState extends State<WalletScreen> {
           }),
           body: activeTab == AppTab.general
               ? WalletTab(currencies: widget.currencies)
-              : GameTab(key: AppKeys.gameTab, currencies: widget.currencies),
+              : GameTab(
+                  key: AppKeys.gameTab,
+                  showInvoiceDialog: _onShowInvoice,
+                  currencies: widget.currencies),
           bottomNavigationBar: TabSelector(
               activeTab: activeTab,
               onTabSelected: (tab) =>
@@ -62,8 +63,36 @@ class _WalletScreenState extends State<WalletScreen> {
     });
   }
 
-  @override
-  void dispose() {
-    super.dispose();
+  _onShowInvoice(String address, double price) async {
+    await showDialog<void>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: Text('Invoice'),
+              content: SingleChildScrollView(
+                child: ListBody(children: <Widget>[
+                  Text('Sending ADDRESS $address and PRICE $price')
+                ]),
+              ),
+              actions: <Widget>[
+                CustomButton(
+                    child: Text('Close'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    }),
+                CustomButton(
+                    child: Text('Accept'),
+                    onPressed: () async {
+                      try {
+                        final Coin btc = await widget.currencies.first;
+                        await btc.transaction(address, price);
+                        Navigator.of(context).pop();
+                      } catch (e) {
+                        Message.show(context, e.message);
+                      }
+                    })
+              ]);
+        });
   }
 }

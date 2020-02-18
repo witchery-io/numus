@@ -19,7 +19,7 @@ dependencies:
   jaguar_jwt: ^2.1.6
   multi_currency:
     path: ../../multi_currency
-  font_awesome_flutter: ^8.5.0
+  font_awesome_flutter: ^8.6.0
   http: ^0.12.0+4
   webview_flutter: ^0.3.19+7
   qr_flutter: ^3.2.0
