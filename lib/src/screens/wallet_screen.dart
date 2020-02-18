@@ -1,6 +1,3 @@
-import 'dart:async';
-
-import 'package:bip21/bip21.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,9 +7,7 @@ import 'package:flutter_fundamental/src/blocs/tab/bloc.dart';
 import 'package:flutter_fundamental/src/blocs/wallet/bloc.dart';
 import 'package:flutter_fundamental/src/models/app_tab.dart';
 import 'package:flutter_fundamental/src/models/models.dart';
-import 'package:flutter_fundamental/src/utils/message.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
-import 'package:uni_links/uni_links.dart';
 
 final TextStyle loadingStyle = TextStyle(fontSize: 12.0, color: Colors.grey);
 
@@ -43,20 +38,8 @@ class WalletScreen extends StatefulWidget {
 }
 
 class _WalletScreenState extends State<WalletScreen> {
-  StreamSubscription _deepLinkSub;
 
-  @override
-  void initState() {
-    _deepLinkSub = getLinksStream().listen(onData, onError: (e) {
-      Message.show(context, e.message);
-    });
-    super.initState();
-  }
-
-  onData(String link) {
-    final decoded = Bip21.decode(link);
-    print(decoded);
-  }
+  /// todo show accepted dialog when have valid deep link
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +64,6 @@ class _WalletScreenState extends State<WalletScreen> {
 
   @override
   void dispose() {
-    _deepLinkSub.cancel();
     super.dispose();
   }
 }

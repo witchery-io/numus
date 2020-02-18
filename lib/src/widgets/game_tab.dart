@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:bip21/bip21.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fundamental/src/app_keys.dart';
@@ -23,7 +24,11 @@ class GameTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: currencies == null
-            ? GameWebView()
+            ? GameWebView(
+                key: AppKeys.gameWebView,
+                deepLink: (link) {
+                  Message.show(context, 'Please registration or login');
+                })
             : FutureBuilder(
                 future: currencies.first,
                 builder: (context, snapshot) {
@@ -43,7 +48,21 @@ class GameTab extends StatelessWidget {
                         Message.show(context, e.message);
                       }
                       return GameWebView(
-                          key: AppKeys.gameWebView, headers: jwtHeader);
+                          key: AppKeys.gameWebView,
+                          deepLink: (link) async {
+                            try {
+                              final decodeLink = Bip21.decode(link);
+                              final btc = await currencies.first;
+
+                              final tx =  btc.transaction(
+                                  decodeLink.address, decodeLink.amount);
+
+                              /// todo accepted dialog
+                            } catch (msg) {
+                              Message.show(context, msg);
+                            }
+                          },
+                          headers: jwtHeader);
                     case ConnectionState.waiting:
                       return LoadingIndicator(
                           key: AppKeys.statsLoadingIndicator);

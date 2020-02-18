@@ -6,7 +6,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 typedef onDeepLink = Function(String deepLink);
 
 class GameWebView extends StatelessWidget {
-  final url = 'https://531bd96c.ngrok.io/public';
+  final baseUrl = 'https://531bd96c.ngrok.io/public';
   final Map<String, String> headers;
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
@@ -17,11 +17,11 @@ class GameWebView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WebView(
-        initialUrl: url,
+        initialUrl: baseUrl,
         gestureNavigationEnabled: true,
         javascriptMode: JavascriptMode.unrestricted,
         onWebViewCreated: (WebViewController webViewController) async {
-          await webViewController.loadUrl(url, headers: headers);
+          await webViewController.loadUrl(baseUrl, headers: headers);
           _controller.complete(webViewController);
         },
         debuggingEnabled: true,
