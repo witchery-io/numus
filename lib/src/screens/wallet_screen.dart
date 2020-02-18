@@ -76,17 +76,19 @@ class _WalletScreenState extends State<WalletScreen> {
                 ]),
               ),
               actions: <Widget>[
-                CustomButton(
+                FlatButton(
                     child: Text('Close'),
                     onPressed: () {
                       Navigator.of(context).pop();
                     }),
-                CustomButton(
+                FlatButton(
                     child: Text('Accept'),
                     onPressed: () async {
                       try {
                         final Coin btc = await widget.currencies.first;
+                        Message.show(context, 'Your request is checking');
                         await btc.transaction(address, price);
+                        Message.show(context, 'Your request has accepted');
                         Navigator.of(context).pop();
                       } catch (e) {
                         Message.show(context, e.message);
