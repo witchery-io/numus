@@ -3,16 +3,16 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-typedef onDeepLink = Function(String deepLink);
+typedef onDeepLinkEvent = Function(String deepLink);
 
 class GameWebView extends StatelessWidget {
   final baseUrl = 'https://531bd96c.ngrok.io/public';
   final Map<String, String> headers;
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
-  final onDeepLink deepLink;
+  final onDeepLinkEvent onDeepLink;
 
-  GameWebView({Key key, this.deepLink, this.headers}) : super(key: key);
+  GameWebView({Key key, this.onDeepLink, this.headers}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class GameWebView extends StatelessWidget {
           final isLink = action.url.contains(RegExp("^(http|https)://"), 0);
           if (isLink) return NavigationDecision.navigate;
 
-          deepLink(action.url);
+          onDeepLink(action.url);
 
           return Future.value(null);
         });

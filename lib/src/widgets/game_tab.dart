@@ -26,50 +26,51 @@ class GameTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: currencies == null
-            ? GameWebView(
-                key: AppKeys.gameWebView,
-                deepLink: (link) {
-                  Message.show(context, 'Please registration or login');
-                })
-            : FutureBuilder(
-                future: currencies.first,
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) return Center(child: Text('Ups!'));
+    if (currencies == null)
+      return SafeArea(
+          child: GameWebView(
+              key: AppKeys.gameWebView,
+              onDeepLink: (link) {
+                Message.show(context, 'Please registration or login');
+              }));
+    else
+      return SafeArea(
+          child: FutureBuilder(
+              future: currencies.first,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) return Center(child: Text('Ups!'));
 
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.done:
-                      var jwtHeader;
-                      final Coin coin = snapshot.data;
-                      final md5Address = GameTab.convertMd5(coin.address);
-                      try {
-                        final token = _getToken(coin.privateKey, md5Address);
-                        jwtHeader = {
-                          HttpHeaders.authorizationHeader: 'Bearer ' + token
-                        };
-                      } catch (e) {
-                        Message.show(context, e.message);
-                      }
-                      return GameWebView(
-                          key: AppKeys.gameWebView,
-                          deepLink: (link) async {
-                            try {
-                              final decodeLink = Bip21.decode(link);
-                              showInvoiceDialog(
-                                  decodeLink.address, decodeLink.amount);
-                            } catch (msg) {
-                              Message.show(context, msg);
-                            }
-                          },
-                          headers: jwtHeader);
-                    case ConnectionState.waiting:
-                      return LoadingIndicator(
-                          key: AppKeys.statsLoadingIndicator);
-                    default:
-                      return Container(key: AppKeys.emptyDetailsContainer);
-                  }
-                }));
+                switch (snapshot.connectionState) {
+                  case ConnectionState.done:
+                    var jwtHeader;
+                    final Coin coin = snapshot.data;
+                    final md5Address = GameTab.convertMd5(coin.address);
+                    try {
+                      final token = _getToken(coin.privateKey, md5Address);
+                      jwtHeader = {
+                        HttpHeaders.authorizationHeader: 'Bearer ' + token
+                      };
+                    } catch (e) {
+                      Message.show(context, e.message);
+                    }
+                    return GameWebView(
+                        key: AppKeys.gameWebView,
+                        onDeepLink: (link) async {
+                          try {
+                            final decodeLink = Bip21.decode(link);
+                            showInvoiceDialog(
+                                decodeLink.address, decodeLink.amount);
+                          } catch (msg) {
+                            Message.show(context, msg);
+                          }
+                        },
+                        headers: jwtHeader);
+                  case ConnectionState.waiting:
+                    return LoadingIndicator(key: AppKeys.statsLoadingIndicator);
+                  default:
+                    return Container(key: AppKeys.emptyDetailsContainer);
+                }
+              }));
   }
 
   String _getToken(String privateKey, String jwtId) {
