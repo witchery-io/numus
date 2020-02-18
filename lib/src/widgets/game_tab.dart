@@ -31,7 +31,7 @@ class GameTab extends StatelessWidget {
 
                   switch (snapshot.connectionState) {
                     case ConnectionState.done:
-                      Map jwtHeader;
+                      var jwtHeader;
                       final Coin coin = snapshot.data;
                       final md5Address = GameTab.convertMd5(coin.address);
                       try {
