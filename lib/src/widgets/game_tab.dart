@@ -11,14 +11,18 @@ import 'package:flutter_fundamental/src/utils/message.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 import 'package:jaguar_jwt/jaguar_jwt.dart';
 
+typedef OnShowInvoice = Function(String address, double price);
+
 class GameTab extends StatelessWidget {
   final List<Future<Coin>> currencies;
+  final OnShowInvoice showInvoiceDialog;
 
   static String convertMd5(String val) {
     return md5.convert(utf8.encode(val)).toString();
   }
 
-  GameTab({Key key, this.currencies}) : super(key: key);
+  const GameTab({Key key, this.showInvoiceDialog, this.currencies})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,12 +56,8 @@ class GameTab extends StatelessWidget {
                           deepLink: (link) async {
                             try {
                               final decodeLink = Bip21.decode(link);
-                              final btc = await currencies.first;
-
-                              final tx =  btc.transaction(
+                              showInvoiceDialog(
                                   decodeLink.address, decodeLink.amount);
-
-                              /// todo accepted dialog
                             } catch (msg) {
                               Message.show(context, msg);
                             }
