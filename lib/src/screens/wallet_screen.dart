@@ -54,15 +54,15 @@ class _WalletScreenState extends State<WalletScreen> {
 
     try {
       _screenSubscription =
-          _screen.screenStateStream.listen((ScreenStateEvent event) {
-        if (event == ScreenStateEvent.SCREEN_OFF)
+          _screen.screenStateStream.listen((ScreenStateEvent event) async {
+        if (event == ScreenStateEvent.SCREEN_ON)
           BlocProvider.of<MnemonicBloc>(context).add(LoadMnemonic());
       });
     } on ScreenStateException catch (exception) {
       Message.show(context, exception.toString());
     }
 
-    _deepLinkSubscription = getLinksStream().listen((String link) {
+    _deepLinkSubscription = getLinksStream().listen((String link) async {
       try {
         final decodeLink = Bip21.decode(link);
         _onShowInvoice(decodeLink.address, decodeLink.amount);
