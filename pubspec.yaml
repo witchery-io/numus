@@ -26,6 +26,7 @@ dependencies:
   barcode_scan: ^1.0.0
   uni_links: ^0.2.0
   bip21: ^1.0.0
+  screen_state: ^0.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

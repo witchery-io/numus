@@ -12,6 +12,7 @@ import 'package:flutter_fundamental/src/models/app_tab.dart';
 import 'package:flutter_fundamental/src/models/models.dart';
 import 'package:flutter_fundamental/src/utils/message.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
+import 'package:screen_state/screen_state.dart';
 import 'package:uni_links/uni_links.dart';
 
 final TextStyle loadingStyle = TextStyle(fontSize: 12.0, color: Colors.grey);
@@ -44,24 +45,35 @@ class WalletScreen extends StatefulWidget {
 
 class _WalletScreenState extends State<WalletScreen> {
   StreamSubscription _deepLinkSubscription;
+  Screen _screen;
+  StreamSubscription<ScreenStateEvent> _screenSubscription;
 
   @override
   void initState() {
-    initUniLinks();
-    super.initState();
-  }
+    _screen = Screen();
 
-  Future<Null> initUniLinks() async {
-    _deepLinkSubscription = getLinksStream().listen((String link) async {
+    try {
+      _screenSubscription =
+          _screen.screenStateStream.listen((ScreenStateEvent event) {
+        if (event == ScreenStateEvent.SCREEN_OFF)
+          BlocProvider.of<MnemonicBloc>(context).add(LoadMnemonic());
+      });
+    } on ScreenStateException catch (exception) {
+      Message.show(context, exception.toString());
+    }
+
+    _deepLinkSubscription = getLinksStream().listen((String link) {
       try {
         final decodeLink = Bip21.decode(link);
-         _onShowInvoice(decodeLink.address, decodeLink.amount);
+        _onShowInvoice(decodeLink.address, decodeLink.amount);
       } catch (e) {
         Message.show(context, e.message);
       }
     }, onError: (e) {
       Message.show(context, e.message);
     });
+
+    super.initState();
   }
 
   @override
@@ -127,6 +139,7 @@ class _WalletScreenState extends State<WalletScreen> {
   @override
   void dispose() {
     _deepLinkSubscription.cancel();
+    _screenSubscription.cancel();
     super.dispose();
   }
 }
