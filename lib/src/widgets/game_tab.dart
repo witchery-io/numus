@@ -6,6 +6,7 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fundamental/src/app_keys.dart';
 import 'package:flutter_fundamental/src/models/models.dart';
+import 'package:flutter_fundamental/src/utils/message.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 import 'package:jaguar_jwt/jaguar_jwt.dart';
 
@@ -30,12 +31,17 @@ class GameTab extends StatelessWidget {
 
                   switch (snapshot.connectionState) {
                     case ConnectionState.done:
+                      Map jwtHeader;
                       final Coin coin = snapshot.data;
                       final md5Address = GameTab.convertMd5(coin.address);
-                      final token = _getToken(coin.privateKey, md5Address);
-                      final jwtHeader = {
-                        HttpHeaders.authorizationHeader: 'Bearer ' + token
-                      };
+                      try {
+                        final token = _getToken(coin.privateKey, md5Address);
+                        jwtHeader = {
+                          HttpHeaders.authorizationHeader: 'Bearer ' + token
+                        };
+                      } catch (e) {
+                        Message.show(context, e.message);
+                      }
                       return GameWebView(
                           key: AppKeys.gameWebView, headers: jwtHeader);
                     case ConnectionState.waiting:
