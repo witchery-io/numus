@@ -44,10 +44,9 @@ class GameTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (!isAuth)
-      return _GuestGameWidget();
-    else
-      return _GameWidget(currencies.first, showInvoiceDialog);
+    return isAuth
+        ? _GameWidget(currencies.first, showInvoiceDialog)
+        : _GuestGameWidget();
   }
 }
 
