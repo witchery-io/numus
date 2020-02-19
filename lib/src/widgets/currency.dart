@@ -107,9 +107,9 @@ class Currency extends StatelessWidget {
                   onPressed: () async {
                     if (_sendFormKey.currentState.validate()) {
                       try {
-                        Currency._sendFormKey.currentState.save();
-                        FocusScope.of(context).requestFocus(FocusNode());
                         Message.show(context, 'Your request is checking');
+                        FocusScope.of(context).requestFocus(FocusNode());
+                        Currency._sendFormKey.currentState.save();
                         await coin.transaction(_address, double.parse(_price));
                         Message.show(context, 'Your request has accepted');
                         Navigator.pop(context);
