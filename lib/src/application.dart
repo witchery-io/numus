@@ -13,9 +13,7 @@ class Application extends StatelessWidget {
     return MaterialApp(
         title: FlutterBlocLocalizations().appTitle,
         theme: WalletTheme.theme,
-        localizationsDelegates: [
-          FlutterBlocLocalizationsDelegate(),
-        ],
+        localizationsDelegates: [FlutterBlocLocalizationsDelegate()],
         initialRoute: Router.initial,
         routes: {
           Router.initial: (context) {
