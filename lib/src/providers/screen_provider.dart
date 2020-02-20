@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 import 'package:screen_state/screen_state.dart';
 
@@ -5,7 +7,7 @@ class ScreenProvider extends InheritedWidget {
   final Widget child;
   final Screen screen;
 
-  Stream get screenStream => screen.screenStateStream;
+  Stream<ScreenStateEvent> get screenStream => screen.screenStateStream;
 
   const ScreenProvider({Key key, @required this.screen, this.child})
       : assert(screen != null),

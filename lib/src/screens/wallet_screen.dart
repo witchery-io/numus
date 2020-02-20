@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,12 +9,36 @@ import 'package:flutter_fundamental/src/blocs/tab/bloc.dart';
 import 'package:flutter_fundamental/src/blocs/wallet/bloc.dart';
 import 'package:flutter_fundamental/src/models/app_tab.dart';
 import 'package:flutter_fundamental/src/models/models.dart';
+import 'package:flutter_fundamental/src/providers/providers.dart';
 import 'package:flutter_fundamental/src/utils/message.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
+import 'package:screen_state/screen_state.dart';
 
 final TextStyle loadingStyle = TextStyle(fontSize: 12.0, color: Colors.grey);
 
-class RenderWalletScreen extends StatelessWidget {
+class RenderWalletScreen extends StatefulWidget {
+  final ScreenProvider screenProvider;
+
+  const RenderWalletScreen({@required this.screenProvider});
+
+  @override
+  _RenderWalletScreenState createState() => _RenderWalletScreenState();
+}
+
+class _RenderWalletScreenState extends State<RenderWalletScreen> {
+  Stream screenStream;
+  StreamSubscription<ScreenStateEvent> screenSubscription;
+
+  @override
+  void initState() {
+    screenStream = widget.screenProvider.screenStream;
+    screenSubscription = screenStream.listen((event) {
+      if (event == ScreenStateEvent.SCREEN_OFF)
+        BlocProvider.of<MnemonicBloc>(context).add(LoadMnemonic());
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<WalletBloc, WalletState>(builder: (context, state) {
@@ -26,6 +52,12 @@ class RenderWalletScreen extends StatelessWidget {
         return Container(key: AppKeys.emptyStatsContainer);
       }
     });
+  }
+
+  @override
+  void dispose() {
+    screenSubscription.cancel();
+    super.dispose();
   }
 }
 

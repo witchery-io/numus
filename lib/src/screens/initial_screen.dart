@@ -5,7 +5,7 @@ import 'package:flutter_fundamental/src/app_keys.dart';
 import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
 import 'package:flutter_fundamental/src/blocs/tab/bloc.dart';
 import 'package:flutter_fundamental/src/blocs/wallet/bloc.dart';
-import 'package:flutter_fundamental/src/providers/screen_provider.dart';
+import 'package:flutter_fundamental/src/providers/providers.dart';
 import 'package:flutter_fundamental/src/repositories/crypto_repository.dart';
 import 'package:flutter_fundamental/src/screens/screens.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
@@ -42,7 +42,8 @@ class InitialScreen extends StatelessWidget {
                             webClient: WebClient(httpClient: http.Client())))
                       ..add(LoadWallet())),
               ],
-              child: RenderWalletScreen(),
+              child: RenderWalletScreen(
+                  screenProvider: ScreenProvider.of(context)),
             );
           } else {
             return Container(key: AppKeys.emptyStatsContainer);
