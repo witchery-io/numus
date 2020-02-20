@@ -23,9 +23,12 @@ class InitialScreen extends StatelessWidget {
             return LoadingIndicator(key: AppKeys.statsLoadingIndicator);
           } else if (state is MnemonicNotLoaded || state is MnemonicRemoved) {
             return BlocProvider<TabBloc>(
-                create: (context) => TabBloc(), child: GeneralScreen());
+                create: (context) => TabBloc(),
+                child: GeneralScreen(linkProvider: LinkProvider.of(context)));
           } else if (state is MnemonicLoaded) {
-            return ExistingScreen(base64Mnemonic: state.mnemonic);
+            return ExistingScreen(
+                linkProvider: LinkProvider.of(context),
+                base64Mnemonic: state.mnemonic);
           } else if (state is MnemonicGeneration) {
             return GenerationScreen();
           } else if (state is MnemonicVerifyOrRecover) {

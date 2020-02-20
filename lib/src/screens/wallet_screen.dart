@@ -62,12 +62,10 @@ class _WalletScreenState extends State<WalletScreen> {
   void initState() {
     screenStream = widget.screenProvider.screenStream;
     linkStream = widget.linkProvider.linkStream;
-
     screenSubscription = screenStream.listen((event) {
       if (event == ScreenStateEvent.SCREEN_OFF)
         BlocProvider.of<MnemonicBloc>(context).add(LoadMnemonic());
     });
-
     linkSubscription = linkStream.listen((strLink) {
       try {
         final link = Bip21.decode(strLink);

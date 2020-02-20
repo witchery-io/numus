@@ -1,12 +1,37 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fundamental/src/app_keys.dart';
 import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
 import 'package:flutter_fundamental/src/blocs/tab/bloc.dart';
 import 'package:flutter_fundamental/src/models/app_tab.dart';
+import 'package:flutter_fundamental/src/providers/providers.dart';
+import 'package:flutter_fundamental/src/utils/message.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 
-class GeneralScreen extends StatelessWidget {
+class GeneralScreen extends StatefulWidget {
+  final LinkProvider linkProvider;
+
+  const GeneralScreen({@required this.linkProvider});
+
+  @override
+  _GeneralScreenState createState() => _GeneralScreenState();
+}
+
+class _GeneralScreenState extends State<GeneralScreen> {
+  Stream linkStream;
+  StreamSubscription<String> linkSubscription;
+
+  @override
+  void initState() {
+    linkStream = widget.linkProvider.linkStream;
+    linkSubscription = linkStream.listen((strLink) {
+      Message.show(context, 'Please create or recover');
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TabBloc, AppTab>(builder: (context, activeTab) {
@@ -19,6 +44,12 @@ class GeneralScreen extends StatelessWidget {
               onTabSelected: (tab) =>
                   BlocProvider.of<TabBloc>(context).add(UpdateTab(tab))));
     });
+  }
+
+  @override
+  void dispose() {
+    linkSubscription.cancel();
+    super.dispose();
   }
 }
 
