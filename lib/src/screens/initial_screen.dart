@@ -16,8 +16,7 @@ import 'package:screen_state/screen_state.dart';
 class InitialScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ScreenProvider(
-      screen: Screen(),
+    return LinkProvider(
       child: BlocBuilder<MnemonicBloc, MnemonicState>(
         builder: (context, state) {
           if (state is MnemonicLoading) {
@@ -32,18 +31,20 @@ class InitialScreen extends StatelessWidget {
           } else if (state is MnemonicVerifyOrRecover) {
             return VerificationOrRecoverScreen(state.mnemonic);
           } else if (state is MnemonicAccepted) {
-            return MultiBlocProvider(
-              providers: [
-                BlocProvider<TabBloc>(create: (context) => TabBloc()),
-                BlocProvider<WalletBloc>(
-                    create: (context) => WalletBloc(
-                        multiCurrency: MultiCurrency(state.mnemonic),
-                        repository: CryptoRepository(
-                            webClient: WebClient(httpClient: http.Client())))
-                      ..add(LoadWallet())),
-              ],
-              child: RenderWalletScreen(
-                  screenProvider: ScreenProvider.of(context)),
+            return ScreenProvider(
+              screen: Screen(),
+              child: MultiBlocProvider(
+                providers: [
+                  BlocProvider<TabBloc>(create: (context) => TabBloc()),
+                  BlocProvider<WalletBloc>(
+                      create: (context) => WalletBloc(
+                          multiCurrency: MultiCurrency(state.mnemonic),
+                          repository: CryptoRepository(
+                              webClient: WebClient(httpClient: http.Client())))
+                        ..add(LoadWallet())),
+                ],
+                child: RenderWalletScreen(),
+              ),
             );
           } else {
             return Container(key: AppKeys.emptyStatsContainer);
