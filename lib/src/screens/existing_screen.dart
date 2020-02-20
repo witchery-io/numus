@@ -47,23 +47,10 @@ class _ExistingScreenState extends State<ExistingScreen> {
                   showDialog<void>(
                       context: context,
                       barrierDismissible: false,
-                      builder: (BuildContext cx) {
+                      builder: (BuildContext bc) {
                         return PinAlertDialog(
-                            title: 'Please type your pin',
-                            onConfirmed: (strPin) {
-                              try {
-                                final encrypt = EncryptHelper(pin: strPin);
-                                final mnemonic = encrypt.decryptByPinByBase64(
-                                    widget.base64Mnemonic);
-                                BlocProvider.of<MnemonicBloc>(context).add(
-                                    AcceptMnemonic(
-                                        mnemonic: mnemonic,
-                                        mnemonicBase64: null));
-                                Navigator.pop(context);
-                              } catch (e) {
-                                Message.show(cx, e.message);
-                              }
-                            });
+                            title: 'Please enter your pin',
+                            onConfirmed: _confirmed);
                       });
                 }),
             CustomButton(
@@ -74,6 +61,18 @@ class _ExistingScreenState extends State<ExistingScreen> {
         ),
       ),
     );
+  }
+
+  void _confirmed(strPin) {
+    try {
+      final encrypt = EncryptHelper(pin: strPin);
+      final mnemonic = encrypt.decryptByPinByBase64(widget.base64Mnemonic);
+      Navigator.pop(context);
+      BlocProvider.of<MnemonicBloc>(context)
+          .add(AcceptMnemonic(mnemonic: mnemonic, mnemonicBase64: null));
+    } catch (e) {
+      Message.show(context, e.message);
+    }
   }
 
   @override
