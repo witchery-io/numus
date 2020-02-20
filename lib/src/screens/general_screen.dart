@@ -20,16 +20,18 @@ class GeneralScreen extends StatefulWidget {
 }
 
 class _GeneralScreenState extends State<GeneralScreen> {
-  Stream linkStream;
   StreamSubscription<String> linkSubscription;
 
   @override
   void initState() {
-    linkStream = widget.linkProvider.linkStream;
-    linkSubscription = linkStream.listen((strLink) {
+    initLinkStream();
+    super.initState();
+  }
+
+  initLinkStream() async {
+    linkSubscription = widget.linkProvider.linkStream.listen((strLink) {
       Message.show(context, 'Please to create or to recover');
     });
-    super.initState();
   }
 
   @override

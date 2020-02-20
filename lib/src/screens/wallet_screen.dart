@@ -53,20 +53,18 @@ class WalletScreen extends StatefulWidget {
 }
 
 class _WalletScreenState extends State<WalletScreen> {
-  Stream screenStream;
   StreamSubscription<ScreenStateEvent> screenSubscription;
-  Stream linkStream;
   StreamSubscription<String> linkSubscription;
 
   @override
   void initState() {
-    screenStream = widget.screenProvider.screenStream;
-    linkStream = widget.linkProvider.linkStream;
-    screenSubscription = screenStream.listen((event) {
-      if (event == ScreenStateEvent.SCREEN_OFF)
-        BlocProvider.of<MnemonicBloc>(context).add(LoadMnemonic());
-    });
-    linkSubscription = linkStream.listen((strLink) {
+    initLinkStream();
+    initScreenStream();
+    super.initState();
+  }
+
+  initLinkStream() async {
+    linkSubscription = widget.linkProvider.linkStream.listen((strLink) {
       try {
         final link = Bip21.decode(strLink);
         _showInvoiceDialog(link.address, link.amount);
@@ -74,8 +72,13 @@ class _WalletScreenState extends State<WalletScreen> {
         Message.show(context, e.message);
       }
     });
+  }
 
-    super.initState();
+  initScreenStream() async {
+    screenSubscription = widget.screenProvider.screenStream.listen((event) {
+      if (event == ScreenStateEvent.SCREEN_OFF)
+        BlocProvider.of<MnemonicBloc>(context).add(LoadMnemonic());
+    });
   }
 
   @override

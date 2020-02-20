@@ -20,16 +20,18 @@ class ExistingScreen extends StatefulWidget {
 }
 
 class _ExistingScreenState extends State<ExistingScreen> {
-  Stream linkStream;
   StreamSubscription<String> linkSubscription;
 
   @override
   void initState() {
-    linkStream = widget.linkProvider.linkStream;
-    linkSubscription = linkStream.listen((strLink) {
+    initLinkStream();
+    super.initState();
+  }
+
+  initLinkStream() async {
+    linkSubscription = widget.linkProvider.linkStream.listen((strLink) {
       Message.show(context, 'After to unlock please try again');
     });
-    super.initState();
   }
 
   @override
