@@ -30,7 +30,7 @@ class _GeneralScreenState extends State<GeneralScreen> {
 
   initLinkStream() async {
     linkSubscription = widget.linkProvider.linkStream.listen((strLink) {
-      Message.show(context, 'Please to create or to recover');
+      Message.show(context, 'Please create or recover');
     });
   }
 
