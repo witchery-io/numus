@@ -73,7 +73,7 @@ class _GameWidget extends StatelessWidget {
     return SafeArea(
         child: FutureBuilder(
             future: coin,
-            builder: (context, snapshot) {
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasError) return Center(child: Text('Ups!'));
 
               switch (snapshot.connectionState) {
