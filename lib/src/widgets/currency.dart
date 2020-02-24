@@ -150,6 +150,6 @@ class Currency extends StatelessWidget {
   }
 
   Widget _centerLoading() {
-    return Center(child: Text('Loading...', style: loadingStyle));
+    return Text('Loading...', style: loadingStyle);
   }
 }
