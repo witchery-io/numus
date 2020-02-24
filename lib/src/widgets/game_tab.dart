@@ -78,20 +78,22 @@ class _GameWidget extends StatelessWidget {
 
               switch (snapshot.connectionState) {
                 case ConnectionState.done:
-                  var jwtHeader;
-                  final Coin coin = snapshot.data;
+                  Map headers;
+                  final coin = snapshot.data;
                   final md5Address = GameTab.convertMd5(coin.address);
                   try {
                     final token =
                         GameTab.getSignToken(coin.privateKey, md5Address);
-                    jwtHeader = {
+                    headers = {
                       HttpHeaders.authorizationHeader: 'Bearer ' + token
                     };
                   } catch (e) {
                     Message.show(context, e.message);
                   }
+
                   return GameWebView(
                       key: AppKeys.gameWebView,
+                      headers: headers,
                       onDeepLink: (link) async {
                         try {
                           final decodeLink = Bip21.decode(link);
@@ -100,8 +102,7 @@ class _GameWidget extends StatelessWidget {
                         } catch (msg) {
                           Message.show(context, msg);
                         }
-                      },
-                      headers: jwtHeader);
+                      });
                 case ConnectionState.waiting:
                   return LoadingIndicator(key: AppKeys.statsLoadingIndicator);
                 default:
