@@ -78,7 +78,7 @@ class _GameWidget extends StatelessWidget {
 
               switch (snapshot.connectionState) {
                 case ConnectionState.done:
-                  Map headers;
+                  Map<String, String> headers;
                   final coin = snapshot.data;
                   final md5Address = GameTab.convertMd5(coin.address);
                   try {
