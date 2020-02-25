@@ -20,7 +20,16 @@ class Currency extends StatelessWidget {
       ListTile(
         leading: Icon(coin.icon),
         title: Text('${coin.name.toUpperCase()}'),
-        subtitle: _centerLoading(),
+        subtitle: FutureBuilder(
+          future: coin.futureBalance,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Text('${snapshot.data}');
+            }
+
+            return _loading();
+          },
+        ),
       ),
       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: <Widget>[
         CustomButton(child: Text('Send'), onPressed: () => print('Send')),
@@ -119,7 +128,7 @@ class Currency extends StatelessWidget {
         });
   }
 
-  Widget _centerLoading() {
-    return Text('Loading...', style: loadingStyle);
+  Widget _loading() {
+    return Text('Data synchronization...', style: loadingStyle);
   }
 }
