@@ -23,12 +23,12 @@ class Balance {
     return Balance(
       address: json['address'],
       balance: json['balance'],
-      finalBalance: json['final_balance'],
-      totalReceived: json['total_received'],
-      totalSent: json['total_sent'],
-      txCount: json['tx_count'],
-      unconfirmedBalance: json['unconfirmed_balance'],
-      unconfirmedTxCount: json['unconfirmed_tx_count'],
+      finalBalance: json['finalBalance'],
+      totalReceived: json['totalReceived'],
+      totalSent: json['totalSent'],
+      txCount: json['txCount'],
+      unconfirmedBalance: json['unconfirmedBalance'],
+      unconfirmedTxCount: json['unconfirmedTxCount'],
     );
   }
 }
