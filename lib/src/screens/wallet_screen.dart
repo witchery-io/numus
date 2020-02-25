@@ -94,11 +94,12 @@ class _WalletScreenState extends State<WalletScreen> {
           }),
           body: activeTab == AppTab.general
               ? WalletTab(currencies: widget.currencies)
-              : GameTab(
+              : Center(child: Text('Game tab is commented')),
+          /*GameTab(
                   key: AppKeys.gameTab,
                   showInvoiceDialog: _showInvoiceDialog,
                   isAuth: true,
-                  currencies: widget.currencies),
+                  currencies: widget.currencies)*/
           bottomNavigationBar: TabSelector(
               activeTab: activeTab,
               onTabSelected: (tab) =>
@@ -127,15 +128,16 @@ class _WalletScreenState extends State<WalletScreen> {
                 FlatButton(
                     child: Text('Accept'),
                     onPressed: () async {
-                      try {
-                        Message.show(context, 'Your request is checking');
-                        final Coin btc = await widget.currencies.first;
-                        await btc.transaction(address, price);
-                        Message.show(context, 'Your request has accepted');
-                        Navigator.of(context).pop();
-                      } catch (e) {
-                        Message.show(context, e.message);
-                      }
+                      /// todo
+//                      try {
+//                        Message.show(context, 'Your request is checking');
+//                        final Coin btc = await widget.currencies.first;
+////                        await btc.transaction(address, price);
+//                        Message.show(context, 'Your request has accepted');
+//                        Navigator.of(context).pop();
+//                      } catch (e) {
+//                        Message.show(context, e.message);
+//                      }
                     })
               ]);
         });
