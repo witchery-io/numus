@@ -8,7 +8,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 typedef onDeepLinkEvent = Function(String deepLink);
 
 class GameWebView extends StatelessWidget {
-  final baseUrl = 'https://c000bb8f.ngrok.io/public';
+  final baseUrl = 'https://7af18e82.ngrok.io/public';
   final Map<String, String> headers;
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
