@@ -3,7 +3,7 @@ import 'package:flutter_fundamental/src/models/models.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 
 class WalletTab extends StatelessWidget {
-  final List<Future<Coin>> currencies;
+  final List<Coin> currencies;
 
   WalletTab({@required this.currencies});
 
@@ -18,7 +18,7 @@ class WalletTab extends StatelessWidget {
               padding: EdgeInsets.all(8.0),
               separatorBuilder: (context, index) => Divider(),
               itemBuilder: (context, index) =>
-                  Currency(item: currencies[index]),
+                  Currency(coin: currencies[index]),
               itemCount: currencies.length)),
     ]);
   }
