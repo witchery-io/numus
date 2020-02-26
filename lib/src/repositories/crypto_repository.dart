@@ -12,13 +12,13 @@ class CryptoRepository {
 
   const CryptoRepository({@required this.webClient});
 
-  Future loadBalanceByAddress(coin,
+  Future loadBalance(coin,
       {balance = BALANCE, start = START, end = END}) async {
     int result = 0;
     try {
       final bal = await _addressesSynchronization(coin, balance, start, end);
       if (bal['isRec'])
-        await loadBalanceByAddress(coin,
+        await loadBalance(coin,
             balance: bal['blc'], start: start + ADDING, end: end + ADDING);
 
       result = bal['blc'];

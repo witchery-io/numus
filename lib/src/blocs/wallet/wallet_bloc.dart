@@ -32,7 +32,7 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
       final crs = currencies.map((coin) => Coin(
           name: coin.name,
           icon: coin.icon,
-          futureBalance: repository.loadBalanceByAddress(coin)));
+          futureBalance: repository.loadBalance(coin)));
 
       yield WalletLoaded(currencies: crs.toList());
     } catch (_) {
