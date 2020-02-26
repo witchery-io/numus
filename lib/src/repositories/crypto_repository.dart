@@ -14,12 +14,19 @@ class CryptoRepository {
 
   Future loadBalanceByAddress(coin,
       {balance = BALANCE, start = START, end = END}) async {
-    final bal = await _addressesSynchronization(coin, balance, start, end);
-    if (bal['isRec'])
-      await loadBalanceByAddress(coin,
-          balance: bal['blc'], start: start + ADDING, end: end + ADDING);
+    int result = 0;
+    try {
+      final bal = await _addressesSynchronization(coin, balance, start, end);
+      if (bal['isRec'])
+        await loadBalanceByAddress(coin,
+            balance: bal['blc'], start: start + ADDING, end: end + ADDING);
 
-    return Future.value(bal['blc']);
+      result = bal['blc'];
+    } catch (e) {
+      throw Exception(e.message);
+    }
+
+    return result;
   }
 
   Future<Map> _addressesSynchronization(
