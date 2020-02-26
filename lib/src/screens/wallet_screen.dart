@@ -94,12 +94,11 @@ class _WalletScreenState extends State<WalletScreen> {
           }),
           body: activeTab == AppTab.general
               ? WalletTab(currencies: widget.currencies)
-              : Center(child: Text('Game tab is commented')),
-          /*GameTab(
+              : GameTab(
                   key: AppKeys.gameTab,
                   showInvoiceDialog: _showInvoiceDialog,
                   isAuth: true,
-                  currencies: widget.currencies)*/
+                  currencies: widget.currencies),
           bottomNavigationBar: TabSelector(
               activeTab: activeTab,
               onTabSelected: (tab) =>

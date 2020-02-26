@@ -21,7 +21,7 @@ class Currency extends StatelessWidget {
         leading: Icon(coin.icon),
         title: Text('${coin.name.toUpperCase()}'),
         subtitle: FutureBuilder(
-          future: coin.futureBalance,
+          future: coin.balance,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return Text('${snapshot.data}');

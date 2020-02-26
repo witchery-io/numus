@@ -14,7 +14,7 @@ import 'package:jaguar_jwt/jaguar_jwt.dart';
 typedef OnShowInvoice = Function(String address, double price);
 
 class GameTab extends StatelessWidget {
-  final List<Future<Coin>> currencies;
+  final List<Coin> currencies;
   final OnShowInvoice showInvoiceDialog;
   final bool isAuth;
 
@@ -63,16 +63,21 @@ class _GuestGameWidget extends StatelessWidget {
 }
 
 class _GameWidget extends StatelessWidget {
-  final Future<Coin> coin;
+  final Coin btc;
   final OnShowInvoice showInvoiceDialog;
 
-  _GameWidget(this.coin, this.showInvoiceDialog);
+  _GameWidget(this.btc, this.showInvoiceDialog);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: FutureBuilder(
-            future: coin,
+        child: Text('test'));
+  }
+}
+
+/*
+* FutureBuilder(
+            future: btc.balance,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasError) return Center(child: Text('Ups!'));
 
@@ -108,6 +113,5 @@ class _GameWidget extends StatelessWidget {
                 default:
                   return Container(key: AppKeys.emptyDetailsContainer);
               }
-            }));
-  }
-}
+            })
+* */

@@ -29,10 +29,13 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
     try {
       final currencies = await multiCurrency.getCurrencies;
 
-      final crs = currencies.map((coin) => Coin(
+      final crs = currencies.map((coin) {
+        return Coin(
           name: coin.name,
           icon: coin.icon,
-          futureBalance: repository.loadBalance(coin)));
+          balance: repository.loadBalance(coin),
+        );
+      });
 
       yield WalletLoaded(currencies: crs.toList());
     } catch (_) {
