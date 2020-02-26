@@ -36,7 +36,7 @@ class CryptoRepository {
           balance += b.balance;
           if (b.txCount > 0) isRec = true;
         } catch (e) {
-          throw 'Merror: ${e.message}';
+          throw Exception(e.message);
         }
       }
     }
