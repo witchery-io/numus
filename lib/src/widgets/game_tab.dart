@@ -63,15 +63,16 @@ class _GuestGameWidget extends StatelessWidget {
 }
 
 class _GameWidget extends StatelessWidget {
-  final Coin btc;
+  final Coin keyCoin;
   final OnShowInvoice showInvoiceDialog;
 
-  _GameWidget(this.btc, this.showInvoiceDialog);
+  _GameWidget(this.keyCoin, this.showInvoiceDialog);
 
   @override
   Widget build(BuildContext context) {
+    print(keyCoin.name);
     return SafeArea(
-        child: Text('test'));
+        child: Text('sss'));
   }
 }
 
