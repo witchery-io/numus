@@ -5,7 +5,7 @@ import 'package:flutter_fundamental/src/widgets/widgets.dart';
 class WalletTab extends StatelessWidget {
   final List<Coin> currencies;
 
-  WalletTab({@required this.currencies});
+  const WalletTab({@required this.currencies});
 
   @override
   Widget build(BuildContext context) {
