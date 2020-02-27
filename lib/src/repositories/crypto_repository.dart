@@ -34,7 +34,8 @@ class CryptoRepository {
   Future<Map> _addressesSynchronization(
       coin, balance, startIndex, endIndex) async {
     bool isRec = false;
-    final List addresses = coin.addresses(start: startIndex, end: endIndex);
+    coin.addressSynchronization(start: startIndex, end: endIndex);
+    final List addresses = coin.cacheAddresses;
 
     if (addresses.isEmpty) {
       throw Exception('There aren\'t address');
