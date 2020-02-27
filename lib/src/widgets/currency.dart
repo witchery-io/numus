@@ -142,7 +142,7 @@ class Currency extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     Message.show(context, 'Copied');
-                    Clipboard.setData(new ClipboardData(text: val));
+                    Clipboard.setData(ClipboardData(text: val));
                   },
                   child: QrImage(
                       data: val,
