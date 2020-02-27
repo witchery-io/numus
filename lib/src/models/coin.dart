@@ -7,11 +7,12 @@ class Coin {
   final String name;
   final Future balance;
   final List address;
+  final OnTransaction transaction;
 
-  const Coin({
-    @required this.icon,
-    @required this.name,
-    @required this.balance,
-    @required this.address,
-  });
+  const Coin(
+      {@required this.icon,
+      @required this.name,
+      @required this.balance,
+      @required this.address,
+      @required this.transaction});
 }

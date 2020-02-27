@@ -31,11 +31,11 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
 
       final crs = currencies.map((coin) {
         return Coin(
-          name: coin.name,
-          icon: coin.icon,
-          balance: repository.loadBalance(coin),
-          address: coin.cacheAddresses,
-        );
+            name: coin.name,
+            icon: coin.icon,
+            balance: repository.loadBalance(coin),
+            address: coin.cacheAddresses,
+            transaction: coin.transaction);
       });
 
       yield WalletLoaded(currencies: crs.toList());

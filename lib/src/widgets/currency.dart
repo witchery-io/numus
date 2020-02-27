@@ -37,7 +37,7 @@ class Currency extends StatelessWidget {
         ),
       ),
       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: <Widget>[
-        CustomButton(child: Text('Send'), onPressed: () => print('Send')),
+        CustomButton(child: Text('Send'), onPressed: () => _send(context, coin)),
         CustomButton(
             child: Text('Receive'), onPressed: () => _showAddresses(context)),
         CustomButton(
@@ -110,17 +110,16 @@ class Currency extends StatelessWidget {
                   child: Text('Send'),
                   onPressed: () async {
                     if (_sendFormKey.currentState.validate()) {
-                      /// todo
-//                      try {
-//                        Message.show(context, 'Your request is checking');
-//                        FocusScope.of(context).requestFocus(FocusNode());
-//                        Currency._sendFormKey.currentState.save();
-//                        await coin.transaction(_address, double.parse(_price));
-//                        Message.show(context, 'Your request has accepted');
-//                        Navigator.pop(context);
-//                      } catch (e) {
-//                        Message.show(context, e.message);
-//                      }
+                      try {
+                        Message.show(context, 'Your request is checking');
+                        FocusScope.of(context).requestFocus(FocusNode());
+                        Currency._sendFormKey.currentState.save();
+                        await coin.transaction(_address, double.parse(_price));
+                        Message.show(context, 'Your request has accepted');
+                        Navigator.pop(context);
+                      } catch (e) {
+                        Message.show(context, e.message);
+                      }
                     }
                   }),
             ],
