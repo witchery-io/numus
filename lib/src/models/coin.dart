@@ -6,10 +6,12 @@ class Coin {
   final IconData icon;
   final String name;
   final Future balance;
+  final List address;
 
   const Coin({
     @required this.icon,
     @required this.name,
     @required this.balance,
+    @required this.address,
   });
 }
