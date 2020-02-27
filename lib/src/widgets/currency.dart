@@ -23,6 +23,10 @@ class Currency extends StatelessWidget {
         subtitle: FutureBuilder(
           future: coin.balance,
           builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Text('${snapshot.error}', style: infoTextStyle);
+            }
+
             if (snapshot.hasData) {
               return Text('${snapshot.data}');
             }

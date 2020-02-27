@@ -12,18 +12,20 @@ class CryptoRepository {
 
   const CryptoRepository({@required this.webClient});
 
-  Future loadBalance(coin,
+  Future<int> loadBalance(coin,
       {balance = BALANCE, start = START, end = END}) async {
     int result = 0;
     try {
-      final bal = await _addressesSynchronization(coin, balance, start, end);
-      if (bal['isRec'])
-        await loadBalance(coin,
-            balance: bal['blc'], start: start + ADDING, end: end + ADDING);
+      final info = await _addressesSynchronization(coin, balance, start, end);
 
-      result = bal['blc'];
+      if (info['isRec']) {
+        await loadBalance(coin,
+            balance: info['blc'], start: start + ADDING, end: end + ADDING);
+      }
+
+      result = info['blc'];
     } catch (e) {
-      throw Exception(e.message);
+      return Future.error('${e.message}');
     }
 
     return result;
@@ -32,21 +34,29 @@ class CryptoRepository {
   Future<Map> _addressesSynchronization(
       coin, balance, startIndex, endIndex) async {
     bool isRec = false;
-    final List addresses =
-        await coin.addresses(start: startIndex, end: endIndex);
+    final List addresses = coin.addresses(start: startIndex, end: endIndex);
 
-    if (addresses.isNotEmpty) {
-      for (int i = startIndex; i < endIndex; i++) {
-        try {
-          Balance b = await webClient.getBalanceByAddress(
-              coin.name, addresses[i].address);
-          balance += b.balance;
-          if (b.txCount > 0) isRec = true;
-        } catch (e) {
-          throw Exception(e.message);
+    if (addresses.isEmpty) {
+      throw Exception('There aren\'t address');
+    }
+
+    for (int i = startIndex; i < endIndex; i++) {
+      try {
+        Balance result = await webClient.getBalanceByAddress(
+            coin.name, addresses[i].address);
+        balance += result.balance;
+        if (result.txCount > 0) {
+          isRec = true;
         }
+      } catch (e) {
+        if (e is UnimplementedError) {
+          //// implementing connection
+        }
+
+        throw Exception(e.message);
       }
     }
+
     return {'blc': balance, 'isRec': isRec};
   }
 }

@@ -11,13 +11,18 @@ class WebClient {
   const WebClient({@required this.httpClient});
 
   Future<Balance> getBalanceByAddress(String currency, String address) async {
-    http.Response response = await httpClient
-        .get("$baseUrl/$currency/test/address/$address/balance");
+    final url = "$baseUrl/$currency/test/address/$address/balance";
+    final response = await httpClient.get(url);
+
     if (response.statusCode == 200) {
       return Balance.fromJson(json.decode(response.body));
-    } else {
-      final msg = '[$currency]: ${json.decode(response.body)['message']}';
-      throw Exception(msg);
+    } else if (response.statusCode == 304) {
+      /// there is not new updates
+      return null;
+    }  else if (response.statusCode > 500) {
+      throw UnimplementedError('Initialization...');
+    }  else {
+      throw Exception(json.decode(response.body)['message']);
     }
   }
 }
