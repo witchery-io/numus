@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -62,57 +61,48 @@ class _GuestGameWidget extends StatelessWidget {
   }
 }
 
-class _GameWidget extends StatelessWidget {
+class _GameWidget extends StatefulWidget {
   final Coin keyCoin;
   final OnShowInvoice showInvoiceDialog;
 
-  _GameWidget(this.keyCoin, this.showInvoiceDialog);
+  _GameWidget(this.keyCoin, this.showInvoiceDialog)
+      : assert(keyCoin.address.isNotEmpty);
+
+  @override
+  __GameWidgetState createState() => __GameWidgetState();
+}
+
+class __GameWidgetState extends State<_GameWidget> {
+  Map<String, String> headers;
+
+  @override
+  void initState() {
+    /// will be abstract prop
+    final address = widget.keyCoin.address[0].address;
+    final privateKey = widget.keyCoin.address[0].wif;
+    try {
+      final md5Address = GameTab.convertMd5(address);
+      final token = GameTab.getSignToken(privateKey, md5Address);
+      headers = {HttpHeaders.authorizationHeader: 'Bearer ' + token};
+    } catch (e) {
+      Message.show(context, e.message);
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    print(keyCoin.name);
     return SafeArea(
-        child: Text('sss'));
+        child: GameWebView(
+            key: AppKeys.gameWebView,
+            headers: headers,
+            onDeepLink: (link) async {
+              try {
+                final decodeLink = Bip21.decode(link);
+                widget.showInvoiceDialog(decodeLink.address, decodeLink.amount);
+              } catch (msg) {
+                Message.show(context, msg);
+              }
+            }));
   }
 }
-
-/*
-* FutureBuilder(
-            future: btc.balance,
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.hasError) return Center(child: Text('Ups!'));
-
-              switch (snapshot.connectionState) {
-                case ConnectionState.done:
-                  Map<String, String> headers;
-                  final coin = snapshot.data;
-                  final md5Address = GameTab.convertMd5(coin.address);
-                  try {
-                    final token =
-                        GameTab.getSignToken(coin.privateKey, md5Address);
-                    headers = {
-                      HttpHeaders.authorizationHeader: 'Bearer ' + token
-                    };
-                  } catch (e) {
-                    Message.show(context, e.message);
-                  }
-
-                  return GameWebView(
-                      key: AppKeys.gameWebView,
-                      headers: headers,
-                      onDeepLink: (link) async {
-                        try {
-                          final decodeLink = Bip21.decode(link);
-                          showInvoiceDialog(
-                              decodeLink.address, decodeLink.amount);
-                        } catch (msg) {
-                          Message.show(context, msg);
-                        }
-                      });
-                case ConnectionState.waiting:
-                  return LoadingIndicator(key: AppKeys.statsLoadingIndicator);
-                default:
-                  return Container(key: AppKeys.emptyDetailsContainer);
-              }
-            })
-* */
