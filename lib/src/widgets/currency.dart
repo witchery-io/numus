@@ -4,6 +4,7 @@ import 'package:flutter_fundamental/src/models/models.dart';
 import 'package:flutter_fundamental/src/screens/screens.dart';
 import 'package:flutter_fundamental/src/utils/utils.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 final TextStyle minorStyle = TextStyle(fontSize: 12.0, color: Colors.white);
@@ -37,14 +38,33 @@ class Currency extends StatelessWidget {
       ),
       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: <Widget>[
         CustomButton(child: Text('Send'), onPressed: () => print('Send')),
-        CustomButton(child: Text('Receive'), onPressed: () {
-          print(coin.address);
-        }),
+        CustomButton(
+            child: Text('Receive'), onPressed: () => _showAddresses(context)),
         CustomButton(
             child: Text('Transactions'),
             onPressed: () => print('Transactions')),
       ])
     ]);
+  }
+
+  _showAddresses(BuildContext context) async {
+    if (coin.address.isEmpty)
+      return Message.show(context, 'There isn\'t addresses');
+
+    await showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return SingleChildScrollView(
+              child: Column(
+                  children: coin.address.map((value) {
+            return ListTile(
+                leading: Icon(coin.icon),
+                title: Text(value.address, style: loadingStyle),
+                trailing: GestureDetector(
+                    onTap: () => _showQr(context, 'Qr code', value.address),
+                    child: Icon(FontAwesomeIcons.qrcode)));
+          }).toList()));
+        });
   }
 
   void _send(BuildContext context, Coin coin) async {
@@ -113,24 +133,24 @@ class Currency extends StatelessWidget {
 
     await showModalBottomSheet(
         context: context,
+        backgroundColor: Colors.black87,
         builder: (BuildContext context) {
           return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text('$title', style: titleTextStyle),
-              GestureDetector(
-                onTap: () {
-                  Message.show(context, 'Copied');
-                  Clipboard.setData(new ClipboardData(text: val));
-                },
-                child: QrImage(
-                    data: val,
-                    size: 250.0,
-                    foregroundColor: Colors.grey.shade300),
-              ),
-              Text(val, style: minorStyle)
-            ],
-          );
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text('$title', style: titleTextStyle),
+                GestureDetector(
+                  onTap: () {
+                    Message.show(context, 'Copied');
+                    Clipboard.setData(new ClipboardData(text: val));
+                  },
+                  child: QrImage(
+                      data: val,
+                      size: 250.0,
+                      foregroundColor: Colors.grey.shade300),
+                ),
+                Text(val, style: minorStyle)
+              ]);
         });
   }
 
