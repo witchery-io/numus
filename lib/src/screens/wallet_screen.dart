@@ -129,7 +129,7 @@ class _WalletScreenState extends State<WalletScreen> {
                     onPressed: () async {
                       try {
                         Message.show(context, 'Your request is checking');
-                        final Coin keyCoin = await widget.currencies.first;
+                        final keyCoin = widget.currencies.first;
                         await keyCoin.transaction(address, price);
                         Message.show(context, 'Your request has accepted');
                         Navigator.of(context).pop();

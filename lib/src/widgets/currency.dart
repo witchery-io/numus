@@ -29,7 +29,7 @@ class Currency extends StatelessWidget {
             }
 
             if (snapshot.hasData) {
-              return Text('${snapshot.data}');
+              return Text('${snapshot.data / 100000000}');
             }
 
             return _loading();
