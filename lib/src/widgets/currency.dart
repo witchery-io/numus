@@ -37,13 +37,14 @@ class Currency extends StatelessWidget {
         ),
       ),
       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: <Widget>[
-        CustomButton(child: Text('Send'), onPressed: () => _send(context, coin)),
+        CustomButton(
+            child: Text('Send'), onPressed: () => _send(context, coin)),
         CustomButton(
             child: Text('Receive'), onPressed: () => _showAddresses(context)),
         CustomButton(
             child: Text('Transactions'),
             onPressed: () => print('Transactions')),
-      ])
+      ]),
     ]);
   }
 
