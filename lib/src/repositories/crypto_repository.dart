@@ -25,7 +25,7 @@ class CryptoRepository {
 
       result = info['blc'];
     } catch (e) {
-      return Future.error('${e.message}');
+      return Future.error('$e');
     }
 
     return result;
@@ -34,7 +34,7 @@ class CryptoRepository {
   Future<Map> _addressesSynchronization(
       coin, balance, startIndex, endIndex) async {
     bool isRec = false;
-    coin.addressSynchronization(start: startIndex, end: endIndex);
+    coin.addresses(start: startIndex, end: endIndex);
     final List addresses = coin.cacheAddresses;
 
     if (addresses.isEmpty) {
