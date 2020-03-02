@@ -1,5 +1,3 @@
-import 'models.dart';
-
 class Balance {
   final String address;
   final int balance;
@@ -9,7 +7,6 @@ class Balance {
   final int txCount;
   final int unconfirmedBalance;
   final int unconfirmedTxCount;
-  final List<Transaction> txs;
 
   Balance(
       {this.address,
@@ -19,8 +16,7 @@ class Balance {
       this.totalSent,
       this.txCount,
       this.unconfirmedBalance,
-      this.unconfirmedTxCount,
-      this.txs});
+      this.unconfirmedTxCount});
 
   factory Balance.fromJson(Map<String, dynamic> json) {
     return Balance(
@@ -31,9 +27,6 @@ class Balance {
         totalSent: json['totalSent'],
         txCount: json['txCount'],
         unconfirmedBalance: json['unconfirmedBalance'],
-        unconfirmedTxCount: json['unconfirmedTxCount'],
-        txs: List.of(json['txs'])
-            .map((tx) => Transaction.fromJson(tx))
-            .toList());
+        unconfirmedTxCount: json['unconfirmedTxCount']);
   }
 }
