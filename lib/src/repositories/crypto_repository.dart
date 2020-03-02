@@ -7,24 +7,24 @@ class CryptoRepository {
 
   const CryptoRepository({@required this.webClient});
 
-  Future<int> loadBalance(coin) async => getBalance(coin);
+  Future<int> loadBalance(coin) async => _getBalance(coin);
 
-  Future<int> getBalance(coin, {balance = 0, next = 20}) async {
+  Future<int> _getBalance(coin, {balance = 0, next = 20}) async {
     final Map addresses = coin.addresses(next: next);
 
     if (addresses.isEmpty) return Future.error('There aren\'t address');
 
-    final balanceStream = streamBalance(next, coin.name, addresses);
-    final info = await calcBalance(balanceStream, balance);
+    final balanceStream = _streamBalance(next, coin.name, addresses);
+    final info = await _calcBalance(balanceStream, balance);
 
     if (info['checkMore']) {
-      await getBalance(coin, balance: info['balance'], next: next);
+      await _getBalance(coin, balance: info['balance'], next: next);
     }
 
     return info['balance'];
   }
 
-  Stream<Balance> streamBalance(int next, String name, Map addresses) async* {
+  Stream<Balance> _streamBalance(int next, String name, Map addresses) async* {
     final to = addresses.length;
     final from = to - next;
     for (int i = from; i < to; i++) {
@@ -32,7 +32,7 @@ class CryptoRepository {
     }
   }
 
-  Future<Map> calcBalance(Stream<Balance> stream, balance) async {
+  Future<Map> _calcBalance(Stream<Balance> stream, balance) async {
     bool checkMore = false;
 
     try {
