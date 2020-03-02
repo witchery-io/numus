@@ -2,62 +2,44 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_fundamental/core/core.dart';
 import 'package:flutter_fundamental/src/models/balance.dart';
 
-const START = 0;
-const END = 20;
-const ADDING = 20;
-const BALANCE = 0;
-
 class CryptoRepository {
   final WebClient webClient;
 
   const CryptoRepository({@required this.webClient});
 
-  Future<int> loadBalance(coin,
-      {balance = BALANCE, start = START, end = END}) async {
-    int result = 0;
-    try {
-      final info = await _addressesSynchronization(coin, balance, start, end);
+  Future loadBalance(coin) async {
+    final Map addresses = coin.addresses(next: 20);
 
-      if (info['isRec']) {
-        await loadBalance(coin,
-            balance: info['blc'], start: start + ADDING, end: end + ADDING);
-      }
+    if (addresses.isEmpty) return Future.error('There aren\'t address');
+    final balanceStream = getBalance(20, 'btc', addresses);
+    final info = await sumInfo(balanceStream);
 
-      result = info['blc'];
-    } catch (e) {
-      return Future.error('$e');
+    if (info['isMore']) {
+      print('is more');
     }
-
-    return result;
+    
+    return info['balance'];
   }
 
-  Future<Map> _addressesSynchronization(
-      coin, balance, startIndex, endIndex) async {
-    bool isRec = false;
-    coin.addresses(start: startIndex, end: endIndex);
-    final List addresses = coin.cacheAddresses;
-
-    if (addresses.isEmpty) {
-      throw Exception('There aren\'t address');
+  Stream<Balance> getBalance(int to, name, addresses) async* {
+    for (int i = 0; i < to; i++) {
+      yield await webClient.getBalanceByAddress(name, addresses[i].address);
     }
+  }
 
-    for (int i = startIndex; i < endIndex; i++) {
-      try {
-        Balance result = await webClient.getBalanceByAddress(
-            coin.name, addresses[i].address);
-        balance += result.balance;
-        if (result.txCount > 0) {
-          isRec = true;
-        }
-      } catch (e) {
-        if (e is UnimplementedError) {
-          //// implementing connection
-        }
+  Future<Map> sumInfo(Stream<Balance> stream) async {
+    int sum = 0;
+    bool isMore = false;
 
-        throw Exception(e.message);
+    try {
+      await for (var value in stream) {
+        sum += value.balance;
+        if (value.txCount > 0) isMore = true;
       }
+    } catch (e) {
+      return Future.error(e.message);
     }
 
-    return {'blc': balance, 'isRec': isRec};
+    return {'balance': sum, 'isMore': isMore};
   }
 }
