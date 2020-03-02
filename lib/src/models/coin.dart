@@ -5,8 +5,8 @@ typedef OnTransaction = Future Function(String address, double price);
 class Coin {
   final IconData icon;
   final String name;
-  final Future balance;
-  final List address;
+  final balance; // Future
+  final address; // List
   final OnTransaction transaction;
 
   const Coin(
