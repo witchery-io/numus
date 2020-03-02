@@ -7,39 +7,43 @@ class CryptoRepository {
 
   const CryptoRepository({@required this.webClient});
 
-  Future loadBalance(coin) async {
-    final Map addresses = coin.addresses(next: 20);
+  Future<int> loadBalance(coin) async => getBalance(coin);
+
+  Future<int> getBalance(coin, {balance = 0, next = 20}) async {
+    final Map addresses = coin.addresses(next: next);
 
     if (addresses.isEmpty) return Future.error('There aren\'t address');
-    final balanceStream = getBalance(20, 'btc', addresses);
-    final info = await sumInfo(balanceStream);
 
-    if (info['isMore']) {
-      print('is more');
+    final balanceStream = streamBalance(next, coin.name, addresses);
+    final info = await calcBalance(balanceStream, balance);
+
+    if (info['checkMore']) {
+      await getBalance(coin, balance: info['balance'], next: next);
     }
-    
+
     return info['balance'];
   }
 
-  Stream<Balance> getBalance(int to, name, addresses) async* {
-    for (int i = 0; i < to; i++) {
+  Stream<Balance> streamBalance(int next, String name, Map addresses) async* {
+    final to = addresses.length;
+    final from = to - next;
+    for (int i = from; i < to; i++) {
       yield await webClient.getBalanceByAddress(name, addresses[i].address);
     }
   }
 
-  Future<Map> sumInfo(Stream<Balance> stream) async {
-    int sum = 0;
-    bool isMore = false;
+  Future<Map> calcBalance(Stream<Balance> stream, balance) async {
+    bool checkMore = false;
 
     try {
       await for (var value in stream) {
-        sum += value.balance;
-        if (value.txCount > 0) isMore = true;
+        balance += value.balance;
+        if (value.txCount > 0) checkMore = true;
       }
     } catch (e) {
       return Future.error(e.message);
     }
 
-    return {'balance': sum, 'isMore': isMore};
+    return {'balance': balance, 'checkMore': checkMore};
   }
 }
