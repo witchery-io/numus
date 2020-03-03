@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_fundamental/core/core.dart';
@@ -12,12 +13,13 @@ class CryptoRepository {
   Future loadBalance(coin) async {
     try {
       return await _getBalance(coin);
-    } catch (e) {
-      return Future.error(e);
+    } catch (msg) {
+      return Future.error(msg);
     }
   }
 
   Future<int> _getBalance(coin, {balance = 0, next = 20}) async {
+    int sumBalance = 0;
     final Map addresses = coin.addresses(next: next);
 
     if (addresses.isEmpty) return Future.error('There aren\'t address');
@@ -25,39 +27,34 @@ class CryptoRepository {
     try {
       final balanceStream = _streamBalance(next, coin.name, addresses);
       final info = await _calcBalance(balanceStream, balance);
-      if (info['checkMore']) {
+
+      if (info['checkMore'])
         await _getBalance(coin, balance: info['balance'], next: next);
-      }
-      balance = info['balance'];
+
+      sumBalance = info['balance'];
+    } on SocketException catch (e) {
+      throw SocketException(e.osError.message);
     } catch (e) {
-      throw Exception(e);
+      throw Exception(e.message);
     }
 
-    return balance;
+    return sumBalance;
   }
 
   Stream<Balance> _streamBalance(int next, String name, Map addresses) async* {
-    try {
-      final to = addresses.length;
-      final from = to - next;
-      for (int i = from; i < to; i++) {
-        yield await webClient.getBalanceByAddress(name, addresses[i].address);
-      }
-    } catch (e) {
-      throw Exception(e);
+    final to = addresses.length;
+    final from = to - next;
+    for (int i = from; i < to; i++) {
+      yield await webClient.getBalanceByAddress(name, addresses[i].address);
     }
   }
 
   Future<Map> _calcBalance(Stream<Balance> stream, balance) async {
     bool checkMore = false;
 
-    try {
-      await for (var value in stream) {
-        balance += value.balance;
-        if (value.txCount > 0) checkMore = true;
-      }
-    } catch (e) {
-      return Future.error(e.message);
+    await for (var info in stream) {
+      balance += info.balance;
+      if (info.txCount > 0) checkMore = true;
     }
 
     return {'balance': balance, 'checkMore': checkMore};
