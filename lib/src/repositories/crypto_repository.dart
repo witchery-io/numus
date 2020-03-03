@@ -13,8 +13,8 @@ class CryptoRepository {
   Future loadBalance(coin) async {
     try {
       return await _getBalance(coin);
-    } catch (msg) {
-      return Future.error(msg);
+    } catch (e) {
+      return Future.error(e.message);
     }
   }
 
@@ -22,7 +22,7 @@ class CryptoRepository {
     int sumBalance = 0;
     final Map addresses = coin.addresses(next: next);
 
-    if (addresses.isEmpty) return Future.error('There aren\'t address');
+    if (addresses.isEmpty) throw Exception('There aren\'t address');
 
     try {
       final balanceStream = _streamBalance(next, coin.name, addresses);
@@ -33,7 +33,7 @@ class CryptoRepository {
 
       sumBalance = info['balance'];
     } on SocketException catch (e) {
-      throw SocketException(e.osError.message);
+      throw Exception(e.osError.message);
     } catch (e) {
       throw Exception(e.message);
     }
