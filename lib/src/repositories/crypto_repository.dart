@@ -6,9 +6,10 @@ import 'package:flutter_fundamental/core/core.dart';
 import 'package:flutter_fundamental/src/models/balance.dart';
 
 class CryptoRepository {
+  int balance = 0;
   final WebClient webClient;
 
-  const CryptoRepository({@required this.webClient});
+  CryptoRepository({@required this.webClient});
 
   Future loadBalance(coin) async {
     try {
@@ -18,20 +19,18 @@ class CryptoRepository {
     }
   }
 
-  Future<int> _getBalance(coin, {balance = 0, next = 20}) async {
-    int sumBalance = 0;
+  Future<int> _getBalance(coin, {next = 20}) async {
     final Map addresses = coin.addresses(next: next);
 
     if (addresses.isEmpty) throw Exception('There aren\'t address');
 
     try {
       final balanceStream = _streamBalance(next, coin.name, addresses);
-      final info = await _calcBalance(balanceStream, balance);
+      final info = await _calcBalance(balanceStream);
 
-      if (info['checkMore'])
-        await _getBalance(coin, balance: info['balance'], next: next);
+      if (!info.checkMore) return balance;
 
-      sumBalance = info['balance'];
+      await _getBalance(coin, next: next);
     } on SocketException catch (e) {
       Future.delayed(Duration(seconds: 10), () => loadBalance(coin));
 
@@ -40,7 +39,7 @@ class CryptoRepository {
       throw Exception(e.message);
     }
 
-    return sumBalance;
+    throw Exception('Loop balance worning');
   }
 
   Stream<Balance> _streamBalance(int next, String name, Map addresses) async* {
@@ -51,7 +50,7 @@ class CryptoRepository {
     }
   }
 
-  Future<Map> _calcBalance(Stream<Balance> stream, balance) async {
+  Future<CalcBalanceArgs> _calcBalance(Stream<Balance> stream) async {
     bool checkMore = false;
 
     await for (var info in stream) {
@@ -59,6 +58,12 @@ class CryptoRepository {
       if (info.txCount > 0) checkMore = true;
     }
 
-    return {'balance': balance, 'checkMore': checkMore};
+    return CalcBalanceArgs(checkMore);
   }
+}
+
+class CalcBalanceArgs {
+  final bool checkMore;
+
+  CalcBalanceArgs(this.checkMore);
 }
