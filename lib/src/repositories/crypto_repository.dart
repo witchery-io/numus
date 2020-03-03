@@ -33,6 +33,8 @@ class CryptoRepository {
 
       sumBalance = info['balance'];
     } on SocketException catch (e) {
+      Future.delayed(Duration(seconds: 10), () => loadBalance(coin));
+
       throw Exception(e.osError.message);
     } catch (e) {
       throw Exception(e.message);
