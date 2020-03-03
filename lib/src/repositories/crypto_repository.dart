@@ -18,7 +18,7 @@ class CryptoRepository {
     }
   }
 
-  Future<int> _getBalance(coin, {next = 20}) async {
+  Future _getBalance(coin, {balance = 0, next = 20}) async {
     final Map addresses = coin.addresses(next: next);
 
     if (addresses.isEmpty) throw Exception('There aren\'t address');
@@ -26,18 +26,18 @@ class CryptoRepository {
     try {
       final balanceStream = _streamBalance(next, coin.name, addresses);
       final info = await _calcBalance(balanceStream);
+      balance += info.balance;
 
       if (info.checkMore)
-        await _getBalance(coin, next: next);
-
-      return 10545454;
+        return _getBalance(coin, balance: balance);
     } on SocketException catch (e) {
       Future.delayed(Duration(seconds: 10), () => loadBalance(coin));
-
       throw Exception(e.osError.message);
     } catch (e) {
       throw Exception(e.message);
     }
+
+    return balance;
   }
 
   Stream<Balance> _streamBalance(int next, String name, Map addresses) async* {
