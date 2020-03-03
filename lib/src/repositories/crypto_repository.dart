@@ -6,7 +6,6 @@ import 'package:flutter_fundamental/core/core.dart';
 import 'package:flutter_fundamental/src/models/balance.dart';
 
 class CryptoRepository {
-  int balance = 0;
   final WebClient webClient;
 
   CryptoRepository({@required this.webClient});
@@ -28,9 +27,10 @@ class CryptoRepository {
       final balanceStream = _streamBalance(next, coin.name, addresses);
       final info = await _calcBalance(balanceStream);
 
-      if (!info.checkMore) return balance;
+      if (info.checkMore)
+        await _getBalance(coin, next: next);
 
-      await _getBalance(coin, next: next);
+      return 10545454;
     } on SocketException catch (e) {
       Future.delayed(Duration(seconds: 10), () => loadBalance(coin));
 
@@ -38,8 +38,6 @@ class CryptoRepository {
     } catch (e) {
       throw Exception(e.message);
     }
-
-    throw Exception('Loop balance worning');
   }
 
   Stream<Balance> _streamBalance(int next, String name, Map addresses) async* {
@@ -51,6 +49,7 @@ class CryptoRepository {
   }
 
   Future<CalcBalanceArgs> _calcBalance(Stream<Balance> stream) async {
+    int balance = 0;
     bool checkMore = false;
 
     await for (var info in stream) {
@@ -58,12 +57,13 @@ class CryptoRepository {
       if (info.txCount > 0) checkMore = true;
     }
 
-    return CalcBalanceArgs(checkMore);
+    return CalcBalanceArgs(balance, checkMore);
   }
 }
 
 class CalcBalanceArgs {
+  final int balance;
   final bool checkMore;
 
-  CalcBalanceArgs(this.checkMore);
+  const CalcBalanceArgs(this.balance, this.checkMore);
 }
