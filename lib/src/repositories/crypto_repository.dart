@@ -63,6 +63,10 @@ class CryptoRepository {
 
     return CalcBalanceArgs(balance, checkMore);
   }
+
+  loadAddresses() {
+    return [];
+  }
 }
 
 class CalcBalanceArgs {
