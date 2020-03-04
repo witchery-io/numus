@@ -40,12 +40,12 @@ class CryptoRepository {
     return balance;
   }
 
-  Stream<Balance> _streamBalance(
-      int next, String name, Map addresses) async* {
+  Stream<Balance> _streamBalance(int next, String name, Map addresses) async* {
     final to = addresses.length;
     final from = to - next;
     for (int i = from; i < to; i++) {
-      final result = await webClient.getBalanceByAddress(name, addresses[i].address);
+      final result =
+          await webClient.getBalanceByAddress(name, addresses[i].address);
       /*
       * todo save db
       * */
