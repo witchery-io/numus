@@ -45,7 +45,17 @@ class CryptoRepository {
     final to = addresses.length;
     final from = to - next;
     for (int i = from; i < to; i++) {
-      yield await webClient.getBalanceByAddress(name, addresses[i].address);
+      final result = await webClient.getBalanceByAddress(name, addresses[i].address);
+      /*
+      * todo save db
+      * */
+      print(result.balance);
+      print(result.address);
+      print(addresses[i].privateKey);
+      /*
+      *
+      * */
+      yield result;
     }
   }
 
@@ -55,9 +65,6 @@ class CryptoRepository {
 
     await for (var info in stream) {
       balance += info.balance;
-
-      /// todo save have balance address
-
       if (info.txCount > 0) checkMore = true;
     }
 
