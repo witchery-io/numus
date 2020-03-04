@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import 'address.dart';
+
 typedef OnTransaction = Future Function(String address, double price);
 
 class Coin {
@@ -15,4 +17,11 @@ class Coin {
       @required this.balance,
       @required this.address,
       @required this.transaction});
+}
+
+abstract class CryptoCoin {
+  String get name;
+  IconData icon;
+  Map<int, Address> generateAddresses({@required int next});
+  Future<void> transaction(String address, double price);
 }

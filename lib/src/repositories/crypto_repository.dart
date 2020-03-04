@@ -4,13 +4,14 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_fundamental/core/core.dart';
 import 'package:flutter_fundamental/src/models/balance.dart';
+import 'package:flutter_fundamental/src/models/models.dart';
 
 class CryptoRepository {
   final WebClient webClient;
 
   CryptoRepository({@required this.webClient});
 
-  Future loadBalance(coin) async {
+  Future loadBalance(CryptoCoin coin) async {
     try {
       return await _getBalance(coin);
     } catch (e) {
@@ -18,8 +19,8 @@ class CryptoRepository {
     }
   }
 
-  Future _getBalance(coin, {balance = 0, next = 20}) async {
-    final Map addresses = coin.addresses(next: next);
+  Future _getBalance(CryptoCoin coin, {balance = 0, next = 20}) async {
+    final addresses = coin.generateAddresses(next: next);
 
     if (addresses.isEmpty) throw Exception('There aren\'t address');
 
@@ -28,8 +29,7 @@ class CryptoRepository {
       final info = await _calcBalance(balanceStream);
       balance += info.balance;
 
-      if (info.checkMore)
-        return _getBalance(coin, balance: balance);
+      if (info.checkMore) return _getBalance(coin, balance: balance);
     } on SocketException catch (e) {
       Future.delayed(Duration(seconds: 10), () => loadBalance(coin));
       throw Exception(e.osError.message);
@@ -40,7 +40,8 @@ class CryptoRepository {
     return balance;
   }
 
-  Stream<Balance> _streamBalance(int next, String name, Map addresses) async* {
+  Stream<Balance> _streamBalance(
+      int next, String name, Map<int, Address> addresses) async* {
     final to = addresses.length;
     final from = to - next;
     for (int i = from; i < to; i++) {
@@ -54,6 +55,9 @@ class CryptoRepository {
 
     await for (var info in stream) {
       balance += info.balance;
+
+      /// todo save have balance address
+
       if (info.txCount > 0) checkMore = true;
     }
 
