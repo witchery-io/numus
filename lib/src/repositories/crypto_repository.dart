@@ -11,7 +11,7 @@ class CryptoRepository {
 
   CryptoRepository({@required this.webClient});
 
-  Future loadBalance(CryptoCoin coin) async {
+  Future loadBalance(coin) async {
     try {
       return await _getBalance(coin);
     } catch (e) {
@@ -19,7 +19,7 @@ class CryptoRepository {
     }
   }
 
-  Future _getBalance(CryptoCoin coin, {balance = 0, next = 20}) async {
+  Future _getBalance(coin, {balance = 0, next = 20}) async {
     final addresses = coin.generateAddresses(next: next);
 
     if (addresses.isEmpty) throw Exception('There aren\'t address');
@@ -41,7 +41,7 @@ class CryptoRepository {
   }
 
   Stream<Balance> _streamBalance(
-      int next, String name, Map<int, Address> addresses) async* {
+      int next, String name, Map addresses) async* {
     final to = addresses.length;
     final from = to - next;
     for (int i = from; i < to; i++) {

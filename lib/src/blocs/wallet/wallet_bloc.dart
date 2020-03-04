@@ -29,10 +29,9 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
     try {
       final List currencies = await multiCurrency.getCurrencies;
       final c = currencies.map((coin) {
-        final CryptoCoin cc = coin;
         return Coin(
-            name: cc.name,
-            icon: cc.icon,
+            name: coin.name,
+            icon: coin.icon,
             balance: repository.loadBalance(coin),
             address: [],
             transaction: coin.transaction);
