@@ -14,8 +14,6 @@ class CryptoRepository {
   CryptoRepository({@required this.webClient, @required this.db});
 
   Future loadBalance(coin) async {
-    print(await db.addresses());
-    
     try {
       return await _getBalance(coin);
     } catch (e) {
