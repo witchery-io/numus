@@ -35,7 +35,7 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
             balance: repository.loadBalance(coin),
             getAddressByIndex: coin.getAddressByIndex,
             addressList: coin.addressList,
-            transaction: coin.transaction);
+            transaction: repository.transaction);
       });
 
       yield WalletLoaded(currencies: c.toList());

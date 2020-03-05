@@ -65,6 +65,13 @@ class CryptoRepository {
 
     return CalcBalanceArgs(balance, checkMore);
   }
+  
+  Future transaction(String address, double price) {
+    print('transaction');
+    print(address);
+    print(price);
+    return null;
+  }
 }
 
 class CalcBalanceArgs {
