@@ -15,12 +15,10 @@ class DB {
   Future<List<Address>> addresses() async {
     final Database db = await database;
     final List<Map<String, dynamic>> maps = await db.query('address');
-    return List.generate(maps.length, (i) {
-      return Address(
-          id: maps[i]['id'],
-          type: maps[i]['type'],
-          balance: maps[i]['balance']);
-    });
+    return List.generate(maps.length, (i) => Address(
+        id: maps[i]['id'],
+        type: maps[i]['type'],
+        balance: maps[i]['balance']));
   }
 
   Future<void> insertAddress(Address address) async {
@@ -42,7 +40,7 @@ class DB {
 
   Future delete() async {
     final db = await database;
-    db.delete('address');
+    await db.delete('address');
   }
 
   Future<void> close() async {
