@@ -46,9 +46,7 @@ class CryptoRepository {
     final to = addresses.length;
     final from = to - next;
     for (int i = from; i < to; i++) {
-      final result =
-          await webClient.getBalanceByAddress(name, addresses[i].address);
-      /* save in db */
+      final result = await webClient.getBalanceByAddress(name, addresses[i].address);
       if (result.balance > 0)
         db.insertAddress(Address(id: i, type: name, balance: result.balance));
 

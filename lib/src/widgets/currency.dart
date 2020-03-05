@@ -49,7 +49,9 @@ class Currency extends StatelessWidget {
   }
 
   _showAddresses(BuildContext context) async {
-    if (coin.address.isEmpty)
+    final List addresses = await coin.addressList();
+
+    if (addresses.isEmpty)
       return Message.show(context, 'There isn\'t addresses');
 
     await showModalBottomSheet(
@@ -57,7 +59,7 @@ class Currency extends StatelessWidget {
         builder: (context) {
           return SingleChildScrollView(
               child: Column(
-                  children: coin.address.map((value) {
+                  children: addresses.map((value) {
             return ListTile(
                 leading: Icon(coin.icon),
                 title: Text(value.address, style: loadingStyle),
