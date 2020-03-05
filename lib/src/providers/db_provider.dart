@@ -9,7 +9,7 @@ class DB {
       join(path, 'addresses_database.db'),
       onCreate: (db, version) {
         return db.execute(
-          "CREATE TABLE address(id INTEGER PRIMARY KEY, address TEXT, settings TEXT)",
+          "CREATE TABLE address(id INTEGER PRIMARY KEY, type TEXT, balance NUMERIC)",
         );
       },
       version: 1,
@@ -22,8 +22,8 @@ class DB {
     return List.generate(maps.length, (i) {
       return Address(
           id: maps[i]['id'],
-          address: maps[i]['address'],
-          settings: maps[i]['settings']);
+          type: maps[i]['type'],
+          balance: maps[i]['balance']);
     });
   }
 
@@ -57,17 +57,17 @@ class DB {
 
 class Address {
   final int id;
-  final String address;
-  final String settings;
+  final String type;
+  final num balance;
 
-  Address({this.id, this.address, this.settings});
+  Address({this.id, this.type, this.balance});
 
   Map<String, dynamic> toMap() {
-    return {'id': id, 'address': address, 'settings': settings};
+    return {'id': id, 'type': type, 'balance': balance};
   }
 
   @override
   String toString() {
-    return 'Address{id: $id, address: $address, age: $settings}';
+    return 'Address{id: $id, type: $type, balance: $balance}';
   }
 }
