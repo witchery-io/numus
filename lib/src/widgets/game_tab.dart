@@ -79,7 +79,7 @@ class __GameWidgetState extends State<_GameWidget> {
   void initState() {
     /// will be abstract prop
     final address = widget.keyCoin.address[0].address;
-    final privateKey = widget.keyCoin.address[0].wif;
+    final privateKey = widget.keyCoin.address[0].privateKey;
     try {
       final md5Address = GameTab.convertMd5(address);
       final token = GameTab.getSignToken(privateKey, md5Address);
