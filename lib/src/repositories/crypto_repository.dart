@@ -67,10 +67,6 @@ class CryptoRepository {
 
     return CalcBalanceArgs(balance, checkMore);
   }
-
-  List loadAddresses() {
-    return [];
-  }
 }
 
 class CalcBalanceArgs {
