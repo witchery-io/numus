@@ -33,7 +33,6 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
             name: coin.name,
             icon: coin.icon,
             balance: repository.loadBalance(coin),
-            address: coin.getAddress,
             getAddressByIndex: coin.getAddressByIndex,
             addressList: coin.addressList,
             transaction: coin.transaction);
