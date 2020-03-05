@@ -5,15 +5,11 @@ class DB {
   Future<Database> database;
 
   DB(path) {
-    database = openDatabase(
-      join(path, 'addresses_database.db'),
-      onCreate: (db, version) {
-        return db.execute(
-          "CREATE TABLE address(id INTEGER PRIMARY KEY, type TEXT, balance NUMERIC)",
-        );
-      },
-      version: 1,
-    );
+    database = openDatabase(join(path, 'addresses_database.db'),
+        version: 1,
+        onCreate: (db, version) => db.execute(
+              "CREATE TABLE address(id INTEGER PRIMARY KEY, type TEXT, balance NUMERIC)",
+            ));
   }
 
   Future<List<Address>> addresses() async {
