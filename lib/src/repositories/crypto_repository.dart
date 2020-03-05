@@ -49,9 +49,9 @@ class CryptoRepository {
       /*
       * todo save db
       * */
-      print(result.balance);
-      print(result.address);
-      print(addresses[i].privateKey);
+//      print(result.balance);
+//      print(result.address);
+//      print(addresses[i].privateKey);
       /*
       *
       * */
