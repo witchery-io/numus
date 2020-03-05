@@ -34,12 +34,14 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
             icon: coin.icon,
             balance: repository.loadBalance(coin),
             address: coin.getAddress,
+            getAddressByIndex: coin.getAddressByIndex,
             addressList: coin.addressList,
             transaction: coin.transaction);
       });
 
       yield WalletLoaded(currencies: c.toList());
     } catch (_) {
+      print(_.message);
       yield WalletNotLoaded();
     }
   }

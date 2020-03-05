@@ -65,8 +65,7 @@ class _GameWidget extends StatefulWidget {
   final Coin keyCoin;
   final OnShowInvoice showInvoiceDialog;
 
-  _GameWidget(this.keyCoin, this.showInvoiceDialog)
-      : assert(keyCoin.address.isNotEmpty);
+  _GameWidget(this.keyCoin, this.showInvoiceDialog);
 
   @override
   __GameWidgetState createState() => __GameWidgetState();
@@ -77,9 +76,10 @@ class __GameWidgetState extends State<_GameWidget> {
 
   @override
   void initState() {
-    final address = widget.keyCoin.address[0].address;
-    final privateKey = widget.keyCoin.address[0].privateKey;
     try {
+      final firstAddress = widget.keyCoin.getAddressByIndex(0);
+      final address = firstAddress.address;
+      final privateKey = firstAddress.privateKey;
       final md5Address = GameTab.convertMd5(address);
       final token = GameTab.getSignToken(privateKey, md5Address);
       headers = {HttpHeaders.authorizationHeader: 'Bearer ' + token};
