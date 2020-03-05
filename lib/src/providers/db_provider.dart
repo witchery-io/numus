@@ -8,17 +8,18 @@ class DB {
     database = openDatabase(join(path, 'addresses_database.db'),
         version: 1,
         onCreate: (db, version) => db.execute(
-              "CREATE TABLE address(id INTEGER PRIMARY KEY, type TEXT, balance NUMERIC)",
-            ));
+            "CREATE TABLE address(id INTEGER PRIMARY KEY, type TEXT, balance NUMERIC)"));
   }
 
   Future<List<Address>> addresses() async {
     final Database db = await database;
     final List<Map<String, dynamic>> maps = await db.query('address');
-    return List.generate(maps.length, (i) => Address(
-        id: maps[i]['id'],
-        type: maps[i]['type'],
-        balance: maps[i]['balance']));
+    return List.generate(
+        maps.length,
+        (i) => Address(
+            id: maps[i]['id'],
+            type: maps[i]['type'],
+            balance: maps[i]['balance']));
   }
 
   Future<void> insertAddress(Address address) async {
