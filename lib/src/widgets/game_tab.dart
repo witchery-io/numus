@@ -77,7 +77,6 @@ class __GameWidgetState extends State<_GameWidget> {
 
   @override
   void initState() {
-    /// will be abstract prop
     final address = widget.keyCoin.address[0].address;
     final privateKey = widget.keyCoin.address[0].privateKey;
     try {
