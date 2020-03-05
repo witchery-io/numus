@@ -41,12 +41,14 @@ class MnemonicVerifyOrRecover extends MnemonicState {
 
 class MnemonicAccepted extends MnemonicState {
   final mnemonic;
+  final dbPath;
 
-  const MnemonicAccepted(this.mnemonic);
-
-  @override
-  List<Object> get props => [mnemonic];
+  const MnemonicAccepted(this.mnemonic, this.dbPath);
 
   @override
-  String toString() => 'Access accepted { mnemonic: $mnemonic }';
+  List<Object> get props => [mnemonic, dbPath];
+
+  @override
+  String toString() =>
+      'Access accepted { mnemonic: $mnemonic, dbPath: $dbPath }';
 }

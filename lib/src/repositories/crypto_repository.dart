@@ -5,13 +5,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_fundamental/core/core.dart';
 import 'package:flutter_fundamental/src/models/balance.dart';
 import 'package:flutter_fundamental/src/models/models.dart';
+import 'package:flutter_fundamental/src/providers/providers.dart';
 
 class CryptoRepository {
   final WebClient webClient;
+  final DB db;
 
-  CryptoRepository({@required this.webClient});
+  CryptoRepository({@required this.webClient, @required this.db});
 
   Future loadBalance(coin) async {
+    print(await db.addresses());
+    
     try {
       return await _getBalance(coin);
     } catch (e) {

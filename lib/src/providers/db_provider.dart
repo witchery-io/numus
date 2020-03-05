@@ -4,11 +4,13 @@ import 'package:sqflite/sqflite.dart';
 class DB {
   Future<Database> database;
 
-  DB(path) {
-    database = openDatabase(join(path, 'addresses_database.db'),
+  DB._(this.database);
+
+  factory DB.init(path) {
+    return DB._(openDatabase(join(path, 'addresses_database.db'),
         version: 1,
         onCreate: (db, version) => db.execute(
-            "CREATE TABLE address(id INTEGER PRIMARY KEY, type TEXT, balance NUMERIC)"));
+            "CREATE TABLE address(id INTEGER PRIMARY KEY, type TEXT, balance NUMERIC)")));
   }
 
   Future<List<Address>> addresses() async {

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:sqflite/sqflite.dart';
 
 import './bloc.dart';
 
@@ -64,7 +65,9 @@ class MnemonicBloc extends Bloc<MnemonicEvent, MnemonicState> {
             .secureStorage
             .write(key: 'mnemonic', value: event.mnemonicBase64);
 
-      yield MnemonicAccepted(event.mnemonic);
+      final dbPath = await getDatabasesPath();
+
+      yield MnemonicAccepted(event.mnemonic, dbPath);
     } catch (_) {}
   }
 }

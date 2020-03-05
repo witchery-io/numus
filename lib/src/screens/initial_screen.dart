@@ -43,6 +43,7 @@ class InitialScreen extends StatelessWidget {
                       create: (context) => WalletBloc(
                           multiCurrency: MultiCurrency(state.mnemonic),
                           repository: CryptoRepository(
+                              db: DB.init(state.dbPath),
                               webClient: WebClient(httpClient: http.Client())))
                         ..add(LoadWallet())),
                 ],
