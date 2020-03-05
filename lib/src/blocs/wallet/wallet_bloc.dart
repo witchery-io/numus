@@ -40,7 +40,6 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
 
       yield WalletLoaded(currencies: c.toList());
     } catch (_) {
-      print(_.message);
       yield WalletNotLoaded();
     }
   }
