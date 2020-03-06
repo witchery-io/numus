@@ -93,12 +93,11 @@ class CryptoRepository {
           fee: feeSat,
           price: satPrice,
           address: address,
-          addressReceive: addressReceive,
+          addressReceive: addressReceive.address,
           data: data);
 
       print(broadcast);
     } catch (e) {
-      print(e);
       throw Exception(e.message);
     }
   }
