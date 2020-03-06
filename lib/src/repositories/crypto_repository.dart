@@ -46,9 +46,10 @@ class CryptoRepository {
     final to = addresses.length;
     final from = to - next;
     for (int i = from; i < to; i++) {
-      final result = await webClient.getBalanceByAddress(name, addresses[i].address);
-      if (result.balance > 0)
-        db.insertAddress(Address(id: i, type: name, balance: result.balance));
+      final address = addresses[i].address;
+      final result = await webClient.getBalanceByAddress(name, address);
+      await db
+          .insertAddress(Address(id: i, type: name, balance: result.balance));
 
       yield result;
     }
@@ -65,12 +66,18 @@ class CryptoRepository {
 
     return CalcBalanceArgs(balance, checkMore);
   }
-  
-  Future transaction(String address, double price) {
+
+  Future transaction(String address, double price) async {
+
+    /*
+    * todo
+    * */
     print('transaction');
+    print(await db.addresses());
     print(address);
     print(price);
     return null;
+
   }
 }
 
