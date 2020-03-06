@@ -68,11 +68,11 @@ class Address {
   Address({this.id, this.type, this.balance, this.hasUsed});
 
   Map<String, dynamic> toMap() {
-    return {'id': id, 'type': type, 'balance': balance, 'isUsed': hasUsed};
+    return {'id': id, 'type': type, 'balance': balance, 'hasUsed': hasUsed};
   }
 
   @override
   String toString() {
-    return 'Address{id: $id, type: $type, balance: $balance, isUsed: $hasUsed}';
+    return 'Address{id: $id, type: $type, balance: $balance, hasUsed: $hasUsed}';
   }
 }
