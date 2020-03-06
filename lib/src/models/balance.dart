@@ -7,6 +7,7 @@ class Balance {
   final int txCount;
   final int unconfirmedBalance;
   final int unconfirmedTxCount;
+  final List txs;
 
   Balance(
       {this.address,
@@ -16,7 +17,8 @@ class Balance {
       this.totalSent,
       this.txCount,
       this.unconfirmedBalance,
-      this.unconfirmedTxCount});
+      this.unconfirmedTxCount,
+      this.txs});
 
   factory Balance.fromJson(Map<String, dynamic> json) {
     return Balance(
@@ -27,6 +29,8 @@ class Balance {
         totalSent: json['totalSent'],
         txCount: json['txCount'],
         unconfirmedBalance: json['unconfirmedBalance'],
-        unconfirmedTxCount: json['unconfirmedTxCount']);
+        unconfirmedTxCount: json['unconfirmedTxCount'],
+        txs: json['txs']
+    );
   }
 }
