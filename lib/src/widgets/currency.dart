@@ -51,8 +51,7 @@ class Currency extends StatelessWidget {
   _showAddresses(BuildContext context) async {
     final List addresses = await coin.addressList();
 
-    if (addresses.isEmpty)
-      return Message.show(context, 'There isn\'t address');
+    if (addresses.isEmpty) return Message.show(context, 'There isn\'t address');
 
     await showModalBottomSheet(
         context: context,

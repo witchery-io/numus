@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 typedef OnTransaction = Future Function(
-    String address, double price, dynamic coin);
+    String address, double price, Coin coin);
 typedef OnGetAddressItem = Function(int index);
 typedef OnAddressList = Future Function();
 
