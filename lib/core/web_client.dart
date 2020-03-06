@@ -31,7 +31,7 @@ class WebClient implements HttpProvider {
     if (response.statusCode == 200) {
       return Balance.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Error: ${response.body}');
+      throw Exception(json.decode(response.body)['message']);
     }
   }
 
@@ -45,7 +45,7 @@ class WebClient implements HttpProvider {
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else {
-      throw Exception('${response.body}');
+      throw Exception(json.decode(response.body)['message']);
     }
   }
 }
