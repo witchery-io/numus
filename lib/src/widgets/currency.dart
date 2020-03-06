@@ -52,7 +52,7 @@ class Currency extends StatelessWidget {
     final List addresses = await coin.addressList();
 
     if (addresses.isEmpty)
-      return Message.show(context, 'There isn\'t addresses');
+      return Message.show(context, 'There isn\'t address');
 
     await showModalBottomSheet(
         context: context,

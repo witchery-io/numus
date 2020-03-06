@@ -24,7 +24,7 @@ class CryptoRepository {
   Future<int> _getBalance(coin, {balance = 0, next = 20}) async {
     final addresses = coin.generateAddresses(next: next);
 
-    if (addresses.isEmpty) throw Exception('There aren\'t address');
+    if (addresses.isEmpty) throw Exception('There isn\'t address');
 
     try {
       final balanceStream = _streamBalance(next, coin.name, addresses);
