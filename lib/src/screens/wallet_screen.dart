@@ -83,6 +83,7 @@ class _WalletScreenState extends State<WalletScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final crs = widget.currencies;
     return BlocBuilder<TabBloc, AppTab>(builder: (context, activeTab) {
       return Scaffold(
           appBar: activeTab == AppTab.general
@@ -93,12 +94,12 @@ class _WalletScreenState extends State<WalletScreen> {
             BlocProvider.of<MnemonicBloc>(context).add(RemoveMnemonic());
           }),
           body: activeTab == AppTab.general
-              ? WalletTab(currencies: widget.currencies)
+              ? WalletTab(currencies: crs)
               : GameTab(
                   key: AppKeys.gameTab,
                   showInvoiceDialog: _showInvoiceDialog,
                   isAuth: true,
-                  currencies: widget.currencies),
+                  currencies: crs),
           bottomNavigationBar: TabSelector(
               activeTab: activeTab,
               onTabSelected: (tab) =>
@@ -107,6 +108,7 @@ class _WalletScreenState extends State<WalletScreen> {
   }
 
   _showInvoiceDialog(String address, double price) async {
+    final keyCoin = widget.currencies.first;
     await showDialog<void>(
         context: context,
         barrierDismissible: false,
@@ -129,8 +131,7 @@ class _WalletScreenState extends State<WalletScreen> {
                     onPressed: () async {
                       try {
                         Message.show(context, 'Your request is checking');
-                        await widget.currencies.first
-                            .transaction(address, price);
+                        await keyCoin.transaction(address, price, keyCoin);
                         Message.show(context, 'Your request has accepted');
                         Navigator.of(context).pop();
                       } catch (e) {

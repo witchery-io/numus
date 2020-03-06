@@ -24,6 +24,14 @@ class DB {
             balance: maps[i]['balance']));
   }
 
+  Future<List<Map>> getValidAddressId(String type) async {
+    final Database db = await database;
+    return db.query('address',
+        columns: ['id'],
+        where:
+            'balance > 0 AND type == "$type"');
+  }
+
   Future<void> insertAddress(Address address) async {
     final Database db = await database;
     await db.insert('address', address.toMap(),

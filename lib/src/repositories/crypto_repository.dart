@@ -66,15 +66,23 @@ class CryptoRepository {
     return CalcBalanceArgs(balance, checkMore);
   }
 
-  Future transaction(String address, double price) async {
-    /*
-    * todo
-    * */
-    print('transaction');
-    print(await db.addresses());
-    print(address);
-    print(price);
-    return null;
+  Future transaction(String address, double price, coin) async {
+    final balance = await coin.balance;
+    final satPrice = price * 100000000;
+    if (satPrice > balance) throw Exception('Unsufision balance');
+
+    final addresses = [];    
+    
+    try {
+      final ids = await db.getValidAddressId(coin.name);
+      for (var id in ids) {
+        addresses.add(coin.getAddressByIndex(id['id']));
+      } 
+    } catch (e) {
+      throw Exception(e.message);
+    }
+
+    print(addresses);
   }
 }
 
