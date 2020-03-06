@@ -10,7 +10,7 @@ class DB {
     return DB._(openDatabase(join(path, 'addresses_database.db'),
         version: 1,
         onCreate: (db, version) => db.execute(
-            "CREATE TABLE address(id INTEGER PRIMARY KEY, type TEXT, balance NUMERIC)")));
+            "CREATE TABLE address(id INTEGER PRIMARY KEY, type TEXT, balance NUMERIC, hasUsed INTEGER)")));
   }
 
   Future<List<Address>> addresses() async {
@@ -21,15 +21,14 @@ class DB {
         (i) => Address(
             id: maps[i]['id'],
             type: maps[i]['type'],
-            balance: maps[i]['balance']));
+            balance: maps[i]['balance'],
+            hasUsed: maps[i]['hasUsed']));
   }
 
   Future<List<Map>> getValidAddressId(String type) async {
     final Database db = await database;
     return db.query('address',
-        columns: ['id'],
-        where:
-            'balance > 0 AND type == "$type"');
+        columns: ['id'], where: 'balance > 0 AND type == "$type"');
   }
 
   Future<void> insertAddress(Address address) async {
@@ -64,15 +63,16 @@ class Address {
   final int id;
   final String type;
   final num balance;
+  final int hasUsed;
 
-  Address({this.id, this.type, this.balance});
+  Address({this.id, this.type, this.balance, this.hasUsed});
 
   Map<String, dynamic> toMap() {
-    return {'id': id, 'type': type, 'balance': balance};
+    return {'id': id, 'type': type, 'balance': balance, 'isUsed': hasUsed};
   }
 
   @override
   String toString() {
-    return 'Address{id: $id, type: $type, balance: $balance}';
+    return 'Address{id: $id, type: $type, balance: $balance, isUsed: $hasUsed}';
   }
 }
