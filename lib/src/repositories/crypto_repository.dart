@@ -80,8 +80,8 @@ class CryptoRepository {
 
     /*
     * un used address
-    * */
     print(addressReceive.address);
+    * */
 
     final addresses = [];
     try {
@@ -89,13 +89,42 @@ class CryptoRepository {
       for (var val in ids) {
         addresses.add(coin.getAddressByIndex(val['id']));
       }
+
+      assert(addresses.isNotEmpty);
+      final balanceStream = _streamBalanceMoreData(coin.name,  addresses);
+      final data = await _transactionInfo(balanceStream);
+
+      print(data);
+      
     } catch (e) {
       throw Exception(e.message);
     }
-
-    print(addresses);
-//    print(await coin.transactionBuilder());
+    print(await coin.transactionBuilder());
   }
+
+  Stream<TransactionBuilderArgs> _streamBalanceMoreData(String name, List addresses) async* {
+    for (var item in addresses) {
+      final result = await webClient.getBalance(name, item.address);
+      yield TransactionBuilderArgs(item.privateKey, item.address, result.txs);
+    }
+  }
+  
+  Future<List> _transactionInfo(Stream<TransactionBuilderArgs> stream) async {
+    final info = [];
+    await for (var val in stream) {
+      info.add(val);
+    }
+
+    return info;
+  }
+}
+
+class TransactionBuilderArgs {
+  final String privateKey;
+  final String address;
+  final txs;
+
+  TransactionBuilderArgs(this.privateKey, this.address, this.txs);
 }
 
 class CalcBalanceArgs {
