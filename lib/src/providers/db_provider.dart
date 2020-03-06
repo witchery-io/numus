@@ -31,6 +31,12 @@ class DB {
         columns: ['id'], where: 'balance > 0 AND type == "$type"');
   }
 
+  Future<List<Map>> getUnusedAddress(String type) async {
+    final Database db = await database;
+    return db.query('address',
+        columns: ['id'], where: 'hasUsed == 0 AND type == "$type"', limit: 1);
+  }
+
   Future<void> insertAddress(Address address) async {
     final Database db = await database;
     await db.insert('address', address.toMap(),
