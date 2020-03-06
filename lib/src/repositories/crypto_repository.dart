@@ -48,7 +48,9 @@ class CryptoRepository {
     for (int i = from; i < to; i++) {
       final address = addresses[i].address;
       final result = await webClient.getBalanceByAddress(name, address);
-      final info = Address(id: i, type: name, balance: result.balance);
+      final hasUsed = result.txCount == 0 ? 0 : 1;
+      final info = Address(
+          id: i, type: name, balance: result.balance, hasUsed: hasUsed);
       await db.insertAddress(info);
       yield result;
     }
@@ -69,20 +71,30 @@ class CryptoRepository {
   Future transaction(String address, double price, coin) async {
     final balance = await coin.balance;
     final satPrice = price * 100000000;
+    const double fee = 0.001;
+    final feeSat = fee * 100000000;
     if (satPrice > balance) throw Exception('Insufficient balance');
 
+    final unUsedAddressId = await db.getUnusedAddress(coin.name);
+    final addressReceive = coin.getAddressByIndex(unUsedAddressId.first['id']);
+
+    /*
+    * un used address
+    * */
+    print(addressReceive.address);
+
     final addresses = [];
-    
     try {
       final ids = await db.getValidAddressId(coin.name);
-      for (var id in ids) {
-        addresses.add(coin.getAddressByIndex(id['id']));
-      } 
+      for (var val in ids) {
+        addresses.add(coin.getAddressByIndex(val['id']));
+      }
     } catch (e) {
       throw Exception(e.message);
     }
 
     print(addresses);
+//    print(await coin.transactionBuilder());
   }
 }
 
