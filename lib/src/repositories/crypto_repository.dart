@@ -82,7 +82,8 @@ class CryptoRepository {
     try {
       final ids = await db.getValidAddressId(coin.name);
       for (var val in ids) {
-        addresses.add(coin.getAddressByIndex(val['id']));
+        final address = coin.getAddressByIndex(val['id']);
+        if (address != null) addresses.add(address);
       }
 
       assert(addresses.isNotEmpty);
