@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
- typedef OnTransaction = Future Function(String address, double price, dynamic coin);
+typedef OnTransaction = Future Function(
+    String address, double price, dynamic coin);
 typedef OnGetAddressItem = Function(int index);
 typedef OnAddressList = Future Function();
 
@@ -10,7 +11,8 @@ class Coin {
   final Future balance;
   final OnGetAddressItem getAddressByIndex;
   final OnAddressList addressList;
-  final transaction;
+  final OnTransaction transaction;
+  final transactionBuilder;
 
   const Coin(
       {@required this.icon,
@@ -18,5 +20,6 @@ class Coin {
       @required this.balance,
       @required this.getAddressByIndex,
       @required this.addressList,
-      @required this.transaction});
+      @required this.transaction,
+      @required this.transactionBuilder});
 }
