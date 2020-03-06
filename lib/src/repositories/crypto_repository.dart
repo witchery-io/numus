@@ -69,7 +69,7 @@ class CryptoRepository {
   Future transaction(String address, double price, coin) async {
     final balance = await coin.balance;
     final satPrice = price * 100000000;
-    if (satPrice > balance) throw Exception('Unsufision balance');
+    if (satPrice > balance) throw Exception('Insufficient balance');
 
     final addresses = [];
     
