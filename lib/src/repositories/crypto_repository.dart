@@ -49,8 +49,8 @@ class CryptoRepository {
       final address = addresses[i].address;
       final result = await webClient.getBalanceByAddress(name, address);
       final hasUsed = result.txCount == 0 ? 0 : 1;
-      final info = Address(
-          id: i, type: name, balance: result.balance, hasUsed: hasUsed);
+      final info =
+          Address(id: i, type: name, balance: result.balance, hasUsed: hasUsed);
       await db.insertAddress(info);
       yield result;
     }
@@ -78,11 +78,6 @@ class CryptoRepository {
     final unUsedAddressId = await db.getUnusedAddress(coin.name);
     final addressReceive = coin.getAddressByIndex(unUsedAddressId.first['id']);
 
-    /*
-    * un used address
-    print(addressReceive.address);
-    * */
-
     final addresses = [];
     try {
       final ids = await db.getValidAddressId(coin.name);
@@ -91,24 +86,31 @@ class CryptoRepository {
       }
 
       assert(addresses.isNotEmpty);
-      final balanceStream = _streamBalanceMoreData(coin.name,  addresses);
+      final balanceStream = _streamBalanceMoreData(coin.name, addresses);
       final data = await _transactionInfo(balanceStream);
 
-      print(data);
-      
+      final broadcast = await coin.transactionBuilder(
+          fee: feeSat,
+          price: satPrice,
+          address: address,
+          addressReceive: addressReceive,
+          data: data);
+
+      print(broadcast);
     } catch (e) {
+      print(e);
       throw Exception(e.message);
     }
-    print(await coin.transactionBuilder());
   }
 
-  Stream<TransactionBuilderArgs> _streamBalanceMoreData(String name, List addresses) async* {
+  Stream<TransactionBuilderArgs> _streamBalanceMoreData(
+      String name, List addresses) async* {
     for (var item in addresses) {
       final result = await webClient.getBalance(name, item.address);
       yield TransactionBuilderArgs(item.privateKey, item.address, result.txs);
     }
   }
-  
+
   Future<List> _transactionInfo(Stream<TransactionBuilderArgs> stream) async {
     final info = [];
     await for (var val in stream) {
