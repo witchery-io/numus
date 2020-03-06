@@ -71,7 +71,7 @@ class CryptoRepository {
     final satPrice = price * 100000000;
     if (satPrice > balance) throw Exception('Unsufision balance');
 
-    final addresses = [];    
+    final addresses = [];
     
     try {
       final ids = await db.getValidAddressId(coin.name);
