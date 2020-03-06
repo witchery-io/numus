@@ -48,9 +48,8 @@ class CryptoRepository {
     for (int i = from; i < to; i++) {
       final address = addresses[i].address;
       final result = await webClient.getBalanceByAddress(name, address);
-      await db
-          .insertAddress(Address(id: i, type: name, balance: result.balance));
-
+      final info = Address(id: i, type: name, balance: result.balance);
+      await db.insertAddress(info);
       yield result;
     }
   }
@@ -68,7 +67,6 @@ class CryptoRepository {
   }
 
   Future transaction(String address, double price) async {
-
     /*
     * todo
     * */
@@ -77,7 +75,6 @@ class CryptoRepository {
     print(address);
     print(price);
     return null;
-
   }
 }
 
