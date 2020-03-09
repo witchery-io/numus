@@ -39,21 +39,21 @@ class WalletScreen extends StatefulWidget {
   final List currencies;
   final LinkProvider linkProvider;
 
-  WalletScreen(
-      {@required this.linkProvider,
-      @required this.currencies})
+  WalletScreen({@required this.linkProvider, @required this.currencies})
       : assert(currencies.isNotEmpty);
 
   @override
   _WalletScreenState createState() => _WalletScreenState();
 }
 
-class _WalletScreenState extends State<WalletScreen> {
+class _WalletScreenState extends State<WalletScreen>
+    with WidgetsBindingObserver {
   StreamSubscription<String> linkSubscription;
 
   @override
   void initState() {
     _initLinkStream();
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
 
@@ -66,6 +66,14 @@ class _WalletScreenState extends State<WalletScreen> {
         Message.show(context, e.message);
       }
     });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.detached ||
+        state == AppLifecycleState.inactive) {
+      BlocProvider.of<MnemonicBloc>(context).add(LoadMnemonic());
+    }
   }
 
   @override
@@ -132,6 +140,7 @@ class _WalletScreenState extends State<WalletScreen> {
   @override
   void dispose() {
     linkSubscription.cancel();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 }
