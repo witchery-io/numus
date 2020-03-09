@@ -33,20 +33,18 @@ class InitialScreen extends StatelessWidget {
           } else if (state is MnemonicVerifyOrRecover) {
             return VerificationOrRecoverScreen(state.mnemonic);
           } else if (state is MnemonicAccepted) {
-            return ScreenProvider(
-              child: MultiBlocProvider(
-                providers: [
-                  BlocProvider<TabBloc>(create: (context) => TabBloc()),
-                  BlocProvider<WalletBloc>(
-                      create: (context) => WalletBloc(
-                          multiCurrency: MultiCurrency(state.mnemonic),
-                          repository: CryptoRepository(
-                              db: DB.init(state.dbPath),
-                              webClient: WebClient(httpClient: http.Client())))
-                        ..add(LoadWallet())),
-                ],
-                child: RenderWalletScreen(),
-              ),
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider<TabBloc>(create: (context) => TabBloc()),
+                BlocProvider<WalletBloc>(
+                    create: (context) => WalletBloc(
+                        multiCurrency: MultiCurrency(state.mnemonic),
+                        repository: CryptoRepository(
+                            db: DB.init(state.dbPath),
+                            webClient: WebClient(httpClient: http.Client())))
+                      ..add(LoadWallet())),
+              ],
+              child: RenderWalletScreen(),
             );
           } else {
             return Container(key: AppKeys.emptyStatsContainer);

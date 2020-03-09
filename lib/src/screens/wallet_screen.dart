@@ -25,7 +25,6 @@ class RenderWalletScreen extends StatelessWidget {
       } else if (state is WalletLoaded) {
         return WalletScreen(
             linkProvider: LinkProvider.of(context),
-            screenProvider: ScreenProvider.of(context),
             currencies: state.currencies);
       } else if (state is WalletNotLoaded) {
         return NoResult(key: AppKeys.noResultContainer);
@@ -39,11 +38,9 @@ class RenderWalletScreen extends StatelessWidget {
 class WalletScreen extends StatefulWidget {
   final List currencies;
   final LinkProvider linkProvider;
-  final ScreenProvider screenProvider;
 
   WalletScreen(
       {@required this.linkProvider,
-      @required this.screenProvider,
       @required this.currencies})
       : assert(currencies.isNotEmpty);
 
