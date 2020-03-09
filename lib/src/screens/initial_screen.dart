@@ -11,7 +11,6 @@ import 'package:flutter_fundamental/src/screens/screens.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:multi_currency/multi_currency.dart';
-import 'package:screen_state/screen_state.dart';
 
 class InitialScreen extends StatelessWidget {
   @override
@@ -35,7 +34,6 @@ class InitialScreen extends StatelessWidget {
             return VerificationOrRecoverScreen(state.mnemonic);
           } else if (state is MnemonicAccepted) {
             return ScreenProvider(
-              screen: Screen(),
               child: MultiBlocProvider(
                 providers: [
                   BlocProvider<TabBloc>(create: (context) => TabBloc()),

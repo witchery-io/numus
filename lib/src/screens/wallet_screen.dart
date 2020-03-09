@@ -13,7 +13,6 @@ import 'package:flutter_fundamental/src/models/models.dart';
 import 'package:flutter_fundamental/src/providers/providers.dart';
 import 'package:flutter_fundamental/src/utils/message.dart';
 import 'package:flutter_fundamental/src/widgets/widgets.dart';
-import 'package:screen_state/screen_state.dart';
 
 final TextStyle loadingStyle = TextStyle(fontSize: 12.0, color: Colors.grey);
 
@@ -53,7 +52,6 @@ class WalletScreen extends StatefulWidget {
 }
 
 class _WalletScreenState extends State<WalletScreen> {
-  StreamSubscription<ScreenStateEvent> screenSubscription;
   StreamSubscription<String> linkSubscription;
 
   @override
@@ -74,12 +72,7 @@ class _WalletScreenState extends State<WalletScreen> {
     });
   }
 
-  void _initScreenStream() async {
-    screenSubscription = widget.screenProvider.screenStream.listen((event) {
-      if (event == ScreenStateEvent.SCREEN_OFF)
-        BlocProvider.of<MnemonicBloc>(context).add(LoadMnemonic());
-    });
-  }
+  void _initScreenStream() async {}
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +126,7 @@ class _WalletScreenState extends State<WalletScreen> {
                         Message.show(context, 'Your request is checking');
                         await keyCoin.transaction(address, price, keyCoin);
                         Message.show(context, 'Your request has accepted');
-//                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
                       } catch (e) {
                         Message.show(context, e.message);
                       }
@@ -144,7 +137,6 @@ class _WalletScreenState extends State<WalletScreen> {
 
   @override
   void dispose() {
-    screenSubscription.cancel();
     linkSubscription.cancel();
     super.dispose();
   }

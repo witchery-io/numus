@@ -118,7 +118,7 @@ class Currency extends StatelessWidget {
                         Currency._sendFormKey.currentState.save();
                         await coin.transaction( _address, double.parse(_price), coin);
                         Message.show(context, 'Your request has accepted');
-//                        Navigator.pop(context);
+                        Navigator.pop(context);
                       } catch (e) {
                         Message.show(context, e.message);
                       }
