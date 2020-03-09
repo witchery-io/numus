@@ -54,7 +54,6 @@ class _WalletScreenState extends State<WalletScreen> {
   @override
   void initState() {
     _initLinkStream();
-    _initScreenStream();
     super.initState();
   }
 
@@ -68,8 +67,6 @@ class _WalletScreenState extends State<WalletScreen> {
       }
     });
   }
-
-  void _initScreenStream() async {}
 
   @override
   Widget build(BuildContext context) {
