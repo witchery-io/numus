@@ -97,9 +97,13 @@ class CryptoRepository {
           addressReceive: addressReceive.address,
           data: data);
 
+      /*
+      * todo
+      * */
+      print(' _______________ broadcast ______________ ');
       print(broadcast);
     } catch (e) {
-      throw Exception(e.message);
+      throw Exception(e);
     }
   }
 
