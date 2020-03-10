@@ -107,7 +107,8 @@ class CryptoRepository {
       String name, List addresses) async* {
     for (var item in addresses) {
       final result = await webClient.getBalance(name, item.address);
-      yield TransactionBuilderArgs(item.privateKey, item.address, result.txs);
+      yield TransactionBuilderArgs(
+          item.privateKey, item.address, result.balance, result.txs);
     }
   }
 
@@ -124,9 +125,10 @@ class CryptoRepository {
 class TransactionBuilderArgs {
   final String privateKey;
   final String address;
+  final int balance;
   final txs;
 
-  TransactionBuilderArgs(this.privateKey, this.address, this.txs);
+  TransactionBuilderArgs(this.privateKey, this.address, this.balance, this.txs);
 }
 
 class CalcBalanceArgs {
