@@ -70,10 +70,10 @@ class CryptoRepository {
 
   Future transaction(String address, double price, coin) async {
     final balance = await coin.balance;
-    final satPrice = price * 100000000;
+    final satPrice = (price * 100000000).toInt();
     const double fee = 0.001;
-    final feeSat = fee * 100000000;
-    if (satPrice > balance) throw Exception('Insufficient balance');
+    final feeSat = (fee * 100000000).toInt();
+    if (satPrice > (balance + feeSat)) throw Exception('Insufficient balance');
 
     final unUsedAddressId = await db.getUnusedAddress(coin.name);
     final addressReceive = coin.getAddressByIndex(unUsedAddressId.first['id']);
