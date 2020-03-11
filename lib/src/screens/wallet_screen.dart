@@ -125,10 +125,10 @@ class _WalletScreenState extends State<WalletScreen>
                     child: Text('Accept'),
                     onPressed: () async {
                       try {
-                        Message.show(context, 'Your request is checking', duration: 100);
+                        Navigator.of(context).pop();
+                        Message.show(context, 'Your request is checking');
                         await keyCoin.transaction(address, price, keyCoin);
                         Message.show(context, 'Your request has accepted');
-                        Navigator.of(context).pop();
                       } catch (e) {
                         Message.show(context, e.message);
                       }
