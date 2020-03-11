@@ -36,13 +36,13 @@ class WebClient implements HttpProvider {
   }
 
   @override
-  Future pushTx(String curr, String txHex) async {
+  Future pushTransaction(String curr, String txHex) async {
     final response = await httpClient.post(
         "$baseUrl/$curr/test/transactions/send",
         body: json.encode({'rowTransaction': txHex}),
         headers: {"Content-Type": "application/json"});
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       return json.decode(response.body);
     } else {
       throw Exception(json.decode(response.body)['message']);

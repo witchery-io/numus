@@ -97,11 +97,7 @@ class CryptoRepository {
           addressReceive: addressReceive.address,
           data: data);
 
-      /*
-      * todo
-      * */
-      print(' _______________ broadcast ______________ ');
-      print(broadcast);
+      await webClient.pushTransaction(coin.name, broadcast);
     } catch (e) {
       throw Exception(e);
     }

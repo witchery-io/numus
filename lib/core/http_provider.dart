@@ -5,5 +5,5 @@ abstract class HttpProvider {
 
   Future<Balance> getBalance(String curr, String address);
 
-  Future pushTx(String curr, String txHash);
+  Future pushTransaction(String curr, String txHash);
 }
