@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 class WebClient implements HttpProvider {
   final http.Client httpClient;
-  final baseUrl = "http://192.168.0.152:8080/public";
+  final baseUrl = "http://192.168.0.136:8080/public";
 
   const WebClient({@required this.httpClient});
 
