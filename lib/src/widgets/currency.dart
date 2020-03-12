@@ -82,6 +82,7 @@ class Currency extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   TextFormField(
+                    autofocus: true,
                     decoration: InputDecoration(
                         hintText:
                             'Enter only ${coin.name.toUpperCase()} address'),
