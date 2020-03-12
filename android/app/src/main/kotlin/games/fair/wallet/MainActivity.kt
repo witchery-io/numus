@@ -1,4 +1,4 @@
-package com.example.games.fair.wallet
+package games.fair.wallet
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
