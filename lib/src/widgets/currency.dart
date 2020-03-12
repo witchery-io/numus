@@ -70,7 +70,7 @@ class Currency extends StatelessWidget {
   }
 
   void _send(BuildContext context, Coin coin) async {
-    String _address, _price;
+    String _address, _amount;
     await showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -92,9 +92,9 @@ class Currency extends StatelessWidget {
                     onSaved: (value) => _address = value,
                   ),
                   TextFormField(
-                    decoration: InputDecoration(hintText: 'Price'),
+                    decoration: InputDecoration(hintText: 'Amount'),
                     validator: (String value) {
-                      if (value.isEmpty) return 'Please enter price';
+                      if (value.isEmpty) return 'Please enter amount';
 
                       final n = double.tryParse(value);
                       if (n == null) return 'Invalid: $value';
@@ -102,7 +102,7 @@ class Currency extends StatelessWidget {
                       return null;
                     },
                     keyboardType: TextInputType.number,
-                    onSaved: (value) => _price = value,
+                    onSaved: (value) => _amount = value,
                   ),
                 ],
               ),
@@ -117,7 +117,7 @@ class Currency extends StatelessWidget {
                         Navigator.pop(context);
                         Message.show(context, 'Your request is checking');
                         Currency._sendFormKey.currentState.save();
-                        await coin.transaction( _address, double.parse(_price), coin);
+                        await coin.transaction( _address, double.parse(_amount), coin);
                         Message.show(context, 'Your request has accepted');
                       } catch (e) {
                         Message.show(context, e.message);
