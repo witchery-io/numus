@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
-import 'package:flutter_fundamental/src/providers/link_provider.dart';
-import 'package:flutter_fundamental/src/utils/encrypt_helper.dart';
-import 'package:flutter_fundamental/src/utils/utils.dart';
-import 'package:flutter_fundamental/src/widgets/widgets.dart';
+import 'package:games.fair.wallet/src/blocs/mnemonic/bloc.dart';
+import 'package:games.fair.wallet/src/providers/link_provider.dart';
+import 'package:games.fair.wallet/src/utils/encrypt_helper.dart';
+import 'package:games.fair.wallet/src/utils/utils.dart';
+import 'package:games.fair.wallet/src/widgets/widgets.dart';
 
 class ExistingScreen extends StatefulWidget {
   final base64Mnemonic;

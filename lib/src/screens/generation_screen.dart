@@ -1,8 +1,8 @@
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
-import 'package:flutter_fundamental/src/widgets/widgets.dart';
+import 'package:games.fair.wallet/src/blocs/mnemonic/bloc.dart';
+import 'package:games.fair.wallet/src/widgets/widgets.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 final TextStyle titleTextStyle =

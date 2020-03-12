@@ -1,4 +1,4 @@
-# flutter_fundamental
+# games.fair.wallet
 
 A new Flutter application.
 

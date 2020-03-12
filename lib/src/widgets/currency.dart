@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_fundamental/src/models/models.dart';
-import 'package:flutter_fundamental/src/screens/screens.dart';
-import 'package:flutter_fundamental/src/utils/utils.dart';
-import 'package:flutter_fundamental/src/widgets/widgets.dart';
+import 'package:games.fair.wallet/src/models/models.dart';
+import 'package:games.fair.wallet/src/screens/screens.dart';
+import 'package:games.fair.wallet/src/utils/utils.dart';
+import 'package:games.fair.wallet/src/widgets/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 

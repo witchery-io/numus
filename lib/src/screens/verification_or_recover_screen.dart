@@ -3,11 +3,11 @@ import 'package:bip39/bip39.dart' as bip39;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
-import 'package:flutter_fundamental/src/screens/screens.dart';
-import 'package:flutter_fundamental/src/utils/encrypt_helper.dart';
-import 'package:flutter_fundamental/src/utils/utils.dart';
-import 'package:flutter_fundamental/src/widgets/widgets.dart';
+import 'package:games.fair.wallet/src/blocs/mnemonic/bloc.dart';
+import 'package:games.fair.wallet/src/screens/screens.dart';
+import 'package:games.fair.wallet/src/utils/encrypt_helper.dart';
+import 'package:games.fair.wallet/src/utils/utils.dart';
+import 'package:games.fair.wallet/src/widgets/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class VerificationOrRecoverScreen extends StatefulWidget {

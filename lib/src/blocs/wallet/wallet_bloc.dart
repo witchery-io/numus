@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_fundamental/src/models/models.dart';
-import 'package:flutter_fundamental/src/repositories/crypto_repository.dart';
+import 'package:games.fair.wallet/src/models/models.dart';
+import 'package:games.fair.wallet/src/repositories/crypto_repository.dart';
 import 'package:multi_currency/multi_currency.dart';
 
 import './bloc.dart';

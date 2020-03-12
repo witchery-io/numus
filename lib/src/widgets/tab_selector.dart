@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_fundamental/src/models/app_tab.dart';
+import 'package:games.fair.wallet/src/models/app_tab.dart';
 
 class TabSelector extends StatelessWidget {
   final AppTab activeTab;

@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_fundamental/core/core.dart';
-import 'package:flutter_fundamental/src/models/balance.dart';
-import 'package:flutter_fundamental/src/models/models.dart';
-import 'package:flutter_fundamental/src/providers/providers.dart';
+import 'package:games.fair.wallet/core/core.dart';
+import 'package:games.fair.wallet/src/models/balance.dart';
+import 'package:games.fair.wallet/src/models/models.dart';
+import 'package:games.fair.wallet/src/providers/providers.dart';
 
 class CryptoRepository {
   final WebClient webClient;

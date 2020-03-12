@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_fundamental/src/app_keys.dart';
-import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
-import 'package:flutter_fundamental/src/blocs/tab/bloc.dart';
-import 'package:flutter_fundamental/src/models/app_tab.dart';
-import 'package:flutter_fundamental/src/providers/providers.dart';
-import 'package:flutter_fundamental/src/utils/message.dart';
-import 'package:flutter_fundamental/src/widgets/widgets.dart';
+import 'package:games.fair.wallet/src/app_keys.dart';
+import 'package:games.fair.wallet/src/blocs/mnemonic/bloc.dart';
+import 'package:games.fair.wallet/src/blocs/tab/bloc.dart';
+import 'package:games.fair.wallet/src/models/app_tab.dart';
+import 'package:games.fair.wallet/src/providers/providers.dart';
+import 'package:games.fair.wallet/src/utils/message.dart';
+import 'package:games.fair.wallet/src/widgets/widgets.dart';
 
 class GeneralScreen extends StatefulWidget {
   final LinkProvider linkProvider;

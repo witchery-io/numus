@@ -4,10 +4,10 @@ import 'dart:io';
 import 'package:bip21/bip21.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_fundamental/src/app_keys.dart';
-import 'package:flutter_fundamental/src/models/models.dart';
-import 'package:flutter_fundamental/src/utils/message.dart';
-import 'package:flutter_fundamental/src/widgets/widgets.dart';
+import 'package:games.fair.wallet/src/app_keys.dart';
+import 'package:games.fair.wallet/src/models/models.dart';
+import 'package:games.fair.wallet/src/utils/message.dart';
+import 'package:games.fair.wallet/src/widgets/widgets.dart';
 import 'package:jaguar_jwt/jaguar_jwt.dart';
 
 typedef OnShowInvoice = Function(String address, double price);

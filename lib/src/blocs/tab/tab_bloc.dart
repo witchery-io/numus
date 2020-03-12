@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter_fundamental/src/models/models.dart';
+import 'package:games.fair.wallet/src/models/models.dart';
 
 import './bloc.dart';
 

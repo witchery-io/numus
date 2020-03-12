@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_fundamental/core/core.dart';
-import 'package:flutter_fundamental/src/screens/screens.dart';
+import 'package:games.fair.wallet/core/core.dart';
+import 'package:games.fair.wallet/src/screens/screens.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'blocs/mnemonic/bloc.dart';

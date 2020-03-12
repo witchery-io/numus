@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_fundamental/src/models/models.dart';
-import 'package:flutter_fundamental/src/widgets/widgets.dart';
+import 'package:games.fair.wallet/src/models/models.dart';
+import 'package:games.fair.wallet/src/widgets/widgets.dart';
 
 class WalletTab extends StatelessWidget {
   final List<Coin> currencies;

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter_fundamental/src/models/models.dart';
-import 'package:flutter_fundamental/core/http_provider.dart';
+import 'package:games.fair.wallet/src/models/models.dart';
+import 'package:games.fair.wallet/core/http_provider.dart';
 import 'package:http/http.dart' as http;
 
 class WebClient implements HttpProvider {

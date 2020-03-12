@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_fundamental/core/core.dart';
-import 'package:flutter_fundamental/src/app_keys.dart';
-import 'package:flutter_fundamental/src/blocs/mnemonic/bloc.dart';
-import 'package:flutter_fundamental/src/blocs/tab/bloc.dart';
-import 'package:flutter_fundamental/src/blocs/wallet/bloc.dart';
-import 'package:flutter_fundamental/src/providers/providers.dart';
-import 'package:flutter_fundamental/src/repositories/crypto_repository.dart';
-import 'package:flutter_fundamental/src/screens/screens.dart';
-import 'package:flutter_fundamental/src/widgets/widgets.dart';
+import 'package:games.fair.wallet/core/core.dart';
+import 'package:games.fair.wallet/src/app_keys.dart';
+import 'package:games.fair.wallet/src/blocs/mnemonic/bloc.dart';
+import 'package:games.fair.wallet/src/blocs/tab/bloc.dart';
+import 'package:games.fair.wallet/src/blocs/wallet/bloc.dart';
+import 'package:games.fair.wallet/src/providers/providers.dart';
+import 'package:games.fair.wallet/src/repositories/crypto_repository.dart';
+import 'package:games.fair.wallet/src/screens/screens.dart';
+import 'package:games.fair.wallet/src/widgets/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:multi_currency/multi_currency.dart';
 
