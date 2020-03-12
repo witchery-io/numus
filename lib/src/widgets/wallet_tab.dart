@@ -10,9 +10,6 @@ class WalletTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
-      Container(
-          margin: EdgeInsets.all(8.0),
-          child: Text('Currencies', style: TextStyle(fontSize: 24.0))),
       Expanded(
           child: ListView.separated(
               padding: EdgeInsets.all(8.0),
