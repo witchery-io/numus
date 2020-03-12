@@ -19,13 +19,14 @@ class Currency extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
       ListTile(
+        enabled: coin.isActive,
         leading: Icon(coin.icon),
         title: Text('${coin.name.toUpperCase()}'),
         subtitle: FutureBuilder(
           future: coin.balance,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              return Text('${snapshot.error}', style: infoTextStyle);
+              return Text('No data', style: TextStyle(fontSize: 10.0),);
             }
 
             if (snapshot.hasData) {
@@ -38,12 +39,12 @@ class Currency extends StatelessWidget {
       ),
       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: <Widget>[
         CustomButton(
-            child: Text('Send'), onPressed: () => _send(context, coin)),
+            child: Text('Send'),
+            onPressed: coin.isActive ? () => _send(context, coin) : null),
         CustomButton(
-            child: Text('Receive'), onPressed: () => _showAddresses(context)),
-        CustomButton(
-            child: Text('Transactions'),
-            onPressed: () => print('Transactions')),
+            child: Text('Receive'),
+            onPressed: coin.isActive ? () => _showAddresses(context) : null),
+        CustomButton(child: Text('Transactions'), onPressed: null),
       ]),
     ]);
   }
@@ -117,7 +118,8 @@ class Currency extends StatelessWidget {
                         Navigator.pop(context);
                         Message.show(context, 'Your request is checking');
                         Currency._sendFormKey.currentState.save();
-                        await coin.transaction( _address, double.parse(_amount), coin);
+                        await coin.transaction(
+                            _address, double.parse(_amount), coin);
                         Message.show(context, 'Your request has accepted');
                       } catch (e) {
                         Message.show(context, e.message);

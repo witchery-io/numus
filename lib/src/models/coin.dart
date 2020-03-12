@@ -8,6 +8,7 @@ typedef OnAddressList = Future Function();
 class Coin {
   final IconData icon;
   final String name;
+  final bool isActive;
   final Future balance;
   final OnGetAddressItem getAddressByIndex;
   final OnAddressList addressList;
@@ -17,6 +18,7 @@ class Coin {
   const Coin(
       {@required this.icon,
       @required this.name,
+      @required this.isActive,
       @required this.balance,
       @required this.getAddressByIndex,
       @required this.addressList,
