@@ -76,7 +76,7 @@ class Currency extends StatelessWidget {
 
   void _send(BuildContext context, Coin coin) async {
     String _address, _amount;
-    TextEditingController _addressController;
+    TextEditingController _addressController = TextEditingController();
     await showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -94,11 +94,12 @@ class Currency extends StatelessWidget {
                             'Enter only ${coin.name.toUpperCase()} address',
                         icon: GestureDetector(
                           onTap: () async {
-//                            try {
-//                              String barcode = await BarcodeScanner.scan();
-//                            } on PlatformException catch (_) {
-//                              return Message.show(context, 'You have platform issue');
-//                            }
+                            try {
+                              String barcode = await BarcodeScanner.scan();
+                              _addressController.text = barcode;
+                            } on PlatformException catch (_) {
+                              return Message.show(context, 'You have platform issue');
+                            }
                           },
                           child: Icon(FontAwesomeIcons.qrcode),
                         ),
