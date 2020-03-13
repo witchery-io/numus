@@ -70,8 +70,8 @@ class _WalletScreenState extends State<WalletScreen>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.detached ||
-        state == AppLifecycleState.inactive) {
+    print(state);
+    if (state == AppLifecycleState.detached) {
       BlocProvider.of<MnemonicBloc>(context).add(LoadMnemonic());
     }
   }
