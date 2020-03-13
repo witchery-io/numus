@@ -130,7 +130,7 @@ class _WalletScreenState extends State<WalletScreen>
                         await keyCoin.transaction(address, price, keyCoin);
                         Message.show(context, 'Your request has accepted');
                       } catch (e) {
-                        Message.show(context, e.message);
+                        Message.show(context, e is String ? e : e.message);
                       }
                     })
               ]);

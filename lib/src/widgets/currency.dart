@@ -145,7 +145,7 @@ class Currency extends StatelessWidget {
                             _address, double.parse(_amount), coin);
                         Message.show(context, 'Your request has accepted');
                       } catch (e) {
-                        Message.show(context, e.message);
+                        Message.show(context, e is String ? e : e.message);
                       }
                     }
                   }),
