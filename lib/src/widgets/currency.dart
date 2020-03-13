@@ -1,3 +1,4 @@
+import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -75,6 +76,7 @@ class Currency extends StatelessWidget {
 
   void _send(BuildContext context, Coin coin) async {
     String _address, _amount;
+    TextEditingController _addressController;
     await showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -85,11 +87,21 @@ class Currency extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   TextFormField(
+                    controller: _addressController,
                     autofocus: true,
                     decoration: InputDecoration(
                         labelText:
                             'Enter only ${coin.name.toUpperCase()} address',
-                        icon: Icon(FontAwesomeIcons.qrcode),
+                        icon: GestureDetector(
+                          onTap: () async {
+//                            try {
+//                              String barcode = await BarcodeScanner.scan();
+//                            } on PlatformException catch (_) {
+//                              return Message.show(context, 'You have platform issue');
+//                            }
+                          },
+                          child: Icon(FontAwesomeIcons.qrcode),
+                        ),
                         fillColor: Colors.white),
                     validator: (String value) {
                       if (value.isEmpty) return 'Please enter address';
