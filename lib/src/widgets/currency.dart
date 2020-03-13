@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:games.fair.wallet/src/models/models.dart';
 import 'package:games.fair.wallet/src/screens/screens.dart';
 import 'package:games.fair.wallet/src/utils/utils.dart';
 import 'package:games.fair.wallet/src/widgets/widgets.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 final TextStyle minorStyle = TextStyle(fontSize: 12.0, color: Colors.white);
@@ -26,7 +26,10 @@ class Currency extends StatelessWidget {
           future: coin.balance,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              return Text('No data', style: TextStyle(fontSize: 10.0),);
+              return Text(
+                'No data',
+                style: TextStyle(fontSize: 10.0),
+              );
             }
 
             if (snapshot.hasData) {
@@ -84,8 +87,10 @@ class Currency extends StatelessWidget {
                   TextFormField(
                     autofocus: true,
                     decoration: InputDecoration(
-                        hintText:
-                            'Enter only ${coin.name.toUpperCase()} address'),
+                        labelText:
+                            'Enter only ${coin.name.toUpperCase()} address',
+                        icon: Icon(FontAwesomeIcons.qrcode),
+                        fillColor: Colors.white),
                     validator: (String value) {
                       if (value.isEmpty) return 'Please enter address';
 
@@ -94,7 +99,10 @@ class Currency extends StatelessWidget {
                     onSaved: (value) => _address = value,
                   ),
                   TextFormField(
-                    decoration: InputDecoration(hintText: 'Amount'),
+                    decoration: InputDecoration(
+                        labelText: 'Amount',
+                        icon: Icon(FontAwesomeIcons.coins),
+                        fillColor: Colors.white),
                     validator: (String value) {
                       if (value.isEmpty) return 'Please enter amount';
 
@@ -104,6 +112,7 @@ class Currency extends StatelessWidget {
                       return null;
                     },
                     keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.done,
                     onSaved: (value) => _amount = value,
                   ),
                 ],
