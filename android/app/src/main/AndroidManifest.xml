@@ -6,7 +6,7 @@
     
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="games.fair.wallet"
+        android:label="Numus"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">
         <activity
