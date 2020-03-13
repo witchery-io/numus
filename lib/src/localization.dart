@@ -10,7 +10,7 @@ class FlutterBlocLocalizations {
     );
   }
 
-  String get appTitle => "Multi currency wallet";
+  String get appTitle => "Numus";
 }
 
 class FlutterBlocLocalizationsDelegate
