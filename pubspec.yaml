@@ -18,7 +18,7 @@ dependencies:
   encrypt: ^4.0.0
   jaguar_jwt: ^2.1.6
   multi_currency:
-    path: ../../multi_currency
+    git: git@sources.witchery.io:coven/multi_currency.git
   font_awesome_flutter: ^8.7.0
   http: ^0.12.0+4
   webview_flutter: ^0.3.19+8

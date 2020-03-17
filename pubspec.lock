@@ -294,9 +294,11 @@ packages:
   multi_currency:
     dependency: "direct main"
     description:
-      path: "../../multi_currency"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: b167329ed677db657bd55a64c4019df3122f4d2b
+      url: "git@sources.witchery.io:coven/multi_currency.git"
+    source: git
     version: "0.0.1"
   nested:
     dependency: transitive
